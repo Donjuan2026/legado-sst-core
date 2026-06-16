@@ -57,3 +57,6 @@ ios/Runner/GoogleService-Info.plist
 # Firebase secrets
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
+
+# Firebase secrets (Purged)
+lib/firebase_options.dart
