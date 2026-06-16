@@ -60,3 +60,4 @@ ios/Runner/GoogleService-Info.plist
 
 # Firebase secrets (Purged)
 lib/firebase_options.dart
+git-filter-repo
