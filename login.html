@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LEGADO - Iniciar sesión</title>
+    <style>
+        :root {
+            --negro-profundo: #0A0A0A;
+            --negro-carbon: #1A1A1A;
+            --dorado-epico: #C9A84C;
+            --dorado-claro: #E8D5A3;
+            --blanco-roto: #F5F0E8;
+            --gris-calido: #8A7E6B;
+            --rojo-alerta: #E74C3C;
+            --verde-exito: #2ECC71;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--negro-profundo);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: var(--blanco-roto);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 440px;
+            width: 100%;
+            background: var(--negro-carbon);
+            border-radius: 32px;
+            padding: 40px 28px 35px;
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: -40%;
+            width: 180%;
+            height: 180%;
+            background: radial-gradient(ellipse at 20% 20%, rgba(201, 168, 76, 0.04), transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .logo {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 24px;
+        }
+
+        .logo h1 {
+            font-family: 'Georgia', serif;
+            font-size: 28px;
+            color: var(--dorado-epico);
+            letter-spacing: 6px;
+        }
+
+        .logo .sub {
+            font-size: 11px;
+            color: var(--gris-calido);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        .form-title {
+            position: relative;
+            z-index: 1;
+            font-size: 22px;
+            font-weight: 300;
+            margin-bottom: 4px;
+        }
+
+        .form-subtitle {
+            position: relative;
+            z-index: 1;
+            font-size: 14px;
+            color: var(--gris-calido);
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--gris-calido);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--negro-profundo);
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            border-radius: 12px;
+            color: var(--blanco-roto);
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--dorado-epico);
+        }
+
+        .input-group .toggle-password {
+            position: absolute;
+            right: 14px;
+            top: 40px;
+            cursor: pointer;
+            color: var(--gris-calido);
+            font-size: 18px;
+            background: transparent;
+            border: none;
+        }
+
+        .btn-dorado {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--dorado-epico), #B8942E);
+            color: var(--negro-profundo);
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 25px rgba(201, 168, 76, 0.15);
+        }
+
+        .btn-dorado:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(201, 168, 76, 0.3);
+        }
+
+        .link {
+            position: relative;
+            z-index: 1;
+            display: block;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--gris-calido);
+            text-decoration: none;
+        }
+
+        .link:hover {
+            color: var(--dorado-claro);
+        }
+
+        .mensaje {
+            position: relative;
+            z-index: 1;
+            font-size: 13px;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .mensaje.error { color: var(--rojo-alerta); }
+        .mensaje.exito { color: var(--verde-exito); }
+
+        .footer {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(201, 168, 76, 0.05);
+            font-size: 11px;
+            color: var(--gris-calido);
+        }
+
+        .footer strong { color: var(--dorado-epico); }
+
+        @media (max-width: 420px) {
+            .container { padding: 28px 16px 24px; }
+            .logo h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="logo">
+            <h1>LEGADO</h1>
+            <div class="sub">✦ Seguridad Laboral Automática ✦</div>
+        </div>
+
+        <div class="form-title">🔐 Iniciar sesión</div>
+        <div class="form-subtitle">Ingresa a tu cuenta LEGADO</div>
+
+        <div class="input-group">
+            <label for="loginUser">Usuario (correo o DNI)</label>
+            <input type="text" id="loginUser" placeholder="tu@correo.com o 12345678" />
+        </div>
+
+        <div class="input-group" style="position:relative;">
+            <label for="loginPassword">Contraseña</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" />
+            <button class="toggle-password" id="togglePassword" type="button" aria-label="Mostrar contraseña">👁️</button>
+        </div>
+
+        <button class="btn-dorado" id="btnLogin">Ingresar →</button>
+
+        <a href="recuperar.html" class="link">¿Olvidaste tu contraseña?</a>
+
+        <div class="mensaje" id="mensaje"></div>
+
+        <div class="footer">
+            ⚡ <strong>LEGADO</strong> · Seguridad Laboral Automática · v1.0
+        </div>
+
+    </div>
+
+    <script>
+        const loginUser = document.getElementById('loginUser');
+        const loginPassword = document.getElementById('loginPassword');
+        const btnLogin = document.getElementById('btnLogin');
+        const mensaje = document.getElementById('mensaje');
+
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const type = loginPassword.type === 'password' ? 'text' : 'password';
+            loginPassword.type = type;
+            this.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+
+        btnLogin.addEventListener('click', function() {
+            const user = loginUser.value.trim();
+            const pass = loginPassword.value.trim();
+
+            if (!user || !pass) {
+                mensaje.textContent = '✖ Completa todos los campos';
+                mensaje.className = 'mensaje error';
+                return;
+            }
+
+            const usuarios = JSON.parse(localStorage.getItem('legado_usuarios') || '[]');
+            const usuario = usuarios.find(u =>
+                (u.email === user || u.dni === user) && u.password === pass
+            );
+
+            if (usuario) {
+                mensaje.textContent = '✓ ¡Bienvenido ' + usuario.nombre + '!';
+                mensaje.className = 'mensaje exito';
+                localStorage.setItem('legado_sesion', JSON.stringify({
+                    email: usuario.email,
+                    dni: usuario.dni,
+                    nombre: usuario.nombre,
+                    nivel: usuario.nivel
+                }));
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 800);
+            } else {
+                mensaje.textContent = '✖ Usuario o contraseña incorrectos';
+                mensaje.className = 'mensaje error';
+            }
+        });
+
+        loginUser.addEventListener('keydown', e => { if (e.key === 'Enter') btnLogin.click(); });
+        loginPassword.addEventListener('keydown', e => { if (e.key === 'Enter') btnLogin.click(); });
+
+        console.log('🔐 LEGADO - Ventana de Login');
+    </script>
+
+</body>
+</html>
