@@ -546,7 +546,7 @@
 
     <script>
         // ============================================
-        //  CARGAR DATOS DEL USUARIO
+        //  CARGAR DATOS DEL USUARIO (ACTUALIZADO)
         // ============================================
         function cargarUsuario() {
             const sesion = JSON.parse(localStorage.getItem('legado_sesion'));
@@ -559,10 +559,12 @@
             document.getElementById('userName').textContent = '👤 ' + sesion.nombre;
             document.getElementById('welcomeName').textContent = sesion.nombre;
 
+            // PERFILES ACTUALIZADOS CON GUBERNAMENTAL
             const niveles = {
                 'trabajador': '👷 Trabajador',
                 'empresa': '🏢 Empresa',
-                'especialista': '👨‍🔬 Especialista SST'
+                'especialista': '👨‍🔬 Especialista SST',
+                'gubernamental': '🏛️ Gubernamental (Estado)'
             };
             document.getElementById('userLevel').textContent = niveles[sesion.nivel] || sesion.nivel;
         }
