@@ -16,11 +16,7 @@
             --verde-exito: #2ECC71;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background: var(--negro-profundo);
@@ -31,11 +27,10 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -48,14 +43,14 @@
 
         .header .logo {
             font-family: 'Georgia', serif;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--dorado-epico);
             letter-spacing: 4px;
         }
 
         .header .logo span {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 300;
             color: var(--gris-calido);
             letter-spacing: 1px;
@@ -65,33 +60,34 @@
         .header .user {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .header .user .nombre {
             color: var(--blanco-roto);
             font-weight: 600;
+            font-size: 14px;
         }
 
         .header .user .badge {
             background: rgba(201, 168, 76, 0.15);
             color: var(--dorado-epico);
-            padding: 4px 14px;
+            padding: 4px 12px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 0.5px;
         }
 
         .btn-logout {
             background: transparent;
             border: 1px solid rgba(201, 168, 76, 0.2);
             color: var(--gris-calido);
-            padding: 8px 18px;
+            padding: 6px 14px;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .btn-logout:hover {
@@ -99,254 +95,100 @@
             color: var(--rojo-alerta);
         }
 
-        /* ===== BIENVENIDA ===== */
-        .welcome {
-            margin: 24px 0 28px;
+        .page-title {
+            margin: 24px 0 8px;
         }
 
-        .welcome h1 {
-            font-size: 28px;
+        .page-title h1 {
+            font-size: 26px;
             font-weight: 300;
             color: var(--blanco-roto);
         }
 
-        .welcome h1 strong {
+        .page-title h1 strong {
             color: var(--dorado-epico);
             font-weight: 700;
         }
 
-        .welcome p {
+        .page-title p {
             color: var(--gris-calido);
+            font-size: 14px;
             margin-top: 4px;
-            font-size: 15px;
         }
 
-        /* ===== ESTADÍSTICAS ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 28px;
-        }
-
-        .stat-card {
-            background: var(--negro-carbon);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid rgba(201, 168, 76, 0.06);
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .stat-card:hover {
-            border-color: rgba(201, 168, 76, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .stat-card .numero {
-            font-family: 'Georgia', serif;
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--dorado-epico);
-            display: block;
-        }
-
-        .stat-card .label {
-            font-size: 13px;
-            color: var(--gris-calido);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
-            display: block;
-        }
-
-        .stat-card .icono {
-            font-size: 24px;
-            margin-bottom: 4px;
-            display: block;
-        }
-
-        /* ===== FILA PRINCIPAL ===== */
-        .row {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
-            margin-bottom: 28px;
-        }
-
-        @media (max-width: 768px) {
-            .row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ===== CARDS ===== */
         .card {
             background: var(--negro-carbon);
             border-radius: 16px;
-            padding: 20px;
+            padding: 20px 24px;
             border: 1px solid rgba(201, 168, 76, 0.06);
+            margin-bottom: 20px;
         }
 
-        .card .card-title {
-            font-size: 18px;
+        .card-title {
+            font-size: 16px;
             font-weight: 600;
             color: var(--blanco-roto);
-            margin-bottom: 14px;
-        }
-
-        .card .card-title .badge-alerta {
-            background: var(--rojo-alerta);
-            color: white;
-            font-size: 11px;
-            padding: 2px 10px;
-            border-radius: 12px;
-            margin-left: 8px;
-            font-weight: 700;
-        }
-
-        /* ===== ALERTAS ===== */
-        .alerta-item {
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            gap: 10px;
         }
 
-        .alerta-item:last-child {
-            border-bottom: none;
-        }
-
-        .alerta-item .icono-alerta {
-            font-size: 20px;
-        }
-
-        .alerta-item .info {
-            flex: 1;
-        }
-
-        .alerta-item .info .titulo {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--blanco-roto);
-        }
-
-        .alerta-item .info .desc {
-            font-size: 13px;
-            color: var(--gris-calido);
-        }
-
-        .alerta-item .tiempo {
-            font-size: 12px;
-            color: var(--gris-calido);
-        }
-
-        .alerta-item .estado-critico {
-            color: var(--rojo-alerta);
-            font-weight: 700;
-            font-size: 12px;
-        }
-
-        /* ===== CUMPLIMIENTO ===== */
-        .cumplimiento .barra {
+        .btn-dorado {
             width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 6px;
-            overflow: hidden;
-            margin: 10px 0 6px;
-        }
-
-        .cumplimiento .barra .relleno {
-            height: 100%;
-            width: 76%;
-            background: linear-gradient(90deg, var(--dorado-epico), var(--dorado-claro));
-            border-radius: 6px;
-            transition: width 1s ease;
-        }
-
-        .cumplimiento .porcentaje {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--dorado-epico);
-        }
-
-        .cumplimiento .label-cump {
-            color: var(--gris-calido);
-            font-size: 14px;
-        }
-
-        /* ===== ACCIONES ===== */
-        .acciones-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        .btn-accion {
-            background: var(--negro-profundo);
-            border: 1px solid rgba(201, 168, 76, 0.08);
-            color: var(--blanco-roto);
             padding: 14px;
-            border-radius: 12px;
+            background: linear-gradient(135deg, var(--dorado-epico), #B8942E);
+            color: var(--negro-profundo);
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(201, 168, 76, 0.15);
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-dorado:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+        }
+
+        .btn-outline {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            color: var(--dorado-claro);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
-            font-weight: 600;
-            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .btn-accion:hover {
+        .btn-outline:hover {
             border-color: var(--dorado-epico);
             background: rgba(201, 168, 76, 0.04);
         }
 
-        .btn-accion .emoji {
-            display: block;
-            font-size: 24px;
-            margin-bottom: 4px;
-        }
-
-        /* ===== ACTIVIDAD ===== */
-        .actividad-item {
-            display: flex;
-            align-items: center;
+        .acciones-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
-        .actividad-item:last-child {
-            border-bottom: none;
-        }
-
-        .actividad-item .icono-act {
-            font-size: 18px;
-        }
-
-        .actividad-item .texto {
-            flex: 1;
-            font-size: 14px;
-            color: var(--blanco-roto);
-        }
-
-        .actividad-item .texto span {
-            color: var(--gris-calido);
-        }
-
-        .actividad-item .hora {
-            font-size: 12px;
-            color: var(--gris-calido);
-        }
-
-        /* ===== FOOTER ===== */
         .footer {
             text-align: center;
             padding: 20px 0 10px;
             color: var(--gris-calido);
-            font-size: 12px;
+            font-size: 11px;
             border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
 
@@ -354,26 +196,12 @@
             color: var(--dorado-epico);
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-            .header .user {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            .welcome h1 {
-                font-size: 22px;
-            }
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .acciones-grid {
-                grid-template-columns: 1fr;
-            }
+            .header { flex-direction: column; align-items: stretch; text-align: center; }
+            .header .user { justify-content: center; }
+            .page-title h1 { font-size: 22px; }
+            .acciones-grid { grid-template-columns: 1fr; }
+            .card { padding: 16px; }
         }
     </style>
 </head>
@@ -384,157 +212,40 @@
         <!-- ===== HEADER ===== -->
         <header class="header">
             <div class="logo">
-                LEGADO <span>· SST Core</span>
+                LEGADO <span>· Dashboard</span>
             </div>
             <div class="user">
                 <span class="nombre" id="userName">👤 Usuario</span>
-                <span class="badge" id="userLevel">🏢 Empresa</span>
-                <button class="btn-logout" onclick="cerrarSesion()">Cerrar sesión</button>
+                <span class="badge" id="userLevel">👷 Trabajador</span>
+                <button class="btn-logout" onclick="cerrarSesion()">Salir</button>
             </div>
         </header>
 
-        <!-- ===== BIENVENIDA ===== -->
-        <div class="welcome">
+        <!-- ===== TÍTULO ===== -->
+        <div class="page-title">
             <h1>Bienvenido, <strong id="welcomeName">Legado</strong></h1>
-            <p>Este es tu panel de control de seguridad laboral. Mantén todo bajo control.</p>
+            <p>Selecciona una opción para comenzar.</p>
         </div>
 
-        <!-- ===== ESTADÍSTICAS ===== -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <span class="icono">⚠️</span>
-                <span class="numero">12</span>
-                <span class="label">Riesgos Activos</span>
-            </div>
-            <div class="stat-card">
-                <span class="icono">🔔</span>
-                <span class="numero">3</span>
-                <span class="label">Alertas Críticas</span>
-            </div>
-            <div class="stat-card">
-                <span class="icono">📚</span>
-                <span class="numero">5</span>
-                <span class="label">Cursos Completados</span>
-            </div>
-            <div class="stat-card">
-                <span class="icono">✅</span>
-                <span class="numero">8</span>
-                <span class="label">Reportes Generados</span>
+        <!-- ===== ACCIONES PRINCIPALES ===== -->
+        <div class="card">
+            <div class="card-title">⚡ Acciones disponibles</div>
+            <div class="acciones-grid">
+                <a href="trabajador.html" class="btn-dorado">👷 Mi Área de Trabajo</a>
+                <button class="btn-dorado" onclick="alert('📝 Formulario de reporte rápido')">📝 Reportar Riesgo</button>
+                <button class="btn-outline" onclick="alert('📋 Historial de reportes')">📋 Mis Reportes</button>
+                <button class="btn-outline" onclick="alert('👤 Editar perfil')">👤 Mi Perfil</button>
+                <button class="btn-outline" onclick="alert('📚 Capacitaciones disponibles')">📚 Capacitaciones</button>
+                <button class="btn-outline" onclick="alert('📊 Estadísticas personales')">📊 Mis Estadísticas</button>
             </div>
         </div>
 
-        <!-- ===== FILA PRINCIPAL ===== -->
-        <div class="row">
-
-            <!-- ===== COLUMNA IZQUIERDA ===== -->
-            <div>
-
-                <!-- Alertas -->
-                <div class="card" style="margin-bottom:20px;">
-                    <div class="card-title">
-                        🚨 Alertas en tiempo real
-                        <span class="badge-alerta">3 críticas</span>
-                    </div>
-
-                    <div class="alerta-item">
-                        <span class="icono-alerta">🔴</span>
-                        <div class="info">
-                            <div class="titulo">Riesgo de caída en almacén</div>
-                            <div class="desc">Pasillo Norte - Estantería alta</div>
-                        </div>
-                        <div class="estado-critico">CRÍTICO</div>
-                    </div>
-
-                    <div class="alerta-item">
-                        <span class="icono-alerta">🟡</span>
-                        <div class="info">
-                            <div class="titulo">Falta de señalización</div>
-                            <div class="desc">Zona de carga - Sin señales visibles</div>
-                        </div>
-                        <div class="tiempo">Hace 2h</div>
-                    </div>
-
-                    <div class="alerta-item">
-                        <span class="icono-alerta">🟡</span>
-                        <div class="info">
-                            <div class="titulo">Equipo sin mantenimiento</div>
-                            <div class="desc">Máquina CNC - Último check: hace 45 días</div>
-                        </div>
-                        <div class="tiempo">Hace 5h</div>
-                    </div>
-                </div>
-
-                <!-- Actividad reciente -->
-                <div class="card">
-                    <div class="card-title">📋 Actividad reciente</div>
-
-                    <div class="actividad-item">
-                        <span class="icono-act">📝</span>
-                        <div class="texto">Reporte de riesgo <span>por Juan Pérez</span></div>
-                        <div class="hora">Hace 10min</div>
-                    </div>
-
-                    <div class="actividad-item">
-                        <span class="icono-act">✅</span>
-                        <div class="texto">Capacitación completada <span>por Ana Gómez</span></div>
-                        <div class="hora">Hace 45min</div>
-                    </div>
-
-                    <div class="actividad-item">
-                        <span class="icono-act">🔔</span>
-                        <div class="texto">Alerta generada <span>por sistema</span></div>
-                        <div class="hora">Hace 2h</div>
-                    </div>
-
-                    <div class="actividad-item">
-                        <span class="icono-act">📊</span>
-                        <div class="texto">Reporte mensual <span>descargado</span></div>
-                        <div class="hora">Hace 4h</div>
-                    </div>
-                </div>
-
+        <!-- ===== INFORMACIÓN DEL TRABAJADOR ===== -->
+        <div class="card">
+            <div class="card-title">📋 Mi información</div>
+            <div id="infoTrabajador">
+                <p style="color:var(--gris-calido);font-size:14px;">Carga tus datos desde tu perfil.</p>
             </div>
-
-            <!-- ===== COLUMNA DERECHA ===== -->
-            <div>
-
-                <!-- Cumplimiento -->
-                <div class="card" style="margin-bottom:20px;">
-                    <div class="card-title">📊 Cumplimiento SST</div>
-                    <div class="cumplimiento">
-                        <div class="porcentaje">76%</div>
-                        <div class="label-cump">Meta del mes: 80%</div>
-                        <div class="barra">
-                            <div class="relleno" style="width:76%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Acciones rápidas -->
-                <div class="card">
-                    <div class="card-title">⚡ Acciones rápidas</div>
-                    <div class="acciones-grid">
-                        <button class="btn-accion" onclick="alert('📝 Reportar riesgo')">
-                            <span class="emoji">📝</span>
-                            Reportar riesgo
-                        </button>
-                        <button class="btn-accion" onclick="alert('📚 Ir a capacitación')">
-                            <span class="emoji">📚</span>
-                            Capacitación
-                        </button>
-                        <button class="btn-accion" onclick="alert('📊 Ver reportes')">
-                            <span class="emoji">📊</span>
-                            Reportes
-                        </button>
-                        <button class="btn-accion" onclick="alert('👥 Ver equipo')">
-                            <span class="emoji">👥</span>
-                            Equipo
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-
         </div>
 
         <!-- ===== FOOTER ===== -->
@@ -546,11 +257,10 @@
 
     <script>
         // ============================================
-        //  CARGAR DATOS DEL USUARIO (ACTUALIZADO)
+        //  CARGAR USUARIO
         // ============================================
         function cargarUsuario() {
             const sesion = JSON.parse(localStorage.getItem('legado_sesion'));
-
             if (!sesion) {
                 window.location.href = 'index.html';
                 return;
@@ -559,14 +269,36 @@
             document.getElementById('userName').textContent = '👤 ' + sesion.nombre;
             document.getElementById('welcomeName').textContent = sesion.nombre;
 
-            // PERFILES ACTUALIZADOS CON GUBERNAMENTAL
             const niveles = {
                 'trabajador': '👷 Trabajador',
                 'empresa': '🏢 Empresa',
                 'especialista': '👨‍🔬 Especialista SST',
-                'gubernamental': '🏛️ Gubernamental (Estado)'
+                'gubernamental': '🏛️ Gubernamental'
             };
             document.getElementById('userLevel').textContent = niveles[sesion.nivel] || sesion.nivel;
+
+            // Mostrar información adicional
+            const info = document.getElementById('infoTrabajador');
+            info.innerHTML = `
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                    <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;">
+                        <span style="font-size:11px;color:var(--gris-calido);">📛 Nombre</span>
+                        <div style="font-weight:600;color:var(--dorado-epico);">${sesion.nombre}</div>
+                    </div>
+                    <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;">
+                        <span style="font-size:11px;color:var(--gris-calido);">👤 Perfil</span>
+                        <div style="font-weight:600;color:var(--dorado-epico);">${niveles[sesion.nivel] || sesion.nivel}</div>
+                    </div>
+                    <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;">
+                        <span style="font-size:11px;color:var(--gris-calido);">📧 Correo</span>
+                        <div style="font-weight:600;color:var(--dorado-epico);">${sesion.email || 'No registrado'}</div>
+                    </div>
+                    <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;">
+                        <span style="font-size:11px;color:var(--gris-calido);">📌 Estado</span>
+                        <div style="font-weight:600;color:var(--verde-exito);">✅ Activo</div>
+                    </div>
+                </div>
+            `;
         }
 
         // ============================================
@@ -577,10 +309,8 @@
             window.location.href = 'index.html';
         }
 
-        // ============================================
-        //  INICIALIZAR
-        // ============================================
         cargarUsuario();
+        console.log('🏛️ LEGADO - Dashboard del Trabajador');
     </script>
 
 </body>
