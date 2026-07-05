@@ -154,43 +154,6 @@
             border-radius: 10px;
         }
 
-        .btn-area {
-            padding: 12px 10px;
-            background: var(--negro-profundo);
-            border: 1px solid rgba(201, 168, 76, 0.08);
-            border-radius: 12px;
-            color: var(--blanco-roto);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-            width: 100%;
-        }
-
-        .btn-area:hover {
-            border-color: rgba(201, 168, 76, 0.25);
-            background: rgba(201, 168, 76, 0.03);
-        }
-
-        .btn-area.seleccionada {
-            border-color: var(--dorado-epico);
-            background: rgba(201, 168, 76, 0.06);
-            box-shadow: 0 0 20px rgba(201, 168, 76, 0.04);
-        }
-
-        .btn-area .emoji {
-            display: block;
-            font-size: 24px;
-            margin-bottom: 4px;
-        }
-
-        .areas-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-        }
-
         .input-group {
             margin-bottom: 14px;
         }
@@ -261,11 +224,6 @@
             background: var(--negro-profundo);
             border-radius: 10px;
             border: 1px solid rgba(201, 168, 76, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: var(--gris-calido);
             background-size: cover;
             background-position: center;
             position: relative;
@@ -310,7 +268,6 @@
         .btn-dorado:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
         }
 
         .btn-outline {
@@ -351,11 +308,6 @@
             box-shadow: 0 8px 30px rgba(231, 76, 60, 0.3);
         }
 
-        .btn-peligro:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
         .btn-verde {
             width: 100%;
             padding: 14px;
@@ -376,7 +328,7 @@
             box-shadow: 0 8px 30px rgba(46, 204, 113, 0.3);
         }
 
-        .acciones-grid {
+        .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
@@ -437,49 +389,17 @@
             color: var(--dorado-claro);
         }
 
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            color: var(--gris-calido);
-            margin: 8px 0;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--dorado-epico);
-            cursor: pointer;
-        }
-
         @media (max-width: 600px) {
             .header {
                 flex-direction: column;
                 align-items: stretch;
                 text-align: center;
             }
-            .header .user {
-                justify-content: center;
-            }
-            .page-title h1 {
-                font-size: 22px;
-            }
-            .acciones-grid {
-                grid-template-columns: 1fr;
-            }
-            .areas-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .card {
-                padding: 16px;
-            }
-            .input-group .input-con-foto {
-                flex-direction: column;
-            }
-            .input-group .input-con-foto input[type="file"] {
-                width: 100%;
-            }
+            .header .user { justify-content: center; }
+            .page-title h1 { font-size: 22px; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .card { padding: 16px; }
+            .input-group .input-con-foto { flex-direction: column; }
         }
     </style>
 </head>
@@ -495,191 +415,172 @@
             <div class="user">
                 <span class="nombre" id="userName">👤 Usuario</span>
                 <span class="badge" id="userLevel">👷 Trabajador</span>
-                <button class="btn-logout" onclick="cerrarSesion()">Salir</button>
+                <button class="btn-logout" onclick="cerrarSesion()">Cerrar sesión</button>
             </div>
         </header>
 
         <!-- ===== TÍTULO ===== -->
         <div class="page-title">
             <h1>👷 <strong>Mi Área de Trabajo</strong></h1>
-            <p>Selecciona tu área, reporta riesgos y genera informes legales con evidencia verificada.</p>
+            <p>Completa los datos, selecciona destino, formato y genera tu informe técnico.</p>
         </div>
 
-        <!-- ===== DATOS DEL REPORTE (GEOLOCALIZACIÓN + HORA) ===== -->
-        <div class="card" style="border-color: rgba(201, 168, 76, 0.15);">
-            <div class="card-title">
-                📋 Datos del reporte
-                <span class="badge-opcional">Evidencia verificada</span>
-            </div>
-
-            <div id="datosReporte">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
-                    <div style="background:var(--negro-profundo);padding:10px;border-radius:10px;border:1px solid rgba(201,168,76,0.06);">
-                        <span style="font-size:11px;color:var(--gris-calido);">📍 Ubicación</span>
-                        <div style="font-weight:600;font-size:14px;color:var(--dorado-epico);" id="ubicacionTexto">
-                            <span id="lat">-12.046374</span>, <span id="lng">-77.042793</span>
-                        </div>
-                    </div>
-                    <div style="background:var(--negro-profundo);padding:10px;border-radius:10px;border:1px solid rgba(201,168,76,0.06);">
-                        <span style="font-size:11px;color:var(--gris-calido);">🕐 Fecha y Hora</span>
-                        <div style="font-weight:600;font-size:14px;color:var(--dorado-epico);" id="fechaHoraTexto">
-                            <span id="fechaActual">04/07/2026</span> <span id="horaActual">15:30:25</span>
-                        </div>
-                    </div>
-                </div>
-                <div style="background:var(--negro-profundo);padding:8px 12px;border-radius:10px;border:1px solid rgba(46,204,113,0.15);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                    <span style="font-size:14px;">✅</span>
-                    <span style="font-size:12px;color:var(--verde-exito);">Evidencia verificada y geolocalizada</span>
-                    <span style="font-size:11px;color:var(--gris-calido);margin-left:auto;">Código: <span id="codigoVerificacion">7F3A8B1C</span></span>
-                </div>
-            </div>
-
-            <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-                <button class="btn-outline" onclick="actualizarGeolocalizacion()" style="padding:8px;font-size:12px;flex:1;">
-                    🔄 Actualizar ubicación
-                </button>
-                <button class="btn-outline" onclick="actualizarHora()" style="padding:8px;font-size:12px;flex:1;">
-                    🕐 Actualizar hora
-                </button>
-            </div>
-        </div>
-
-        <!-- ===== PASO 1: ÁREA ===== -->
+        <!-- ===== PASO 1: PAÍS ===== -->
         <div class="card">
-            <div class="card-title">
-                📍 Área de trabajo
-                <span class="badge-obligatorio">Obligatorio</span>
+            <div class="card-title">🌍 Selecciona tu país <span class="badge-obligatorio">Obligatorio</span></div>
+            <div class="input-group">
+                <select id="pais">
+                    <option value="">-- Selecciona --</option>
+                    <option value="Perú" selected>🇵🇪 Perú</option>
+                    <option value="Argentina">🇦🇷 Argentina</option>
+                    <option value="Bolivia">🇧🇴 Bolivia</option>
+                    <option value="Brasil">🇧🇷 Brasil</option>
+                    <option value="Chile">🇨🇱 Chile</option>
+                    <option value="Colombia">🇨🇴 Colombia</option>
+                    <option value="Ecuador">🇪🇨 Ecuador</option>
+                    <option value="España">🇪🇸 España</option>
+                    <option value="México">🇲🇽 México</option>
+                    <option value="Venezuela">🇻🇪 Venezuela</option>
+                    <option value="Otro">🌍 Otro</option>
+                </select>
             </div>
-            <div class="areas-grid" id="areaGrid">
-                <button class="btn-area" data-area="Almacén">
-                    <span class="emoji">📦</span> Almacén
-                </button>
-                <button class="btn-area" data-area="Producción">
-                    <span class="emoji">🏭</span> Producción
-                </button>
-                <button class="btn-area" data-area="Oficinas">
-                    <span class="emoji">🏢</span> Oficinas
-                </button>
-                <button class="btn-area" data-area="Mantenimiento">
-                    <span class="emoji">🔧</span> Mantenimiento
-                </button>
-                <button class="btn-area" data-area="Carga/Descarga">
-                    <span class="emoji">🚛</span> Carga/Descarga
-                </button>
-                <button class="btn-area" data-area="Otro" id="btnOtroArea">
-                    <span class="emoji">➕</span> Otro
-                </button>
+        </div>
+
+        <!-- ===== PASO 2: UBICACIÓN ===== -->
+        <div class="card">
+            <div class="card-title">📍 Ubicación del puesto <span class="badge-obligatorio">Obligatorio</span></div>
+            <div class="input-group">
+                <label for="region">Región / Departamento</label>
+                <input type="text" id="region" placeholder="Ej: Lima" />
             </div>
-            <div class="input-group" id="inputOtroArea" style="display:none; margin-top: 10px;">
+            <div class="input-group">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" placeholder="Ej: Av. Los Álamos 123" />
+            </div>
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="latitud">Latitud</label>
+                    <input type="text" id="latitud" placeholder="-12.046374" />
+                </div>
+                <div class="input-group">
+                    <label for="longitud">Longitud</label>
+                    <input type="text" id="longitud" placeholder="-77.042793" />
+                </div>
+            </div>
+            <button class="btn-outline" onclick="obtenerUbicacion()" style="padding:10px;font-size:13px;">
+                📍 Obtener ubicación automática
+            </button>
+            <div id="ubicacionMensaje" style="font-size:12px;color:var(--gris-calido);margin-top:8px;"></div>
+        </div>
+
+        <!-- ===== PASO 3: ÁREA ===== -->
+        <div class="card">
+            <div class="card-title">📂 Área de trabajo <span class="badge-obligatorio">Obligatorio</span></div>
+            <div class="input-group">
+                <select id="area">
+                    <option value="">-- Selecciona --</option>
+                    <option value="Almacén">📦 Almacén</option>
+                    <option value="Producción">🏭 Producción</option>
+                    <option value="Oficinas">🏢 Oficinas</option>
+                    <option value="Mantenimiento">🔧 Mantenimiento</option>
+                    <option value="Carga/Descarga">🚛 Carga/Descarga</option>
+                    <option value="Otro">➕ Otro</option>
+                </select>
+            </div>
+            <div class="input-group" id="inputOtroArea" style="display:none;">
                 <label for="otroArea">Especifica tu área</label>
                 <input type="text" id="otroArea" placeholder="Ej: Zona de carga" />
             </div>
-            <div style="margin-top: 10px;">
-                <label style="font-size:12px;color:var(--gris-calido);">Área seleccionada:</label>
-                <span id="areaSeleccionada" style="color:var(--dorado-epico);font-weight:600;">Ninguna</span>
-            </div>
-        </div>
-
-        <!-- ===== PASO 2: PUESTO ===== -->
-        <div class="card">
-            <div class="card-title">
-                🪪 Tu puesto
-                <span class="badge-opcional">Opcional pero recomendado</span>
-            </div>
             <div class="input-group">
-                <label for="puesto">Escribe tu puesto o cargo</label>
+                <label for="puesto">Tu puesto</label>
                 <input type="text" id="puesto" placeholder="Ej: Almacenero de víveres frescos" />
             </div>
-            <div class="input-group">
-                <label for="empresaNombre">Nombre de la empresa</label>
-                <input type="text" id="empresaNombre" placeholder="Ej: LEGADO CORPORATION S.A.C." />
-            </div>
         </div>
 
-        <!-- ===== PASO 3: EVIDENCIA MÉDICA ===== -->
-        <div class="card" style="border-color: rgba(46, 204, 113, 0.15);">
-            <div class="card-title">
-                🏥 Evidencia médica
-                <span class="badge-opcional">Opcional pero recomendado</span>
-            </div>
-            <div class="input-group">
-                <label for="certificadoMedico">📄 Subir certificado médico</label>
-                <input type="file" id="certificadoMedico" accept=".pdf,.jpg,.jpeg,.png" />
-                <div style="font-size:12px;color:var(--gris-calido);margin-top:4px;">
-                    Sube tu certificado médico o restricción laboral si aplica.
-                </div>
-            </div>
-            <div class="input-group">
-                <label for="restriccion">📝 Descripción de la restricción médica</label>
-                <textarea id="restriccion" placeholder="Ej: No puedo levantar más de 10 kg por hernia discal L4-L5, según certificado médico."></textarea>
-            </div>
-        </div>
-
-        <!-- ===== PASO 4: VERIFICAR ÁREA CON FOTOS ===== -->
+        <!-- ===== PASO 4: ACCIÓN ===== -->
         <div class="card">
-            <div class="card-title">
-                📸 Verificar estado de tu área
-                <span class="badge-obligatorio">Recomendado</span>
-            </div>
+            <div class="card-title">⚡ ¿Qué deseas hacer? <span class="badge-obligatorio">Selecciona</span></div>
             <div class="input-group">
-                <label for="fotoInput">📷 Subir fotos de tu área</label>
+                <select id="accion">
+                    <option value="">-- Selecciona --</option>
+                    <option value="reportar_riesgo">📝 Reportar riesgo</option>
+                    <option value="subir_foto">📸 Subir foto del área</option>
+                    <option value="subir_documento">📄 Subir documento</option>
+                    <option value="generar_informe">📜 Generar informe técnico</option>
+                    <option value="negarse_trabajar">🛑 Negarse a trabajar</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ===== PASO 5: EVIDENCIA ===== -->
+        <div class="card">
+            <div class="card-title">📎 Subir evidencia <span class="badge-opcional">Opcional</span></div>
+            <div class="input-group">
+                <label for="fotoInput">📷 Subir fotos o documentos</label>
                 <div class="input-con-foto">
-                    <input type="file" id="fotoInput" accept="image/*" multiple />
+                    <input type="file" id="fotoInput" accept="image/*,.pdf,.doc,.docx" multiple />
                 </div>
                 <div class="fotos-preview" id="fotosPreview"></div>
-                <div style="font-size:12px;color:var(--gris-calido);margin-top:4px;">
-                    Toma fotos de las condiciones de tu área. Esto será evidencia en tu reporte.
-                </div>
             </div>
             <div class="input-group">
-                <label for="contexto">📝 Descripción del contexto</label>
-                <textarea id="contexto" placeholder="Describe lo que ves: condiciones inseguras, falta de señalización, equipos en mal estado, etc."></textarea>
+                <label for="contexto">📝 Contexto</label>
+                <textarea id="contexto" placeholder="Describe lo que ves, el peligro, la condición insegura..."></textarea>
             </div>
-            <button class="btn-dorado" id="btnVerificar">🔍 Verificar área</button>
         </div>
 
-        <!-- ===== PASO 5: RIESGOS DETECTADOS ===== -->
-        <div class="card" id="cardRiesgos">
-            <div class="card-title">
-                🚨 Riesgos detectados
-                <span class="badge-opcional" id="riesgosCount">0 riesgos</span>
+        <!-- ===== PASO 6: DESTINO ===== -->
+        <div class="card" style="border-color: rgba(201, 168, 76, 0.15);">
+            <div class="card-title">📬 Destino del reporte <span class="badge-obligatorio">Selecciona</span></div>
+            <div class="grid-2">
+                <button class="btn-dorado" id="btnReporteEmpleador" style="padding:16px;">📄 Empleador</button>
+                <button class="btn-peligro" id="btnDenunciaAnonima" style="padding:16px;">🕵️ Denuncia anónima</button>
             </div>
-            <div id="riesgosLista">
-                <div class="mensaje info">
-                    ⚠️ Verifica tu área para detectar riesgos automáticamente.
+            <div id="destinoInfo" style="margin-top:12px;padding:12px;background:var(--negro-profundo);border-radius:10px;border:1px solid rgba(201,168,76,0.06);">
+                <p style="font-size:13px;color:var(--gris-calido);">⚖️ Selecciona el destino del reporte.</p>
+            </div>
+        </div>
+
+        <!-- ===== PASO 7: FORMATO Y UBICACIÓN ===== -->
+        <div class="card" style="border-color: rgba(46, 204, 113, 0.15);">
+            <div class="card-title">📄 Formato y ubicación de descarga <span class="badge-obligatorio">Selecciona</span></div>
+
+            <div class="grid-2">
+                <div class="input-group">
+                    <label for="formato">Formato de descarga</label>
+                    <select id="formato">
+                        <option value="PDF">📄 PDF</option>
+                        <option value="Word">📝 Word (DOCX)</option>
+                        <option value="Excel">📊 Excel (XLSX)</option>
+                        <option value="TXT">📋 Texto (TXT)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="ubicacionDescarga">Ubicación de descarga</label>
+                    <select id="ubicacionDescarga">
+                        <option value="descargas">💻 Mi PC / Descargas</option>
+                        <option value="google_drive">☁️ Google Drive</option>
+                        <option value="onedrive">☁️ OneDrive</option>
+                        <option value="correo">📧 Enviar por correo</option>
+                        <option value="dropbox">☁️ Dropbox</option>
+                    </select>
                 </div>
             </div>
+
+            <div class="input-group">
+                <label for="nombreArchivo">Nombre del archivo</label>
+                <input type="text" id="nombreArchivo" value="Informe_LEGADO" placeholder="Ej: Informe_LEGADO" />
+            </div>
         </div>
 
-        <!-- ===== PASO 6: ACCIONES ===== -->
+        <!-- ===== PASO 8: GENERAR ===== -->
         <div class="card">
-            <div class="card-title">
-                ⚡ Acciones disponibles
-                <span class="badge-opcional">Genera informes con peso legal</span>
-            </div>
-
-            <div class="acciones-grid">
-                <button class="btn-dorado" id="btnGenerarInforme" disabled>
-                    📜 Generar informe de riesgos
-                </button>
-                <button class="btn-peligro" id="btnNegarseTrabajar" disabled>
-                    🛑 Negarse a trabajar
-                </button>
-                <button class="btn-outline" id="btnReporteAnonimo" disabled>
-                    🕵️ Reporte anónimo a entes fiscalizadores
-                </button>
-                <button class="btn-verde" id="btnDescargarPDF" disabled>
-                    📥 Descargar informe (PDF)
-                </button>
-            </div>
-
+            <div class="card-title">🚀 Generar informe</div>
+            <button class="btn-dorado" id="btnGenerar">📜 Generar informe técnico</button>
             <div class="mensaje" id="mensaje"></div>
         </div>
 
-        <!-- ===== ENLACE VOLVER ===== -->
         <a href="dashboard.html" class="link">🏛️ Volver al Dashboard</a>
 
-        <!-- ===== FOOTER ===== -->
         <div class="footer">
             ⚡ <strong>LEGADO</strong> · Seguridad Laboral Automática · v1.0
         </div>
@@ -687,26 +588,16 @@
     </div>
 
     <script>
-        // ============================================
-        //  ESTADO
-        // ============================================
-        let areaSeleccionada = '';
         let fotosSubidas = [];
-        let certificadoSubido = null;
-        let riesgosDetectados = [];
-        let areaVerificada = false;
-        let usuario = {};
+        let destinoSeleccionado = '';
 
-        // ============================================
-        //  CARGAR USUARIO
-        // ============================================
+        // ===== CARGAR USUARIO =====
         function cargarUsuario() {
             const sesion = JSON.parse(localStorage.getItem('legado_sesion'));
             if (!sesion) {
                 window.location.href = 'index.html';
                 return;
             }
-            usuario = sesion;
             document.getElementById('userName').textContent = '👤 ' + sesion.nombre;
             const niveles = {
                 'trabajador': '👷 Trabajador',
@@ -717,407 +608,178 @@
             document.getElementById('userLevel').textContent = niveles[sesion.nivel] || sesion.nivel;
         }
 
-        // ============================================
-        //  GEOLOCALIZACIÓN Y HORA
-        // ============================================
+        // ===== ÁREA OTRO =====
+        document.getElementById('area').addEventListener('change', function() {
+            document.getElementById('inputOtroArea').style.display = this.value === 'Otro' ? 'block' : 'none';
+        });
 
-        function actualizarGeolocalizacion() {
-            const msg = document.getElementById('mensaje');
+        // ===== UBICACIÓN =====
+        function obtenerUbicacion() {
+            const msg = document.getElementById('ubicacionMensaje');
             if (navigator.geolocation) {
+                msg.textContent = '⏳ Obteniendo ubicación...';
                 navigator.geolocation.getCurrentPosition(
                     function(position) {
-                        const lat = position.coords.latitude.toFixed(6);
-                        const lng = position.coords.longitude.toFixed(6);
-                        document.getElementById('lat').textContent = lat;
-                        document.getElementById('lng').textContent = lng;
-                        document.getElementById('ubicacionTexto').style.color = 'var(--verde-exito)';
-                        msg.textContent = '✅ Ubicación actualizada: ' + lat + ', ' + lng;
-                        msg.className = 'mensaje exito';
+                        document.getElementById('latitud').value = position.coords.latitude.toFixed(6);
+                        document.getElementById('longitud').value = position.coords.longitude.toFixed(6);
+                        msg.textContent = '✅ Ubicación obtenida';
+                        msg.style.color = 'var(--verde-exito)';
                     },
-                    function(error) {
-                        msg.textContent = '⚠️ No se pudo obtener la ubicación. Usando ubicación predeterminada.';
-                        msg.className = 'mensaje info';
-                        console.warn('Error de geolocalización:', error);
+                    function() {
+                        msg.textContent = '⚠️ No se pudo obtener. Ingresa manualmente.';
+                        msg.style.color = 'var(--rojo-alerta)';
                     }
                 );
             } else {
-                msg.textContent = '⚠️ Tu navegador no soporta geolocalización. Usando ubicación predeterminada.';
-                msg.className = 'mensaje info';
+                msg.textContent = '⚠️ Geolocalización no soportada. Ingresa manualmente.';
+                msg.style.color = 'var(--rojo-alerta)';
             }
         }
 
-        function actualizarHora() {
-            const ahora = new Date();
-            const fecha = ahora.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-            const hora = ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            document.getElementById('fechaActual').textContent = fecha;
-            document.getElementById('horaActual').textContent = hora;
-            document.getElementById('fechaHoraTexto').style.color = 'var(--verde-exito)';
-        }
-
-        function generarCodigoVerificacion() {
-            const chars = '0123456789ABCDEF';
-            let code = '';
-            for (let i = 0; i < 8; i++) {
-                code += chars[Math.floor(Math.random() * 16)];
-            }
-            return code;
-        }
-
-        // ============================================
-        //  ÁREA
-        // ============================================
-        document.querySelectorAll('.btn-area').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.btn-area').forEach(b => b.classList.remove('seleccionada'));
-                this.classList.add('seleccionada');
-
-                const area = this.dataset.area;
-                if (area === 'Otro') {
-                    document.getElementById('inputOtroArea').style.display = 'block';
-                    document.getElementById('areaSeleccionada').textContent = 'Otro (especificar)';
-                    areaSeleccionada = 'Otro';
-                } else {
-                    document.getElementById('inputOtroArea').style.display = 'none';
-                    document.getElementById('areaSeleccionada').textContent = area;
-                    areaSeleccionada = area;
-                }
-            });
-        });
-
-        document.getElementById('otroArea').addEventListener('input', function() {
-            if (this.value.trim()) {
-                areaSeleccionada = 'Otro: ' + this.value.trim();
-                document.getElementById('areaSeleccionada').textContent = areaSeleccionada;
-            }
-        });
-
-        // ============================================
-        //  CERTIFICADO MÉDICO
-        // ============================================
-        document.getElementById('certificadoMedico').addEventListener('change', function(e) {
-            if (e.target.files.length > 0) {
-                certificadoSubido = e.target.files[0];
-                const msg = document.getElementById('mensaje');
-                msg.textContent = '✅ Certificado médico cargado: ' + certificadoSubido.name;
-                msg.className = 'mensaje exito';
-            }
-        });
-
-        // ============================================
-        //  FOTOS
-        // ============================================
+        // ===== FOTOS =====
         document.getElementById('fotoInput').addEventListener('change', function(e) {
             const files = e.target.files;
             const preview = document.getElementById('fotosPreview');
             fotosSubidas = [];
             preview.innerHTML = '';
-
             for (let i = 0; i < files.length; i++) {
                 const reader = new FileReader();
                 reader.onload = function(ev) {
                     const div = document.createElement('div');
                     div.className = 'foto-mini';
-                    div.style.backgroundImage = `url(${ev.target.result})`;
-                    div.style.backgroundSize = 'cover';
-                    div.style.backgroundPosition = 'center';
+                    if (files[i].type.startsWith('image/')) {
+                        div.style.backgroundImage = `url(${ev.target.result})`;
+                    } else {
+                        div.style.display = 'flex';
+                        div.style.alignItems = 'center';
+                        div.style.justifyContent = 'center';
+                        div.textContent = '📄';
+                    }
                     const btn = document.createElement('button');
                     btn.className = 'btn-eliminar';
                     btn.textContent = '×';
-                    btn.onclick = function(e) {
-                        e.stopPropagation();
-                        div.remove();
-                        fotosSubidas = fotosSubidas.filter((_, idx) => idx !== i);
-                        if (fotosSubidas.length === 0) {
-                            document.getElementById('btnGenerarInforme').disabled = true;
-                            document.getElementById('btnNegarseTrabajar').disabled = true;
-                            document.getElementById('btnReporteAnonimo').disabled = true;
-                        }
-                    };
+                    btn.onclick = function() { div.remove(); fotosSubidas = fotosSubidas.filter((_, idx) => idx !== i); };
                     div.appendChild(btn);
                     preview.appendChild(div);
                 };
                 reader.readAsDataURL(files[i]);
                 fotosSubidas.push(files[i].name);
             }
-
-            if (fotosSubidas.length > 0) {
-                document.getElementById('btnGenerarInforme').disabled = false;
-                document.getElementById('btnNegarseTrabajar').disabled = false;
-                document.getElementById('btnReporteAnonimo').disabled = false;
-                document.getElementById('btnDescargarPDF').disabled = false;
-            }
         });
 
-        // ============================================
-        //  VERIFICAR ÁREA
-        // ============================================
-        document.getElementById('btnVerificar').addEventListener('click', function() {
+        // ===== DESTINO =====
+        document.getElementById('btnReporteEmpleador').addEventListener('click', function() {
+            destinoSeleccionado = 'empleador';
+            document.getElementById('destinoInfo').innerHTML = `
+                <p style="font-size:13px;color:var(--verde-exito);">✅ Reporte para el empleador seleccionado.</p>
+                <p style="font-size:12px;color:var(--gris-calido);">El empleador recibirá una notificación formal.</p>
+            `;
+        });
+
+        document.getElementById('btnDenunciaAnonima').addEventListener('click', function() {
+            destinoSeleccionado = 'anonimo';
+            document.getElementById('destinoInfo').innerHTML = `
+                <p style="font-size:13px;color:var(--naranja);">🕵️ Denuncia anónima seleccionada.</p>
+                <p style="font-size:12px;color:var(--gris-calido);">El trabajador se mantiene en ANONIMATO. LEGADO valida y envía.</p>
+            `;
+        });
+
+        // ===== GENERAR =====
+        document.getElementById('btnGenerar').addEventListener('click', function() {
+            const pais = document.getElementById('pais').value;
+            const region = document.getElementById('region').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            const lat = document.getElementById('latitud').value.trim();
+            const lng = document.getElementById('longitud').value.trim();
+            const area = document.getElementById('area').value;
+            const otroArea = document.getElementById('otroArea').value.trim();
+            const puesto = document.getElementById('puesto').value.trim();
+            const accion = document.getElementById('accion').value;
             const contexto = document.getElementById('contexto').value.trim();
+            const formato = document.getElementById('formato').value;
+            const ubicacion = document.getElementById('ubicacionDescarga').value;
+            const nombreArchivo = document.getElementById('nombreArchivo').value.trim() || 'Informe_LEGADO';
+            const sesion = JSON.parse(localStorage.getItem('legado_sesion'));
             const msg = document.getElementById('mensaje');
 
-            if (!areaSeleccionada) {
-                msg.textContent = '✖ Selecciona un área de trabajo';
-                msg.className = 'mensaje error';
-                return;
-            }
+            // Validaciones
+            if (!pais) { msg.textContent = '✖ Selecciona tu país'; msg.className = 'mensaje error'; return; }
+            if (!region && !direccion && !lat && !lng) { msg.textContent = '✖ Ingresa una ubicación'; msg.className = 'mensaje error'; return; }
+            if (!area) { msg.textContent = '✖ Selecciona tu área'; msg.className = 'mensaje error'; return; }
+            if (!accion) { msg.textContent = '✖ Selecciona una acción'; msg.className = 'mensaje error'; return; }
+            if (!destinoSeleccionado) { msg.textContent = '✖ Selecciona un destino'; msg.className = 'mensaje error'; return; }
 
-            if (fotosSubidas.length === 0 && !contexto) {
-                msg.textContent = '⚠️ Sube al menos una foto o agrega descripción para verificar tu área.';
-                msg.className = 'mensaje info';
-                return;
-            }
+            const areaFinal = area === 'Otro' ? otroArea : area;
+            const fecha = new Date().toLocaleString('es-ES');
+            const codigo = generarCodigo();
+            const tituloDestino = destinoSeleccionado === 'empleador' ? '📄 Reporte para el empleador' : '🕵️ Denuncia anónima';
 
-            const riesgosPorArea = {
-                'Almacén': [
-                    { titulo: 'Escalera en mal estado', desc: 'Peldaños rotos, falta antideslizante', nivel: 'critico' },
-                    { titulo: 'Falta de señalización', desc: 'Zona sin señales de peligro', nivel: 'medio' },
-                    { titulo: 'Piso resbaladizo', desc: 'Derrames sin limpiar', nivel: 'critico' }
-                ],
-                'Producción': [
-                    { titulo: 'Máquina sin protección', desc: 'Falta de guardas de seguridad', nivel: 'critico' },
-                    { titulo: 'Ventilación deficiente', desc: 'Acumulación de polvo', nivel: 'medio' }
-                ],
-                'Oficinas': [
-                    { titulo: 'Cables sueltos', desc: 'Riesgo de tropiezo', nivel: 'medio' },
-                    { titulo: 'Mobiliario en mal estado', desc: 'Sillas rotas', nivel: 'bajo' }
-                ],
-                'Mantenimiento': [
-                    { titulo: 'Herramientas sin mantenimiento', desc: 'Equipos desgastados', nivel: 'medio' },
-                    { titulo: 'Falta de EPP', desc: 'Sin guantes ni lentes', nivel: 'critico' }
-                ],
-                'Carga/Descarga': [
-                    { titulo: 'Sobrecarga de peso', desc: 'Productos apilados incorrectamente', nivel: 'critico' },
-                    { titulo: 'Falta de señalización', desc: 'Zona de carga sin señales', nivel: 'medio' }
-                ],
-                'Otro': [
-                    { titulo: 'Riesgo no específico', desc: 'Condiciones inseguras detectadas', nivel: 'medio' }
-                ]
-            };
+            const ubicacionLabel = {
+                'descargas': '💻 Mi PC / Descargas',
+                'google_drive': '☁️ Google Drive',
+                'onedrive': '☁️ OneDrive',
+                'correo': '📧 Enviar por correo',
+                'dropbox': '☁️ Dropbox'
+            }[ubicacion] || '💻 Mi PC';
 
-            const riesgos = riesgosPorArea[areaSeleccionada] || riesgosPorArea['Otro'];
-            riesgosDetectados = riesgos.slice(0, 2 + Math.floor(Math.random()));
-            areaVerificada = true;
+            const formatoLabel = {
+                'PDF': '📄 PDF',
+                'Word': '📝 Word (DOCX)',
+                'Excel': '📊 Excel (XLSX)',
+                'TXT': '📋 Texto (TXT)'
+            }[formato] || '📄 PDF';
 
-            const lista = document.getElementById('riesgosLista');
-            lista.innerHTML = '';
-            if (riesgosDetectados.length === 0) {
-                lista.innerHTML = `
-                    <div class="mensaje exito">
-                        ✅ No se detectaron riesgos en tu área. ¡Sigue así!
-                    </div>
-                `;
-            } else {
-                riesgosDetectados.forEach(r => {
-                    const div = document.createElement('div');
-                    div.className = 'alerta-item';
-                    div.style.cssText = 'display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04);';
-                    const icono = r.nivel === 'critico' ? '🔴' : r.nivel === 'medio' ? '🟡' : '🟢';
-                    const estadoLabel = r.nivel === 'critico' ? 'CRÍTICO' : r.nivel === 'medio' ? 'MEDIO' : 'BAJO';
-                    div.innerHTML = `
-                        <span style="font-size:18px;">${icono}</span>
-                        <div style="flex:1;">
-                            <div style="font-weight:600;font-size:14px;">${r.titulo}</div>
-                            <div style="font-size:13px;color:var(--gris-calido);">${r.desc}</div>
-                        </div>
-                        <span style="font-size:12px;font-weight:700;padding:2px 10px;border-radius:10px;background:${r.nivel === 'critico' ? 'rgba(231,76,60,0.15)' : r.nivel === 'medio' ? 'rgba(230,126,34,0.15)' : 'rgba(46,204,113,0.15)'};color:${r.nivel === 'critico' ? 'var(--rojo-alerta)' : r.nivel === 'medio' ? 'var(--naranja)' : 'var(--verde-exito)'};">${estadoLabel}</span>
-                    `;
-                    lista.appendChild(div);
-                });
-            }
+            let mensajeLegal = destinoSeleccionado === 'empleador'
+                ? '⚖️ Notificación formal al empleador. Plazo: 48 horas para corregir.'
+                : '🕵️ Denuncia anónima validada por LEGADO. Enviado a SUNAFIL y Ministerio de Trabajo.';
 
-            document.getElementById('riesgosCount').textContent = riesgosDetectados.length + ' riesgos';
-            document.getElementById('btnGenerarInforme').disabled = false;
-            document.getElementById('btnNegarseTrabajar').disabled = false;
-            document.getElementById('btnReporteAnonimo').disabled = false;
-            document.getElementById('btnDescargarPDF').disabled = false;
-
-            msg.textContent = '✅ Área verificada. Se detectaron ' + riesgosDetectados.length + ' riesgos.';
-            msg.className = 'mensaje exito';
-        });
-
-        // ============================================
-        //  GENERAR INFORME DE RIESGOS
-        // ============================================
-        document.getElementById('btnGenerarInforme').addEventListener('click', function() {
-            const area = document.getElementById('areaSeleccionada').textContent;
-            const puesto = document.getElementById('puesto').value.trim() || 'No especificado';
-            const empresa = document.getElementById('empresaNombre').value.trim() || 'No especificada';
-            const contexto = document.getElementById('contexto').value.trim() || 'Sin descripción';
-            const restriccion = document.getElementById('restriccion').value.trim() || 'No se reportaron restricciones';
-            const certificado = certificadoSubido ? certificadoSubido.name : 'No se cargó certificado';
-            const fotos = fotosSubidas.length > 0 ? fotosSubidas.join(', ') : 'Sin fotos';
-
-            const lat = document.getElementById('lat').textContent;
-            const lng = document.getElementById('lng').textContent;
-            const fecha = document.getElementById('fechaActual').textContent;
-            const hora = document.getElementById('horaActual').textContent;
-            const codigo = document.getElementById('codigoVerificacion').textContent;
-
-            const riesgosList = riesgosDetectados.map(r => `- ${r.titulo} (${r.nivel.toUpperCase()})`).join('\n');
-
-            const msg = document.getElementById('mensaje');
             msg.innerHTML = `
-                ✅ <strong>Informe de riesgos generado</strong><br><br>
-                📍 <strong>Ubicación:</strong> ${lat}, ${lng}<br>
-                🕐 <strong>Fecha y Hora:</strong> ${fecha} ${hora}<br>
+                ✅ <strong>Informe generado exitosamente</strong><br><br>
+                📌 <strong>Destino:</strong> ${tituloDestino}<br>
+                📌 <strong>Trabajador:</strong> ${destinoSeleccionado === 'anonimo' ? 'ANÓNIMO' : sesion.nombre}<br>
+                📌 <strong>País:</strong> ${pais}<br>
+                📌 <strong>Ubicación:</strong> ${region} ${direccion} ${lat && lng ? '(' + lat + ', ' + lng + ')' : ''}<br>
+                📌 <strong>Área:</strong> ${areaFinal}<br>
+                📌 <strong>Puesto:</strong> ${puesto || 'No especificado'}<br>
+                📌 <strong>Acción:</strong> ${accion.replace('_', ' ').toUpperCase()}<br>
+                📌 <strong>Contexto:</strong> ${contexto || 'Sin descripción'}<br>
+                📌 <strong>Archivos:</strong> ${fotosSubidas.length > 0 ? fotosSubidas.join(', ') : 'Sin archivos'}<br>
+                📌 <strong>Formato:</strong> ${formatoLabel}<br>
+                📌 <strong>Ubicación de descarga:</strong> ${ubicacionLabel}<br>
+                📌 <strong>Nombre del archivo:</strong> ${nombreArchivo}.${formato.toLowerCase()}<br>
+                📌 <strong>Fecha:</strong> ${fecha}<br>
                 📄 <strong>Código de verificación:</strong> ${codigo}<br><br>
-                📌 <strong>Trabajador:</strong> ${usuario.nombre} (DNI: ${usuario.dni || 'No registrado'})<br>
-                📌 <strong>Empresa:</strong> ${empresa}<br>
-                📌 <strong>Área:</strong> ${area}<br>
-                📌 <strong>Puesto:</strong> ${puesto}<br>
-                📌 <strong>Restricción médica:</strong> ${restriccion}<br>
-                📌 <strong>Certificado médico:</strong> ${certificado}<br>
-                📌 <strong>Fotos:</strong> ${fotos}<br>
-                📌 <strong>Contexto:</strong> ${contexto}<br>
-                📌 <strong>Riesgos detectados:</strong><br>${riesgosList.replace(/\n/g, '<br>')}<br><br>
-                ⚖️ <strong>Base legal:</strong> Art. 25 - Ley N° 29783<br><br>
-                <a href="#" id="descargarLink" style="color:var(--dorado-epico);">📥 Descargar informe PDF</a>
+                ${mensajeLegal}<br><br>
+                <a href="#" id="descargarLink" style="color:var(--dorado-epico);">📥 Descargar ${formatoLabel}</a>
             `;
             msg.className = 'mensaje legal';
 
             document.getElementById('descargarLink').addEventListener('click', function(e) {
                 e.preventDefault();
-                alert('📄 Informe PDF generado (simulación)\n\n' +
-                    '📍 Ubicación: ' + lat + ', ' + lng + '\n' +
-                    '🕐 Fecha: ' + fecha + ' ' + hora + '\n' +
-                    '📄 Código: ' + codigo + '\n\n' +
-                    'Este informe tiene validez legal y puede ser presentado ante el empleador o SUNAFIL.');
+                alert('📄 Archivo generado (simulación)\n\n' +
+                    '📌 Formato: ' + formatoLabel + '\n' +
+                    '📌 Ubicación: ' + ubicacionLabel + '\n' +
+                    '📌 Archivo: ' + nombreArchivo + '.' + formato.toLowerCase() + '\n' +
+                    '📌 Código: ' + codigo + '\n\n' +
+                    '✅ Este documento está validado por LEGADO.');
             });
         });
 
-        // ============================================
-        //  NEGARSE A TRABAJAR
-        // ============================================
-        document.getElementById('btnNegarseTrabajar').addEventListener('click', function() {
-            const area = document.getElementById('areaSeleccionada').textContent;
-            const puesto = document.getElementById('puesto').value.trim() || 'No especificado';
-            const restriccion = document.getElementById('restriccion').value.trim() || 'Sin restricciones reportadas';
-            const lat = document.getElementById('lat').textContent;
-            const lng = document.getElementById('lng').textContent;
-            const fecha = document.getElementById('fechaActual').textContent;
-            const hora = document.getElementById('horaActual').textContent;
-            const codigo = document.getElementById('codigoVerificacion').textContent;
+        // ===== CÓDIGO =====
+        function generarCodigo() {
+            const chars = '0123456789ABCDEF';
+            let code = '';
+            for (let i = 0; i < 8; i++) code += chars[Math.floor(Math.random() * 16)];
+            return code;
+        }
 
-            const riesgosList = riesgosDetectados.map(r => `- ${r.titulo} (${r.nivel.toUpperCase()})`).join('\n');
-
-            const msg = document.getElementById('mensaje');
-            msg.innerHTML = `
-                🛑 <strong>CARTA DE NEGATIVA LABORAL</strong><br><br>
-                📍 <strong>Ubicación:</strong> ${lat}, ${lng}<br>
-                🕐 <strong>Fecha y Hora:</strong> ${fecha} ${hora}<br>
-                📄 <strong>Código de verificación:</strong> ${codigo}<br><br>
-                <strong>Trabajador:</strong> ${usuario.nombre}<br>
-                <strong>DNI:</strong> ${usuario.dni || 'No registrado'}<br>
-                <strong>Puesto:</strong> ${puesto}<br>
-                <strong>Área:</strong> ${area}<br><br>
-                <strong>Evidencia médica:</strong> ${restriccion}<br>
-                <strong>Certificado médico:</strong> ${certificadoSubido ? '✅ Adjunto' : '❌ No adjuntado'}<br><br>
-                <strong>Riesgos que fundamentan la negativa:</strong><br>${riesgosList.replace(/\n/g, '<br>')}<br><br>
-                <strong>Base legal:</strong><br>
-                ⚖️ Art. 25 - Ley N° 29783: Derecho a la negativa en caso de riesgo grave e inminente.<br>
-                ⚖️ Art. 26 - Ley N° 29783: Protección contra represalias.<br><br>
-                <strong>Notificación:</strong><br>
-                Por la presente, me <strong>NEGO</strong> a realizar las tareas asignadas hasta que se corrijan los riesgos identificados.<br><br>
-                <strong>Copia a:</strong><br>
-                ✅ SUNAFIL - Superintendencia Nacional de Fiscalización Laboral<br>
-                ✅ Ministerio de Trabajo y Promoción del Empleo<br><br>
-                <a href="#" id="descargarNegativaLink" style="color:var(--dorado-epico);">📥 Descargar Carta de Negativa (PDF)</a>
-            `;
-            msg.className = 'mensaje legal';
-
-            document.getElementById('descargarNegativaLink').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('📄 Carta de Negativa generada (simulación)\n\n' +
-                    '📍 Ubicación: ' + lat + ', ' + lng + '\n' +
-                    '🕐 Fecha: ' + fecha + ' ' + hora + '\n' +
-                    '📄 Código: ' + codigo + '\n\n' +
-                    'Este documento tiene validez legal y protege al trabajador contra represalias.\n' +
-                    'Art. 25 y 26 - Ley N° 29783.');
-            });
-        });
-
-        // ============================================
-        //  REPORTE ANÓNIMO
-        // ============================================
-        document.getElementById('btnReporteAnonimo').addEventListener('click', function() {
-            const area = document.getElementById('areaSeleccionada').textContent;
-            const lat = document.getElementById('lat').textContent;
-            const lng = document.getElementById('lng').textContent;
-            const fecha = document.getElementById('fechaActual').textContent;
-            const hora = document.getElementById('horaActual').textContent;
-
-            const msg = document.getElementById('mensaje');
-            msg.innerHTML = `
-                🕵️ <strong>REPORTE ANÓNIMO A ENTES FISCALIZADORES</strong><br><br>
-                📍 <strong>Ubicación:</strong> ${lat}, ${lng}<br>
-                🕐 <strong>Fecha y Hora:</strong> ${fecha} ${hora}<br>
-                📌 <strong>Área:</strong> ${area}<br>
-                📌 <strong>Riesgos detectados:</strong><br>
-                ${riesgosDetectados.map(r => `- ${r.titulo} (${r.nivel.toUpperCase()})`).join('<br>')}<br><br>
-                <strong>✅ El trabajador se mantiene en ANONIMATO</strong><br><br>
-                <strong>Entidades notificadas:</strong><br>
-                ✅ SUNAFIL - Superintendencia Nacional de Fiscalización Laboral<br>
-                ✅ Ministerio de Trabajo y Promoción del Empleo<br><br>
-                📄 <strong>Código de seguimiento:</strong> ${generarCodigoVerificacion()}<br><br>
-                <a href="#" id="descargarAnonimoLink" style="color:var(--dorado-epico);">📥 Descargar reporte anónimo (PDF)</a>
-            `;
-            msg.className = 'mensaje legal';
-
-            document.getElementById('descargarAnonimoLink').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('📄 Reporte Anónimo generado (simulación)\n\n' +
-                    '📍 Ubicación: ' + lat + ', ' + lng + '\n' +
-                    '🕐 Fecha: ' + fecha + ' ' + hora + '\n\n' +
-                    '✅ El trabajador se mantiene en ANONIMATO.\n' +
-                    '📄 Código de seguimiento: ' + generarCodigoVerificacion() + '\n\n' +
-                    'Notificado a SUNAFIL y Ministerio de Trabajo.');
-            });
-        });
-
-        // ============================================
-        //  DESCARGAR PDF (SIMULACIÓN)
-        // ============================================
-        document.getElementById('btnDescargarPDF').addEventListener('click', function() {
-            const lat = document.getElementById('lat').textContent;
-            const lng = document.getElementById('lng').textContent;
-            const fecha = document.getElementById('fechaActual').textContent;
-            const hora = document.getElementById('horaActual').textContent;
-            const codigo = document.getElementById('codigoVerificacion').textContent;
-
-            alert('📄 PDF generado (simulación)\n\n' +
-                '📍 Ubicación: ' + lat + ', ' + lng + '\n' +
-                '🕐 Fecha: ' + fecha + ' ' + hora + '\n' +
-                '📄 Código de verificación: ' + codigo + '\n\n' +
-                '✅ Informe descargado con éxito.\n' +
-                '📌 El PDF contiene toda la evidencia y tiene peso legal.');
-        });
-
-        // ============================================
-        //  CERRAR SESIÓN
-        // ============================================
         function cerrarSesion() {
             localStorage.removeItem('legado_sesion');
             window.location.href = 'index.html';
         }
 
-        // ============================================
-        //  INICIO
-        // ============================================
         cargarUsuario();
-
-        // Generar código de verificación al cargar
-        document.getElementById('codigoVerificacion').textContent = generarCodigoVerificacion();
-
-        // Actualizar hora cada 30 segundos
-        setInterval(actualizarHora, 30000);
-
-        // Solicitar ubicación al cargar
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(actualizarGeolocalizacion, 1000);
-        });
-
-        console.log('👷 LEGADO - Ventana del Trabajador (con geolocalización y hora)');
+        console.log('👷 LEGADO - Área de Trabajo (formato y ubicación)');
     </script>
 
 </body>
