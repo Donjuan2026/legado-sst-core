@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LEGADO - Área de Trabajo</title>
+    <title>LEGADO - Mi Área de Trabajo</title>
     <style>
         :root {
             --negro-profundo: #0A0A0A;
@@ -28,7 +28,7 @@
         }
 
         .container {
-            max-width: 820px;
+            max-width: 880px;
             margin: 0 auto;
         }
 
@@ -62,6 +62,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .header .user .nombre {
@@ -107,4 +108,1017 @@
 
         .page-title h1 strong {
             color: var(--dorado-epico);
-            font-weight
+            font-weight: 700;
+        }
+
+        .page-title p {
+            color: var(--gris-calido);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .card {
+            background: var(--negro-carbon);
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px solid rgba(201, 168, 76, 0.06);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--blanco-roto);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .card-title .badge-opcional {
+            font-size: 10px;
+            font-weight: 400;
+            color: var(--gris-calido);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 2px 10px;
+            border-radius: 10px;
+        }
+
+        .card-title .badge-obligatorio {
+            font-size: 10px;
+            font-weight: 400;
+            color: var(--rojo-alerta);
+            background: rgba(231, 76, 60, 0.1);
+            padding: 2px 10px;
+            border-radius: 10px;
+        }
+
+        .btn-area {
+            padding: 12px 10px;
+            background: var(--negro-profundo);
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            border-radius: 12px;
+            color: var(--blanco-roto);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-area:hover {
+            border-color: rgba(201, 168, 76, 0.25);
+            background: rgba(201, 168, 76, 0.03);
+        }
+
+        .btn-area.seleccionada {
+            border-color: var(--dorado-epico);
+            background: rgba(201, 168, 76, 0.06);
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0.04);
+        }
+
+        .btn-area .emoji {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--gris-calido);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--negro-profundo);
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            border-radius: 12px;
+            color: var(--blanco-roto);
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
+            border-color: var(--dorado-epico);
+        }
+
+        .input-group textarea {
+            min-height: 70px;
+        }
+
+        .input-group .input-con-foto {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .input-group .input-con-foto input[type="file"] {
+            flex: 1;
+            padding: 10px;
+            background: var(--negro-profundo);
+            border: 1px dashed rgba(201, 168, 76, 0.15);
+            border-radius: 12px;
+            color: var(--gris-calido);
+            font-size: 13px;
+            cursor: pointer;
+            min-width: 180px;
+        }
+
+        .fotos-preview {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 8px 0 4px;
+        }
+
+        .fotos-preview .foto-mini {
+            width: 60px;
+            height: 60px;
+            background: var(--negro-profundo);
+            border-radius: 10px;
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--gris-calido);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .fotos-preview .foto-mini .btn-eliminar {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--rojo-alerta);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            cursor: pointer;
+            line-height: 18px;
+            text-align: center;
+        }
+
+        .btn-dorado {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--dorado-epico), #B8942E);
+            color: var(--negro-profundo);
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(201, 168, 76, 0.15);
+        }
+
+        .btn-dorado:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+        }
+
+        .btn-dorado:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-outline {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            color: var(--dorado-claro);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--dorado-epico);
+            background: rgba(201, 168, 76, 0.04);
+        }
+
+        .btn-peligro {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--rojo-alerta), #C0392B);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.2);
+        }
+
+        .btn-peligro:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-peligro:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-verde {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--verde-exito), #1E8449);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(46, 204, 113, 0.2);
+        }
+
+        .btn-verde:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(46, 204, 113, 0.3);
+        }
+
+        .acciones-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .mensaje {
+            font-size: 13px;
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .mensaje.error {
+            color: var(--rojo-alerta);
+            background: rgba(231, 76, 60, 0.06);
+        }
+
+        .mensaje.exito {
+            color: var(--verde-exito);
+            background: rgba(46, 204, 113, 0.06);
+        }
+
+        .mensaje.info {
+            color: var(--dorado-claro);
+            background: rgba(201, 168, 76, 0.04);
+        }
+
+        .mensaje.legal {
+            color: var(--dorado-epico);
+            background: rgba(201, 168, 76, 0.06);
+            border-left: 3px solid var(--dorado-epico);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0 10px;
+            color: var(--gris-calido);
+            font-size: 11px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .footer strong {
+            color: var(--dorado-epico);
+        }
+
+        .link {
+            display: block;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--gris-calido);
+            text-decoration: none;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .link:hover {
+            color: var(--dorado-claro);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--gris-calido);
+            margin: 8px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--dorado-epico);
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .header .user {
+                justify-content: center;
+            }
+            .page-title h1 {
+                font-size: 22px;
+            }
+            .acciones-grid {
+                grid-template-columns: 1fr;
+            }
+            .areas-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .card {
+                padding: 16px;
+            }
+            .input-group .input-con-foto {
+                flex-direction: column;
+            }
+            .input-group .input-con-foto input[type="file"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <header class="header">
+            <div class="logo">
+                LEGADO <span>· Trabajador</span>
+            </div>
+            <div class="user">
+                <span class="nombre" id="userName">👤 Usuario</span>
+                <span class="badge" id="userLevel">👷 Trabajador</span>
+                <button class="btn-logout" onclick="cerrarSesion()">Salir</button>
+            </div>
+        </header>
+
+        <!-- ===== TÍTULO ===== -->
+        <div class="page-title">
+            <h1>👷 <strong>Mi Área de Trabajo</strong></h1>
+            <p>Selecciona tu área, reporta riesgos y genera informes legales con evidencia verificada.</p>
+        </div>
+
+        <!-- ===== DATOS DEL REPORTE (GEOLOCALIZACIÓN + HORA) ===== -->
+        <div class="card" style="border-color: rgba(201, 168, 76, 0.15);">
+            <div class="card-title">
+                📋 Datos del reporte
+                <span class="badge-opcional">Evidencia verificada</span>
+            </div>
+
+            <div id="datosReporte">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                    <div style="background:var(--negro-profundo);padding:10px;border-radius:10px;border:1px solid rgba(201,168,76,0.06);">
+                        <span style="font-size:11px;color:var(--gris-calido);">📍 Ubicación</span>
+                        <div style="font-weight:600;font-size:14px;color:var(--dorado-epico);" id="ubicacionTexto">
+                            <span id="lat">-12.046374</span>, <span id="lng">-77.042793</span>
+                        </div>
+                    </div>
+                    <div style="background:var(--negro-profundo);padding:10px;border-radius:10px;border:1px solid rgba(201,168,76,0.06);">
+                        <span style="font-size:11px;color:var(--gris-calido);">🕐 Fecha y Hora</span>
+                        <div style="font-weight:600;font-size:14px;color:var(--dorado-epico);" id="fechaHoraTexto">
+                            <span id="fechaActual">04/07/2026</span> <span id="horaActual">15:30:25</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="background:var(--negro-profundo);padding:8px 12px;border-radius:10px;border:1px solid rgba(46,204,113,0.15);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                    <span style="font-size:14px;">✅</span>
+                    <span style="font-size:12px;color:var(--verde-exito);">Evidencia verificada y geolocalizada</span>
+                    <span style="font-size:11px;color:var(--gris-calido);margin-left:auto;">Código: <span id="codigoVerificacion">7F3A8B1C</span></span>
+                </div>
+            </div>
+
+            <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+                <button class="btn-outline" onclick="actualizarGeolocalizacion()" style="padding:8px;font-size:12px;flex:1;">
+                    🔄 Actualizar ubicación
+                </button>
+                <button class="btn-outline" onclick="actualizarHora()" style="padding:8px;font-size:12px;flex:1;">
+                    🕐 Actualizar hora
+                </button>
+            </div>
+        </div>
+
+        <!-- ===== PASO 1: ÁREA ===== -->
+        <div class="card">
+            <div class="card-title">
+                📍 Área de trabajo
+                <span class="badge-obligatorio">Obligatorio</span>
+            </div>
+            <div class="areas-grid" id="areaGrid">
+                <button class="btn-area" data-area="Almacén">
+                    <span class="emoji">📦</span> Almacén
+                </button>
+                <button class="btn-area" data-area="Producción">
+                    <span class="emoji">🏭</span> Producción
+                </button>
+                <button class="btn-area" data-area="Oficinas">
+                    <span class="emoji">🏢</span> Oficinas
+                </button>
+                <button class="btn-area" data-area="Mantenimiento">
+                    <span class="emoji">🔧</span> Mantenimiento
+                </button>
+                <button class="btn-area" data-area="Carga/Descarga">
+                    <span class="emoji">🚛</span> Carga/Descarga
+                </button>
+                <button class="btn-area" data-area="Otro" id="btnOtroArea">
+                    <span class="emoji">➕</span> Otro
+                </button>
+            </div>
+            <div class="input-group" id="inputOtroArea" style="display:none; margin-top: 10px;">
+                <label for="otroArea">Especifica tu área</label>
+                <input type="text" id="otroArea" placeholder="Ej: Zona de carga" />
+            </div>
+            <div style="margin-top: 10px;">
+                <label style="font-size:12px;color:var(--gris-calido);">Área seleccionada:</label>
+                <span id="areaSeleccionada" style="color:var(--dorado-epico);font-weight:600;">Ninguna</span>
+            </div>
+        </div>
+
+        <!-- ===== PASO 2: PUESTO ===== -->
+        <div class="card">
+            <div class="card-title">
+                🪪 Tu puesto
+                <span class="badge-opcional">Opcional pero recomendado</span>
+            </div>
+            <div class="input-group">
+                <label for="puesto">Escribe tu puesto o cargo</label>
+                <input type="text" id="puesto" placeholder="Ej: Almacenero de víveres frescos" />
+            </div>
+            <div class="input-group">
+                <label for="empresaNombre">Nombre de la empresa</label>
+                <input type="text" id="empresaNombre" placeholder="Ej: LEGADO CORPORATION S.A.C." />
+            </div>
+        </div>
+
+        <!-- ===== PASO 3: EVIDENCIA MÉDICA ===== -->
+        <div class="card" style="border-color: rgba(46, 204, 113, 0.15);">
+            <div class="card-title">
+                🏥 Evidencia médica
+                <span class="badge-opcional">Opcional pero recomendado</span>
+            </div>
+            <div class="input-group">
+                <label for="certificadoMedico">📄 Subir certificado médico</label>
+                <input type="file" id="certificadoMedico" accept=".pdf,.jpg,.jpeg,.png" />
+                <div style="font-size:12px;color:var(--gris-calido);margin-top:4px;">
+                    Sube tu certificado médico o restricción laboral si aplica.
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="restriccion">📝 Descripción de la restricción médica</label>
+                <textarea id="restriccion" placeholder="Ej: No puedo levantar más de 10 kg por hernia discal L4-L5, según certificado médico."></textarea>
+            </div>
+        </div>
+
+        <!-- ===== PASO 4: VERIFICAR ÁREA CON FOTOS ===== -->
+        <div class="card">
+            <div class="card-title">
+                📸 Verificar estado de tu área
+                <span class="badge-obligatorio">Recomendado</span>
+            </div>
+            <div class="input-group">
+                <label for="fotoInput">📷 Subir fotos de tu área</label>
+                <div class="input-con-foto">
+                    <input type="file" id="fotoInput" accept="image/*" multiple />
+                </div>
+                <div class="fotos-preview" id="fotosPreview"></div>
+                <div style="font-size:12px;color:var(--gris-calido);margin-top:4px;">
+                    Toma fotos de las condiciones de tu área. Esto será evidencia en tu reporte.
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="contexto">📝 Descripción del contexto</label>
+                <textarea id="contexto" placeholder="Describe lo que ves: condiciones inseguras, falta de señalización, equipos en mal estado, etc."></textarea>
+            </div>
+            <button class="btn-dorado" id="btnVerificar">🔍 Verificar área</button>
+        </div>
+
+        <!-- ===== PASO 5: RIESGOS DETECTADOS ===== -->
+        <div class="card" id="cardRiesgos">
+            <div class="card-title">
+                🚨 Riesgos detectados
+                <span class="badge-opcional" id="riesgosCount">0 riesgos</span>
+            </div>
+            <div id="riesgosLista">
+                <div class="mensaje info">
+                    ⚠️ Verifica tu área para detectar riesgos automáticamente.
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PASO 6: ACCIONES ===== -->
+        <div class="card">
+            <div class="card-title">
+                ⚡ Acciones disponibles
+                <span class="badge-opcional">Genera informes con peso legal</span>
+            </div>
+
+            <div class="acciones-grid">
+                <button class="btn-dorado" id="btnGenerarInforme" disabled>
+                    📜 Generar informe de riesgos
+                </button>
+                <button class="btn-peligro" id="btnNegarseTrabajar" disabled>
+                    🛑 Negarse a trabajar
+                </button>
+                <button class="btn-outline" id="btnReporteAnonimo" disabled>
+                    🕵️ Reporte anónimo a entes fiscalizadores
+                </button>
+                <button class="btn-verde" id="btnDescargarPDF" disabled>
+                    📥 Descargar informe (PDF)
+                </button>
+            </div>
+
+            <div class="mensaje" id="mensaje"></div>
+        </div>
+
+        <!-- ===== ENLACE VOLVER ===== -->
+        <a href="dashboard.html" class="link">🏛️ Volver al Dashboard</a>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="footer">
+            ⚡ <strong>LEGADO</strong> · Seguridad Laboral Automática · v1.0
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================
+        //  ESTADO
+        // ============================================
+        let areaSeleccionada = '';
+        let fotosSubidas = [];
+        let certificadoSubido = null;
+        let riesgosDetectados = [];
+        let areaVerificada = false;
+        let usuario = {};
+
+        // ============================================
+        //  CARGAR USUARIO
+        // ============================================
+        function cargarUsuario() {
+            const sesion = JSON.parse(localStorage.getItem('legado_sesion'));
+            if (!sesion) {
+                window.location.href = 'index.html';
+                return;
+            }
+            usuario = sesion;
+            document.getElementById('userName').textContent = '👤 ' + sesion.nombre;
+            const niveles = {
+                'trabajador': '👷 Trabajador',
+                'empresa': '🏢 Empresa',
+                'especialista': '👨‍🔬 Especialista SST',
+                'gubernamental': '🏛️ Gubernamental'
+            };
+            document.getElementById('userLevel').textContent = niveles[sesion.nivel] || sesion.nivel;
+        }
+
+        // ============================================
+        //  GEOLOCALIZACIÓN Y HORA
+        // ============================================
+
+        function actualizarGeolocalizacion() {
+            const msg = document.getElementById('mensaje');
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude.toFixed(6);
+                        const lng = position.coords.longitude.toFixed(6);
+                        document.getElementById('lat').textContent = lat;
+                        document.getElementById('lng').textContent = lng;
+                        document.getElementById('ubicacionTexto').style.color = 'var(--verde-exito)';
+                        msg.textContent = '✅ Ubicación actualizada: ' + lat + ', ' + lng;
+                        msg.className = 'mensaje exito';
+                    },
+                    function(error) {
+                        msg.textContent = '⚠️ No se pudo obtener la ubicación. Usando ubicación predeterminada.';
+                        msg.className = 'mensaje info';
+                        console.warn('Error de geolocalización:', error);
+                    }
+                );
+            } else {
+                msg.textContent = '⚠️ Tu navegador no soporta geolocalización. Usando ubicación predeterminada.';
+                msg.className = 'mensaje info';
+            }
+        }
+
+        function actualizarHora() {
+            const ahora = new Date();
+            const fecha = ahora.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            const hora = ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('fechaActual').textContent = fecha;
+            document.getElementById('horaActual').textContent = hora;
+            document.getElementById('fechaHoraTexto').style.color = 'var(--verde-exito)';
+        }
+
+        function generarCodigoVerificacion() {
+            const chars = '0123456789ABCDEF';
+            let code = '';
+            for (let i = 0; i < 8; i++) {
+                code += chars[Math.floor(Math.random() * 16)];
+            }
+            return code;
+        }
+
+        // ============================================
+        //  ÁREA
+        // ============================================
+        document.querySelectorAll('.btn-area').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.btn-area').forEach(b => b.classList.remove('seleccionada'));
+                this.classList.add('seleccionada');
+
+                const area = this.dataset.area;
+                if (area === 'Otro') {
+                    document.getElementById('inputOtroArea').style.display = 'block';
+                    document.getElementById('areaSeleccionada').textContent = 'Otro (especificar)';
+                    areaSeleccionada = 'Otro';
+                } else {
+                    document.getElementById('inputOtroArea').style.display = 'none';
+                    document.getElementById('areaSeleccionada').textContent = area;
+                    areaSeleccionada = area;
+                }
+            });
+        });
+
+        document.getElementById('otroArea').addEventListener('input', function() {
+            if (this.value.trim()) {
+                areaSeleccionada = 'Otro: ' + this.value.trim();
+                document.getElementById('areaSeleccionada').textContent = areaSeleccionada;
+            }
+        });
+
+        // ============================================
+        //  CERTIFICADO MÉDICO
+        // ============================================
+        document.getElementById('certificadoMedico').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                certificadoSubido = e.target.files[0];
+                const msg = document.getElementById('mensaje');
+                msg.textContent = '✅ Certificado médico cargado: ' + certificadoSubido.name;
+                msg.className = 'mensaje exito';
+            }
+        });
+
+        // ============================================
+        //  FOTOS
+        // ============================================
+        document.getElementById('fotoInput').addEventListener('change', function(e) {
+            const files = e.target.files;
+            const preview = document.getElementById('fotosPreview');
+            fotosSubidas = [];
+            preview.innerHTML = '';
+
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    const div = document.createElement('div');
+                    div.className = 'foto-mini';
+                    div.style.backgroundImage = `url(${ev.target.result})`;
+                    div.style.backgroundSize = 'cover';
+                    div.style.backgroundPosition = 'center';
+                    const btn = document.createElement('button');
+                    btn.className = 'btn-eliminar';
+                    btn.textContent = '×';
+                    btn.onclick = function(e) {
+                        e.stopPropagation();
+                        div.remove();
+                        fotosSubidas = fotosSubidas.filter((_, idx) => idx !== i);
+                        if (fotosSubidas.length === 0) {
+                            document.getElementById('btnGenerarInforme').disabled = true;
+                            document.getElementById('btnNegarseTrabajar').disabled = true;
+                            document.getElementById('btnReporteAnonimo').disabled = true;
+                        }
+                    };
+                    div.appendChild(btn);
+                    preview.appendChild(div);
+                };
+                reader.readAsDataURL(files[i]);
+                fotosSubidas.push(files[i].name);
+            }
+
+            if (fotosSubidas.length > 0) {
+                document.getElementById('btnGenerarInforme').disabled = false;
+                document.getElementById('btnNegarseTrabajar').disabled = false;
+                document.getElementById('btnReporteAnonimo').disabled = false;
+                document.getElementById('btnDescargarPDF').disabled = false;
+            }
+        });
+
+        // ============================================
+        //  VERIFICAR ÁREA
+        // ============================================
+        document.getElementById('btnVerificar').addEventListener('click', function() {
+            const contexto = document.getElementById('contexto').value.trim();
+            const msg = document.getElementById('mensaje');
+
+            if (!areaSeleccionada) {
+                msg.textContent = '✖ Selecciona un área de trabajo';
+                msg.className = 'mensaje error';
+                return;
+            }
+
+            if (fotosSubidas.length === 0 && !contexto) {
+                msg.textContent = '⚠️ Sube al menos una foto o agrega descripción para verificar tu área.';
+                msg.className = 'mensaje info';
+                return;
+            }
+
+            const riesgosPorArea = {
+                'Almacén': [
+                    { titulo: 'Escalera en mal estado', desc: 'Peldaños rotos, falta antideslizante', nivel: 'critico' },
+                    { titulo: 'Falta de señalización', desc: 'Zona sin señales de peligro', nivel: 'medio' },
+                    { titulo: 'Piso resbaladizo', desc: 'Derrames sin limpiar', nivel: 'critico' }
+                ],
+                'Producción': [
+                    { titulo: 'Máquina sin protección', desc: 'Falta de guardas de seguridad', nivel: 'critico' },
+                    { titulo: 'Ventilación deficiente', desc: 'Acumulación de polvo', nivel: 'medio' }
+                ],
+                'Oficinas': [
+                    { titulo: 'Cables sueltos', desc: 'Riesgo de tropiezo', nivel: 'medio' },
+                    { titulo: 'Mobiliario en mal estado', desc: 'Sillas rotas', nivel: 'bajo' }
+                ],
+                'Mantenimiento': [
+                    { titulo: 'Herramientas sin mantenimiento', desc: 'Equipos desgastados', nivel: 'medio' },
+                    { titulo: 'Falta de EPP', desc: 'Sin guantes ni lentes', nivel: 'critico' }
+                ],
+                'Carga/Descarga': [
+                    { titulo: 'Sobrecarga de peso', desc: 'Productos apilados incorrectamente', nivel: 'critico' },
+                    { titulo: 'Falta de señalización', desc: 'Zona de carga sin señales', nivel: 'medio' }
+                ],
+                'Otro': [
+                    { titulo: 'Riesgo no específico', desc: 'Condiciones inseguras detectadas', nivel: 'medio' }
+                ]
+            };
+
+            const riesgos = riesgosPorArea[areaSeleccionada] || riesgosPorArea['Otro'];
+            riesgosDetectados = riesgos.slice(0, 2 + Math.floor(Math.random()));
+            areaVerificada = true;
+
+            const lista = document.getElementById('riesgosLista');
+            lista.innerHTML = '';
+            if (riesgosDetectados.length === 0) {
+                lista.innerHTML = `
+                    <div class="mensaje exito">
+                        ✅ No se detectaron riesgos en tu área. ¡Sigue así!
+                    </div>
+                `;
+            } else {
+                riesgosDetectados.forEach(r => {
+                    const div = document.createElement('div');
+                    div.className = 'alerta-item';
+                    div.style.cssText = 'display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04);';
+                    const icono = r.nivel === 'critico' ? '🔴' : r.nivel === 'medio' ? '🟡' : '🟢';
+                    const estadoLabel = r.nivel === 'critico' ? 'CRÍTICO' : r.nivel === 'medio' ? 'MEDIO' : 'BAJO';
+                    div.innerHTML = `
+                        <span style="font-size:18px;">${icono}</span>
+                        <div style="flex:1;">
+                            <div style="font-weight:600;font-size:14px;">${r.titulo}</div>
+                            <div style="font-size:13px;color:var(--gris-calido);">${r.desc}</div>
+                        </div>
+                        <span style="font-size:12px;font-weight:700;padding:2px 10px;border-radius:10px;background:${r.nivel === 'critico' ? 'rgba(231,76,60,0.15)' : r.nivel === 'medio' ? 'rgba(230,126,34,0.15)' : 'rgba(46,204,113,0.15)'};color:${r.nivel === 'critico' ? 'var(--rojo-alerta)' : r.nivel === 'medio' ? 'var(--naranja)' : 'var(--verde-exito)'};">${estadoLabel}</span>
+                    `;
+                    lista.appendChild(div);
+                });
+            }
+
+            document.getElementById('riesgosCount').textContent = riesgosDetectados.length + ' riesgos';
+            document.getElementById('btnGenerarInforme').disabled = false;
+            document.getElementById('btnNegarseTrabajar').disabled = false;
+            document.getElementById('btnReporteAnonimo').disabled = false;
+            document.getElementById('btnDescargarPDF').disabled = false;
+
+            msg.textContent = '✅ Área verificada. Se detectaron ' + riesgosDetectados.length + ' riesgos.';
+            msg.className = 'mensaje exito';
+        });
+
+        // ============================================
+        //  GENERAR INFORME DE RIESGOS
+        // ============================================
+        document.getElementById('btnGenerarInforme').addEventListener('click', function() {
+            const area = document.getElementById('areaSeleccionada').textContent;
+            const puesto = document.getElementById('puesto').value.trim() || 'No especificado';
+            const empresa = document.getElementById('empresaNombre').value.trim() || 'No especificada';
+            const contexto = document.getElementById('contexto').value.trim() || 'Sin descripción';
+            const restriccion = document.getElementById('restriccion').value.trim() || 'No se reportaron restricciones';
+            const certificado = certificadoSubido ? certificadoSubido.name : 'No se cargó certificado';
+            const fotos = fotosSubidas.length > 0 ? fotosSubidas.join(', ') : 'Sin fotos';
+
+            const lat = document.getElementById('lat').textContent;
+            const lng = document.getElementById('lng').textContent;
+            const fecha = document.getElementById('fechaActual').textContent;
+            const hora = document.getElementById('horaActual').textContent;
+            const codigo = document.getElementById('codigoVerificacion').textContent;
+
+            const riesgosList = riesgosDetectados.map(r => `- ${r.titulo} (${r.nivel.toUpperCase()})`).join('\n');
+
+            const msg = document.getElementById('mensaje');
+            msg.innerHTML = `
+                ✅ <strong>Informe de riesgos generado</strong><br><br>
+                📍 <strong>Ubicación:</strong> ${lat}, ${lng}<br>
+                🕐 <strong>Fecha y Hora:</strong> ${fecha} ${hora}<br>
+                📄 <strong>Código de verificación:</strong> ${codigo}<br><br>
+                📌 <strong>Trabajador:</strong> ${usuario.nombre} (DNI: ${usuario.dni || 'No registrado'})<br>
+                📌 <strong>Empresa:</strong> ${empresa}<br>
+                📌 <strong>Área:</strong> ${area}<br>
+                📌 <strong>Puesto:</strong> ${puesto}<br>
+                📌 <strong>Restricción médica:</strong> ${restriccion}<br>
+                📌 <strong>Certificado médico:</strong> ${certificado}<br>
+                📌 <strong>Fotos:</strong> ${fotos}<br>
+                📌 <strong>Contexto:</strong> ${contexto}<br>
+                📌 <strong>Riesgos detectados:</strong><br>${riesgosList.replace(/\n/g, '<br>')}<br><br>
+                ⚖️ <strong>Base legal:</strong> Art. 25 - Ley N° 29783<br><br>
+                <a href="#" id="descargarLink" style="color:var(--dorado-epico);">📥 Descargar informe PDF</a>
+            `;
+            msg.className = 'mensaje legal';
+
+            document.getElementById('descargarLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('📄 Informe PDF generado (simulación)\n\n' +
+                    '📍 Ubicación: ' + lat + ', ' + lng + '\n' +
+                    '🕐 Fecha: ' + fecha + ' ' + hora + '\n' +
+                    '📄 Código: ' + codigo + '\n\n' +
+                    'Este informe tiene validez legal y puede ser presentado ante el empleador o SUNAFIL.');
+            });
+        });
+
+        // ============================================
+        //  NEGARSE A TRABAJAR
+        // ============================================
+        document.getElementById('btnNegarseTrabajar').addEventListener('click', function() {
+            const area = document.getElementById('areaSeleccionada').textContent;
+            const puesto = document.getElementById('puesto').value.trim() || 'No especificado';
+            const restriccion = document.getElementById('restriccion').value.trim() || 'Sin restricciones reportadas';
+            const lat = document.getElementById('lat').textContent;
+            const lng = document.getElementById('lng').textContent;
+            const fecha = document.getElementById('fechaActual').textContent;
+            const hora = document.getElementById('horaActual').textContent;
+            const codigo = document.getElementById('codigoVerificacion').textContent;
+
+            const riesgosList = riesgosDetectados.map(r => `- ${r.titulo} (${r.nivel.toUpperCase()})`).join('\n');
+
+            const msg = document.getElementById('mensaje');
+            msg.innerHTML = `
+                🛑 <strong>CARTA DE NEGATIVA LABORAL</strong><br><br>
+                📍 <strong>Ubicación:</strong> ${lat}, ${lng}<br>
+                🕐 <strong>Fecha y Hora:</strong> ${fecha} ${hora}<br>
+                📄 <strong>Código de verificación:</strong> ${codigo}<br><br>
+                <strong>Trabajador:</strong> ${usuario.nombre}<br>
+                <strong>DNI:</strong> ${usuario.dni || 'No registrado'}<br>
+                <strong>Puesto:</strong> ${puesto}<br>
+                <strong>Área:</strong> ${area}<br><br>
+                <strong>Evidencia médica:</strong> ${restriccion}<br>
+                <strong>Certificado médico:</strong> ${certificadoSubido ? '✅ Adjunto' : '❌ No adjuntado'}<br><br>
+                <strong>Riesgos que fundamentan la negativa:</strong><br>${riesgosList.replace(/\n/g, '<br>')}<br><br>
+                <strong>Base legal:</strong><br>
+                ⚖️ Art. 25 - Ley N° 29783: Derecho a la negativa en caso de riesgo grave e inminente.<br>
+                ⚖️ Art. 26 - Ley N° 29783: Protección contra represalias.<br><br>
+                <strong>Notificación:</strong><br>
+                Por la presente, me <strong>NEGO</strong> a realizar las tareas asignadas hasta que se corrijan los riesgos identificados.<br><br>
+                <strong>Copia a:</strong><br>
+                ✅ SUNAFIL - Superintendencia Nacional de Fiscalización Laboral<br>
+                ✅ Ministerio de Trabajo y Promoción del Empleo<br><br>
+                <a href="#" id="descargarNegativaLink" style="color:var(--dorado-epico);">📥 Descargar Carta de Negativa (PDF)</a>
+            `;
+            msg.className = 'mensaje legal';
+
+            document.getElementById('descargarNegativaLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('📄 Carta de Negativa generada (simulación)\n\n' +
+                    '📍 Ubicación: ' + lat + ', ' + lng + '\n' +
+                    '🕐 Fecha: ' + fecha + ' ' + hora + '\n' +
+                    '📄 Código: ' + codigo + '\n\n' +
+                    'Este documento tiene validez legal y protege al trabajador contra represalias.\n' +
+                    'Art. 25 y 26 - Ley N° 29783.');
+            });
+        });
+
+        // ============================================
+        //  REPORTE ANÓNIMO
+        // ============================================
+        document.getElementById('btnReporteAnonimo').addEventListener('click', function() {
+            const area = document.getElementById('areaSeleccionada').textContent;
+            const lat = document.getElementById('lat').textContent;
+            const lng = document.getElementById('lng').textContent;
+            const fecha = document.getElementById('fechaActual').textContent;
+            const hora = document.getElementById('horaActual').textContent;
+
+            const msg = document.getElementById('mensaje');
+            msg.innerHTML = `
+                🕵️ <strong>REPORTE ANÓNIMO A ENTES FISCALIZADORES</strong><br><br>
+                📍 <strong>Ubicación:</strong> ${lat}, ${lng}<br>
+                🕐 <strong>Fecha y Hora:</strong> ${fecha} ${hora}<br>
+                📌 <strong>Área:</strong> ${area}<br>
+                📌 <strong>Riesgos detectados:</strong><br>
+                ${riesgosDetectados.map(r => `- ${r.titulo} (${r.nivel.toUpperCase()})`).join('<br>')}<br><br>
+                <strong>✅ El trabajador se mantiene en ANONIMATO</strong><br><br>
+                <strong>Entidades notificadas:</strong><br>
+                ✅ SUNAFIL - Superintendencia Nacional de Fiscalización Laboral<br>
+                ✅ Ministerio de Trabajo y Promoción del Empleo<br><br>
+                📄 <strong>Código de seguimiento:</strong> ${generarCodigoVerificacion()}<br><br>
+                <a href="#" id="descargarAnonimoLink" style="color:var(--dorado-epico);">📥 Descargar reporte anónimo (PDF)</a>
+            `;
+            msg.className = 'mensaje legal';
+
+            document.getElementById('descargarAnonimoLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('📄 Reporte Anónimo generado (simulación)\n\n' +
+                    '📍 Ubicación: ' + lat + ', ' + lng + '\n' +
+                    '🕐 Fecha: ' + fecha + ' ' + hora + '\n\n' +
+                    '✅ El trabajador se mantiene en ANONIMATO.\n' +
+                    '📄 Código de seguimiento: ' + generarCodigoVerificacion() + '\n\n' +
+                    'Notificado a SUNAFIL y Ministerio de Trabajo.');
+            });
+        });
+
+        // ============================================
+        //  DESCARGAR PDF (SIMULACIÓN)
+        // ============================================
+        document.getElementById('btnDescargarPDF').addEventListener('click', function() {
+            const lat = document.getElementById('lat').textContent;
+            const lng = document.getElementById('lng').textContent;
+            const fecha = document.getElementById('fechaActual').textContent;
+            const hora = document.getElementById('horaActual').textContent;
+            const codigo = document.getElementById('codigoVerificacion').textContent;
+
+            alert('📄 PDF generado (simulación)\n\n' +
+                '📍 Ubicación: ' + lat + ', ' + lng + '\n' +
+                '🕐 Fecha: ' + fecha + ' ' + hora + '\n' +
+                '📄 Código de verificación: ' + codigo + '\n\n' +
+                '✅ Informe descargado con éxito.\n' +
+                '📌 El PDF contiene toda la evidencia y tiene peso legal.');
+        });
+
+        // ============================================
+        //  CERRAR SESIÓN
+        // ============================================
+        function cerrarSesion() {
+            localStorage.removeItem('legado_sesion');
+            window.location.href = 'index.html';
+        }
+
+        // ============================================
+        //  INICIO
+        // ============================================
+        cargarUsuario();
+
+        // Generar código de verificación al cargar
+        document.getElementById('codigoVerificacion').textContent = generarCodigoVerificacion();
+
+        // Actualizar hora cada 30 segundos
+        setInterval(actualizarHora, 30000);
+
+        // Solicitar ubicación al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(actualizarGeolocalizacion, 1000);
+        });
+
+        console.log('👷 LEGADO - Ventana del Trabajador (con geolocalización y hora)');
+    </script>
+
+</body>
+</html>
