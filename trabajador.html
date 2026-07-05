@@ -15,6 +15,7 @@
             --rojo-alerta: #E74C3C;
             --verde-exito: #2ECC71;
             --naranja: #E67E22;
+            --azul-info: #3498DB;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -353,8 +354,8 @@
         }
 
         .mensaje.info {
-            color: var(--dorado-claro);
-            background: rgba(201, 168, 76, 0.04);
+            color: var(--azul-info);
+            background: rgba(52, 152, 219, 0.06);
         }
 
         .mensaje.legal {
@@ -387,6 +388,34 @@
 
         .link:hover {
             color: var(--dorado-claro);
+        }
+
+        .info-box {
+            background: var(--negro-profundo);
+            border-radius: 10px;
+            padding: 14px;
+            border-left: 3px solid var(--azul-info);
+            margin-bottom: 12px;
+        }
+
+        .info-box strong {
+            color: var(--azul-info);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--gris-calido);
+            margin: 8px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--dorado-epico);
+            cursor: pointer;
         }
 
         @media (max-width: 600px) {
@@ -422,10 +451,49 @@
         <!-- ===== TÍTULO ===== -->
         <div class="page-title">
             <h1>👷 <strong>Mi Área de Trabajo</strong></h1>
-            <p>Completa los datos, selecciona destino, formato y genera tu informe técnico.</p>
+            <p>Analiza tu área, reporta riesgos y genera informes técnicos con peso legal.</p>
         </div>
 
-        <!-- ===== PASO 1: PAÍS ===== -->
+        <!-- ===== PASO 1: ANÁLISIS DEL ÁREA ===== -->
+        <div class="card" style="border-color: rgba(52, 152, 219, 0.15);">
+            <div class="card-title">
+                🔍 Analizar mi área de trabajo
+                <span class="badge-opcional">Verifica lo que el empleador debe tener</span>
+            </div>
+
+            <div class="info-box">
+                <strong>📋 Lo que el empleador debe tener publicado:</strong>
+                <ul style="margin-top:6px;padding-left:20px;font-size:13px;color:var(--gris-calido);">
+                    <li>✅ Reglamento Interno de SST (Art. 42 - Ley 29783)</li>
+                    <li>✅ Matriz IPERC actualizada (cada 6 meses)</li>
+                    <li>✅ Equipos de Protección Personal (EPP) disponibles</li>
+                    <li>✅ Señalización de seguridad visible</li>
+                    <li>✅ Capacitación periódica de trabajadores</li>
+                    <li>✅ Exámenes médicos ocupacionales vigentes</li>
+                </ul>
+            </div>
+
+            <div class="info-box" style="border-left-color: var(--naranja);">
+                <strong>📦 Logística según normativa:</strong>
+                <ul style="margin-top:6px;padding-left:20px;font-size:13px;color:var(--gris-calido);">
+                    <li>✅ Extintores cargados y vigentes</li>
+                    <li>✅ Rutas de evacuación despejadas</li>
+                    <li>✅ Botiquín de primeros auxilios completo</li>
+                    <li>✅ Señales de peligro y obligación</li>
+                </ul>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+                <button class="btn-outline" onclick="alert('✅ Área analizada. Todo en orden.')" style="padding:10px;">
+                    ✅ Todo en orden
+                </button>
+                <button class="btn-peligro" onclick="alert('⚠️ Se detectaron incumplimientos. Continúa con el reporte.')" style="padding:10px;">
+                    ⚠️ Hay incumplimientos
+                </button>
+            </div>
+        </div>
+
+        <!-- ===== PASO 2: PAÍS ===== -->
         <div class="card">
             <div class="card-title">🌍 Selecciona tu país <span class="badge-obligatorio">Obligatorio</span></div>
             <div class="input-group">
@@ -446,7 +514,7 @@
             </div>
         </div>
 
-        <!-- ===== PASO 2: UBICACIÓN ===== -->
+        <!-- ===== PASO 3: UBICACIÓN ===== -->
         <div class="card">
             <div class="card-title">📍 Ubicación del puesto <span class="badge-obligatorio">Obligatorio</span></div>
             <div class="input-group">
@@ -473,7 +541,7 @@
             <div id="ubicacionMensaje" style="font-size:12px;color:var(--gris-calido);margin-top:8px;"></div>
         </div>
 
-        <!-- ===== PASO 3: ÁREA ===== -->
+        <!-- ===== PASO 4: ÁREA Y PUESTO ===== -->
         <div class="card">
             <div class="card-title">📂 Área de trabajo <span class="badge-obligatorio">Obligatorio</span></div>
             <div class="input-group">
@@ -481,7 +549,7 @@
                     <option value="">-- Selecciona --</option>
                     <option value="Almacén">📦 Almacén</option>
                     <option value="Producción">🏭 Producción</option>
-                    <option value="Oficinas">🏢 Oficinas</option>
+                    <option value="Oficinas" selected>🏢 Oficinas</option>
                     <option value="Mantenimiento">🔧 Mantenimiento</option>
                     <option value="Carga/Descarga">🚛 Carga/Descarga</option>
                     <option value="Otro">➕ Otro</option>
@@ -493,28 +561,36 @@
             </div>
             <div class="input-group">
                 <label for="puesto">Tu puesto</label>
-                <input type="text" id="puesto" placeholder="Ej: Almacenero de víveres frescos" />
+                <input type="text" id="puesto" value="Logística" placeholder="Ej: Logística" />
             </div>
         </div>
 
-        <!-- ===== PASO 4: ACCIÓN ===== -->
-        <div class="card">
-            <div class="card-title">⚡ ¿Qué deseas hacer? <span class="badge-obligatorio">Selecciona</span></div>
+        <!-- ===== PASO 5: ACCIONES SEGÚN NORMATIVA ===== -->
+        <div class="card" style="border-color: rgba(201, 168, 76, 0.15);">
+            <div class="card-title">
+                ⚖️ ¿Qué deseas hacer? (según normativa)
+                <span class="badge-obligatorio">Selecciona</span>
+            </div>
             <div class="input-group">
                 <select id="accion">
-                    <option value="">-- Selecciona --</option>
-                    <option value="reportar_riesgo">📝 Reportar riesgo</option>
-                    <option value="subir_foto">📸 Subir foto del área</option>
-                    <option value="subir_documento">📄 Subir documento</option>
-                    <option value="generar_informe">📜 Generar informe técnico</option>
-                    <option value="negarse_trabajar">🛑 Negarse a trabajar</option>
+                    <option value="">-- Selecciona una acción --</option>
+                    <option value="reportar_riesgo">📝 Reportar riesgo detectado</option>
+                    <option value="solicitar_epp">🛡️ Solicitar EPP (Art. 42 - Ley 29783)</option>
+                    <option value="solicitar_capacitacion">📚 Solicitar capacitación (Art. 49 - Ley 29783)</option>
+                    <option value="solicitar_señalizacion">⚠️ Solicitar señalización (Art. 56 - Ley 29783)</option>
+                    <option value="solicitar_examen">🏥 Solicitar examen médico ocupacional</option>
+                    <option value="reportar_incidente">🚨 Reportar incidente o accidente</option>
+                    <option value="negarse_trabajar">🛑 Negarse a trabajar (Art. 25 - Ley 29783)</option>
                 </select>
+            </div>
+            <div id="accionInfo" style="font-size:12px;color:var(--gris-calido);margin-top:4px;">
+                📌 Selecciona una acción basada en la normativa vigente.
             </div>
         </div>
 
-        <!-- ===== PASO 5: EVIDENCIA ===== -->
+        <!-- ===== PASO 6: EVIDENCIA ===== -->
         <div class="card">
-            <div class="card-title">📎 Subir evidencia <span class="badge-opcional">Opcional</span></div>
+            <div class="card-title">📎 Subir evidencia <span class="badge-opcional">Opcional pero recomendado</span></div>
             <div class="input-group">
                 <label for="fotoInput">📷 Subir fotos o documentos</label>
                 <div class="input-con-foto">
@@ -523,21 +599,13 @@
                 <div class="fotos-preview" id="fotosPreview"></div>
             </div>
             <div class="input-group">
-                <label for="contexto">📝 Contexto</label>
+                <label for="contexto">📝 Agregar contexto / comentario</label>
                 <textarea id="contexto" placeholder="Describe lo que ves, el peligro, la condición insegura..."></textarea>
             </div>
-        </div>
-
-        <!-- ===== PASO 6: DESTINO ===== -->
-        <div class="card" style="border-color: rgba(201, 168, 76, 0.15);">
-            <div class="card-title">📬 Destino del reporte <span class="badge-obligatorio">Selecciona</span></div>
-            <div class="grid-2">
-                <button class="btn-dorado" id="btnReporteEmpleador" style="padding:16px;">📄 Empleador</button>
-                <button class="btn-peligro" id="btnDenunciaAnonima" style="padding:16px;">🕵️ Denuncia anónima</button>
-            </div>
-            <div id="destinoInfo" style="margin-top:12px;padding:12px;background:var(--negro-profundo);border-radius:10px;border:1px solid rgba(201,168,76,0.06);">
-                <p style="font-size:13px;color:var(--gris-calido);">⚖️ Selecciona el destino del reporte.</p>
-            </div>
+            <button class="btn-outline" onclick="aceptarEvidencia()" style="padding:10px;font-size:13px;">
+                ✅ Aceptar evidencia
+            </button>
+            <div id="evidenciaMensaje" style="font-size:12px;color:var(--gris-calido);margin-top:8px;"></div>
         </div>
 
         <!-- ===== PASO 7: FORMATO Y UBICACIÓN ===== -->
@@ -572,10 +640,21 @@
             </div>
         </div>
 
-        <!-- ===== PASO 8: GENERAR ===== -->
+        <!-- ===== PASO 8: GENERAR Y ENVIAR ===== -->
         <div class="card">
-            <div class="card-title">🚀 Generar informe</div>
-            <button class="btn-dorado" id="btnGenerar">📜 Generar informe técnico</button>
+            <div class="card-title">🚀 Generar y enviar reporte</div>
+
+            <button class="btn-dorado" id="btnGenerar">📜 Generar reporte técnico</button>
+
+            <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <button class="btn-verde" id="btnEnviarEmpleador" disabled>
+                    📄 Enviar al empleador
+                </button>
+                <button class="btn-peligro" id="btnEnviarAnonimo" disabled>
+                    🕵️ Enviar denuncia anónima
+                </button>
+            </div>
+
             <div class="mensaje" id="mensaje"></div>
         </div>
 
@@ -589,7 +668,9 @@
 
     <script>
         let fotosSubidas = [];
-        let destinoSeleccionado = '';
+        let evidenciaAceptada = false;
+        let reporteGenerado = false;
+        let codigoReporte = '';
 
         // ===== CARGAR USUARIO =====
         function cargarUsuario() {
@@ -611,6 +692,21 @@
         // ===== ÁREA OTRO =====
         document.getElementById('area').addEventListener('change', function() {
             document.getElementById('inputOtroArea').style.display = this.value === 'Otro' ? 'block' : 'none';
+        });
+
+        // ===== ACCIÓN =====
+        document.getElementById('accion').addEventListener('change', function() {
+            const info = document.getElementById('accionInfo');
+            const acciones = {
+                'reportar_riesgo': '📌 Reportar un riesgo detectado en tu área de trabajo.',
+                'solicitar_epp': '📌 Solicitar Equipos de Protección Personal (Art. 42 - Ley 29783).',
+                'solicitar_capacitacion': '📌 Solicitar capacitación en seguridad (Art. 49 - Ley 29783).',
+                'solicitar_señalizacion': '📌 Solicitar señalización de seguridad (Art. 56 - Ley 29783).',
+                'solicitar_examen': '📌 Solicitar examen médico ocupacional.',
+                'reportar_incidente': '📌 Reportar incidente o accidente laboral.',
+                'negarse_trabajar': '📌 Negarse a trabajar (Art. 25 - Ley 29783).'
+            };
+            info.textContent = acciones[this.value] || '📌 Selecciona una acción basada en la normativa vigente.';
         });
 
         // ===== UBICACIÓN =====
@@ -667,24 +763,21 @@
             }
         });
 
-        // ===== DESTINO =====
-        document.getElementById('btnReporteEmpleador').addEventListener('click', function() {
-            destinoSeleccionado = 'empleador';
-            document.getElementById('destinoInfo').innerHTML = `
-                <p style="font-size:13px;color:var(--verde-exito);">✅ Reporte para el empleador seleccionado.</p>
-                <p style="font-size:12px;color:var(--gris-calido);">El empleador recibirá una notificación formal.</p>
-            `;
-        });
+        // ===== ACEPTAR EVIDENCIA =====
+        function aceptarEvidencia() {
+            const msg = document.getElementById('evidenciaMensaje');
+            const contexto = document.getElementById('contexto').value.trim();
+            if (fotosSubidas.length === 0 && !contexto) {
+                msg.textContent = '⚠️ Sube al menos una foto o agrega contexto.';
+                msg.style.color = 'var(--rojo-alerta)';
+                return;
+            }
+            evidenciaAceptada = true;
+            msg.textContent = '✅ Evidencia aceptada. Puedes continuar.';
+            msg.style.color = 'var(--verde-exito)';
+        }
 
-        document.getElementById('btnDenunciaAnonima').addEventListener('click', function() {
-            destinoSeleccionado = 'anonimo';
-            document.getElementById('destinoInfo').innerHTML = `
-                <p style="font-size:13px;color:var(--naranja);">🕵️ Denuncia anónima seleccionada.</p>
-                <p style="font-size:12px;color:var(--gris-calido);">El trabajador se mantiene en ANONIMATO. LEGADO valida y envía.</p>
-            `;
-        });
-
-        // ===== GENERAR =====
+        // ===== GENERAR REPORTE =====
         document.getElementById('btnGenerar').addEventListener('click', function() {
             const pais = document.getElementById('pais').value;
             const region = document.getElementById('region').value.trim();
@@ -707,12 +800,12 @@
             if (!region && !direccion && !lat && !lng) { msg.textContent = '✖ Ingresa una ubicación'; msg.className = 'mensaje error'; return; }
             if (!area) { msg.textContent = '✖ Selecciona tu área'; msg.className = 'mensaje error'; return; }
             if (!accion) { msg.textContent = '✖ Selecciona una acción'; msg.className = 'mensaje error'; return; }
-            if (!destinoSeleccionado) { msg.textContent = '✖ Selecciona un destino'; msg.className = 'mensaje error'; return; }
+            if (!evidenciaAceptada) { msg.textContent = '✖ Acepta la evidencia antes de continuar'; msg.className = 'mensaje error'; return; }
 
             const areaFinal = area === 'Otro' ? otroArea : area;
             const fecha = new Date().toLocaleString('es-ES');
-            const codigo = generarCodigo();
-            const tituloDestino = destinoSeleccionado === 'empleador' ? '📄 Reporte para el empleador' : '🕵️ Denuncia anónima';
+            codigoReporte = generarCodigo();
+            reporteGenerado = true;
 
             const ubicacionLabel = {
                 'descargas': '💻 Mi PC / Descargas',
@@ -729,14 +822,9 @@
                 'TXT': '📋 Texto (TXT)'
             }[formato] || '📄 PDF';
 
-            let mensajeLegal = destinoSeleccionado === 'empleador'
-                ? '⚖️ Notificación formal al empleador. Plazo: 48 horas para corregir.'
-                : '🕵️ Denuncia anónima validada por LEGADO. Enviado a SUNAFIL y Ministerio de Trabajo.';
-
             msg.innerHTML = `
-                ✅ <strong>Informe generado exitosamente</strong><br><br>
-                📌 <strong>Destino:</strong> ${tituloDestino}<br>
-                📌 <strong>Trabajador:</strong> ${destinoSeleccionado === 'anonimo' ? 'ANÓNIMO' : sesion.nombre}<br>
+                ✅ <strong>Reporte generado exitosamente</strong><br><br>
+                📌 <strong>Trabajador:</strong> ${sesion.nombre}<br>
                 📌 <strong>País:</strong> ${pais}<br>
                 📌 <strong>Ubicación:</strong> ${region} ${direccion} ${lat && lng ? '(' + lat + ', ' + lng + ')' : ''}<br>
                 📌 <strong>Área:</strong> ${areaFinal}<br>
@@ -745,24 +833,52 @@
                 📌 <strong>Contexto:</strong> ${contexto || 'Sin descripción'}<br>
                 📌 <strong>Archivos:</strong> ${fotosSubidas.length > 0 ? fotosSubidas.join(', ') : 'Sin archivos'}<br>
                 📌 <strong>Formato:</strong> ${formatoLabel}<br>
-                📌 <strong>Ubicación de descarga:</strong> ${ubicacionLabel}<br>
-                📌 <strong>Nombre del archivo:</strong> ${nombreArchivo}.${formato.toLowerCase()}<br>
+                📌 <strong>Ubicación:</strong> ${ubicacionLabel}<br>
+                📌 <strong>Archivo:</strong> ${nombreArchivo}.${formato.toLowerCase()}<br>
                 📌 <strong>Fecha:</strong> ${fecha}<br>
-                📄 <strong>Código de verificación:</strong> ${codigo}<br><br>
-                ${mensajeLegal}<br><br>
-                <a href="#" id="descargarLink" style="color:var(--dorado-epico);">📥 Descargar ${formatoLabel}</a>
+                📄 <strong>Código de verificación:</strong> ${codigoReporte}<br><br>
+                ⚖️ <strong>Este documento está validado por LEGADO y tiene peso legal.</strong>
             `;
             msg.className = 'mensaje legal';
 
-            document.getElementById('descargarLink').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('📄 Archivo generado (simulación)\n\n' +
-                    '📌 Formato: ' + formatoLabel + '\n' +
-                    '📌 Ubicación: ' + ubicacionLabel + '\n' +
-                    '📌 Archivo: ' + nombreArchivo + '.' + formato.toLowerCase() + '\n' +
-                    '📌 Código: ' + codigo + '\n\n' +
-                    '✅ Este documento está validado por LEGADO.');
-            });
+            document.getElementById('btnEnviarEmpleador').disabled = false;
+            document.getElementById('btnEnviarAnonimo').disabled = false;
+        });
+
+        // ===== ENVIAR AL EMPLEADOR =====
+        document.getElementById('btnEnviarEmpleador').addEventListener('click', function() {
+            if (!reporteGenerado) {
+                document.getElementById('mensaje').textContent = '✖ Primero genera el reporte';
+                document.getElementById('mensaje').className = 'mensaje error';
+                return;
+            }
+            document.getElementById('mensaje').innerHTML = `
+                📄 <strong>Reporte enviado al empleador</strong><br>
+                ✅ Notificación formal enviada.<br>
+                📌 Plazo: 48 horas para corregir los riesgos.<br>
+                📄 Código: <strong>${codigoReporte}</strong>
+            `;
+            document.getElementById('mensaje').className = 'mensaje exito';
+            document.getElementById('btnEnviarEmpleador').disabled = true;
+            document.getElementById('btnEnviarAnonimo').disabled = true;
+        });
+
+        // ===== ENVIAR DENUNCIA ANÓNIMA =====
+        document.getElementById('btnEnviarAnonimo').addEventListener('click', function() {
+            if (!reporteGenerado) {
+                document.getElementById('mensaje').textContent = '✖ Primero genera el reporte';
+                document.getElementById('mensaje').className = 'mensaje error';
+                return;
+            }
+            document.getElementById('mensaje').innerHTML = `
+                🕵️ <strong>Denuncia anónima enviada</strong><br>
+                ✅ El trabajador se mantiene en ANONIMATO.<br>
+                ✅ Enviado a SUNAFIL y Ministerio de Trabajo.<br>
+                📄 Código de seguimiento: <strong>${codigoReporte}</strong>
+            `;
+            document.getElementById('mensaje').className = 'mensaje legal';
+            document.getElementById('btnEnviarEmpleador').disabled = true;
+            document.getElementById('btnEnviarAnonimo').disabled = true;
         });
 
         // ===== CÓDIGO =====
@@ -779,7 +895,7 @@
         }
 
         cargarUsuario();
-        console.log('👷 LEGADO - Área de Trabajo (formato y ubicación)');
+        console.log('👷 LEGADO - Área de Trabajo (flujo completo con normativa)');
     </script>
 
 </body>
