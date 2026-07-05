@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LEGADO - Mi Área de Trabajo</title>
+    <title>LEGADO - Mi salud y seguridad</title>
     <style>
         :root {
             --negro-profundo: #0A0A0A;
@@ -190,7 +190,7 @@
         }
 
         .input-group textarea {
-            min-height: 70px;
+            min-height: 60px;
         }
 
         .input-group .input-con-foto {
@@ -445,6 +445,86 @@
             color: var(--verde-exito);
         }
 
+        .btn-opcion {
+            padding: 12px 16px;
+            background: var(--negro-profundo);
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            border-radius: 12px;
+            color: var(--blanco-roto);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            width: 100%;
+        }
+
+        .btn-opcion:hover {
+            border-color: rgba(201, 168, 76, 0.25);
+            background: rgba(201, 168, 76, 0.03);
+        }
+
+        .btn-opcion.seleccionado {
+            border-color: var(--dorado-epico);
+            background: rgba(201, 168, 76, 0.06);
+        }
+
+        .btn-opcion .emoji {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .btn-opcion .sub {
+            font-size: 12px;
+            color: var(--gris-calido);
+            font-weight: 400;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .recordatorio {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--negro-profundo);
+            border-radius: 10px;
+            border: 1px solid rgba(201, 168, 76, 0.06);
+            margin-bottom: 8px;
+        }
+
+        .recordatorio .icono {
+            font-size: 20px;
+        }
+
+        .recordatorio .info {
+            flex: 1;
+        }
+
+        .recordatorio .info .titulo {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .recordatorio .info .hora {
+            font-size: 12px;
+            color: var(--gris-calido);
+        }
+
+        .seccion {
+            display: none;
+        }
+
+        .seccion.activa {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 600px) {
             .header {
                 flex-direction: column;
@@ -466,7 +546,7 @@
         <!-- ===== HEADER ===== -->
         <header class="header">
             <div class="logo">
-                LEGADO <span>· Trabajador</span>
+                LEGADO <span>· Mi salud y seguridad</span>
             </div>
             <div class="user">
                 <span class="nombre" id="userName">👤 Usuario</span>
@@ -475,386 +555,260 @@
             </div>
         </header>
 
-        <!-- ===== TÍTULO ===== -->
-        <div class="page-title">
-            <h1>👷 <strong>Mi Área de Trabajo</strong></h1>
-            <p>Detecta peligros, evalúa riesgos y genera informes técnicos con peso legal.</p>
-            <div id="estadoSesion" style="font-size:12px;color:var(--gris-calido);margin-top:4px;">
-                💾 Los datos se guardan automáticamente en esta sesión.
-            </div>
-        </div>
-
-        <!-- ===== PASO 1: ANÁLISIS DEL ÁREA ===== -->
-        <div class="card" style="border-color: rgba(52, 152, 219, 0.15);">
-            <div class="card-title">
-                🔍 Analizar mi área de trabajo
-                <span class="badge-opcional">Verifica lo que el empleador debe tener</span>
+        <!-- ===== SECCIÓN 1: BIENVENIDA ===== -->
+        <div class="seccion activa" id="seccion-bienvenida">
+            <div class="page-title">
+                <h1>👋 ¡Hola! Bienvenido a <strong>LEGADO</strong></h1>
+                <p>Nuestro objetivo es cuidarte a ti y a los tuyos. Dar tranquilidad a quienes te esperan en casa.</p>
             </div>
 
-            <div class="info-box">
-                <strong>📋 Lo que el empleador debe tener publicado (Ley 29783):</strong>
-                <ul style="margin-top:6px;padding-left:20px;font-size:13px;color:var(--gris-calido);">
-                    <li>✅ Reglamento Interno de SST (Art. 42)</li>
-                    <li>✅ Matriz IPERC actualizada (cada 6 meses)</li>
-                    <li>✅ Equipos de Protección Personal (EPP) disponibles</li>
-                    <li>✅ Señalización de seguridad visible (Art. 56)</li>
-                    <li>✅ Capacitación periódica (Art. 49)</li>
-                    <li>✅ Exámenes médicos ocupacionales vigentes</li>
+            <div class="card">
+                <div class="card-title">📌 Esta app es para ti si:</div>
+                <ul style="padding-left:20px;color:var(--blanco-roto);font-size:14px;line-height:1.8;">
+                    <li>✅ Trabajas por tu cuenta</li>
+                    <li>✅ Tienes personas que te apoyan en tu negocio</li>
+                    <li>✅ Quieres que nadie se lastime</li>
                 </ul>
-            </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
-                <button class="btn-outline" onclick="alert('✅ Área analizada. Todo en orden.')" style="padding:10px;">
-                    ✅ Todo en orden
-                </button>
-                <button class="btn-peligro" onclick="alert('⚠️ Se detectaron incumplimientos. Continúa con el reporte.')" style="padding:10px;">
-                    ⚠️ Hay incumplimientos
+                <div style="margin-top:16px;">
+                    <p style="color:var(--gris-calido);font-size:13px;">📌 Ejemplos: mercado, construcción, taller, reparaciones, transporte, etc.</p>
+                </div>
+                <button class="btn-dorado" id="btnComenzar" style="margin-top:16px;">
+                    ✅ Listo, quiero revisar mi seguridad
                 </button>
             </div>
-        </div>
 
-        <!-- ===== PASO 2: PAÍS ===== -->
-        <div class="card">
-            <div class="card-title">🌍 Selecciona tu país <span class="badge-obligatorio">Obligatorio</span></div>
-            <div class="input-group">
-                <select id="pais">
-                    <option value="">-- Selecciona --</option>
-                    <option value="Perú" selected>🇵🇪 Perú</option>
-                    <option value="Argentina">🇦🇷 Argentina</option>
-                    <option value="Bolivia">🇧🇴 Bolivia</option>
-                    <option value="Brasil">🇧🇷 Brasil</option>
-                    <option value="Chile">🇨🇱 Chile</option>
-                    <option value="Colombia">🇨🇴 Colombia</option>
-                    <option value="Ecuador">🇪🇨 Ecuador</option>
-                    <option value="España">🇪🇸 España</option>
-                    <option value="México">🇲🇽 México</option>
-                    <option value="Venezuela">🇻🇪 Venezuela</option>
-                    <option value="Otro">🌍 Otro</option>
-                </select>
+            <div class="card" style="border-color: rgba(201, 168, 76, 0.05);">
+                <div class="card-title">🧠 La IA que te cuida</div>
+                <p style="font-size:13px;color:var(--gris-calido);line-height:1.6;">
+                    "Yo no soy una app más. Soy la IA que te cuida. Te conozco, te recuerdo lo que importa,
+                    te hablo claro y te protejo a ti y a los tuyos. Sin dietas mágicas, sin promesas falsas.
+                    Solo pasos reales para que estés bien."
+                </p>
             </div>
         </div>
 
-        <!-- ===== PASO 3: UBICACIÓN ===== -->
-        <div class="card">
-            <div class="card-title">📍 Ubicación del puesto <span class="badge-obligatorio">Obligatorio</span></div>
-            <div class="input-group">
-                <label for="region">Región / Departamento</label>
-                <input type="text" id="region" placeholder="Ej: Lima" />
+        <!-- ===== SECCIÓN 2: SEGURIDAD FÍSICA ===== -->
+        <div class="seccion" id="seccion-seguridad">
+            <div class="page-title">
+                <h1>🔍 <strong>Conozcamos tu entorno laboral</strong></h1>
+                <p>Sube fotos de tu área de trabajo para analizar tu seguridad física.</p>
             </div>
-            <div class="input-group">
-                <label for="direccion">Dirección</label>
-                <input type="text" id="direccion" placeholder="Ej: Av. Los Álamos 123" />
-            </div>
-            <div class="grid-2">
+
+            <div class="card">
+                <div class="card-title">📸 Sube fotos de tu área de trabajo</div>
+                <p style="font-size:13px;color:var(--gris-calido);margin-bottom:12px;">
+                    Toma fotos de: techo, paredes, piso, herramientas, señalización, salidas y accesos.
+                </p>
                 <div class="input-group">
-                    <label for="latitud">Latitud</label>
-                    <input type="text" id="latitud" placeholder="-12.046374" />
+                    <div class="input-con-foto">
+                        <input type="file" id="fotosSeguridad" accept="image/*" multiple />
+                    </div>
+                    <div class="fotos-preview" id="previewSeguridad"></div>
                 </div>
+                <button class="btn-outline" id="btnAnalizarSeguridad" style="margin-top:8px;">
+                    🔍 Analizar mi entorno
+                </button>
+                <div class="mensaje" id="mensajeSeguridad"></div>
+            </div>
+
+            <div class="card" id="resultadosSeguridad" style="display:none;">
+                <div class="card-title">📊 Resultados de seguridad física</div>
+                <div id="contenidoResultadosSeguridad"></div>
+            </div>
+        </div>
+
+        <!-- ===== SECCIÓN 3: SALUD FÍSICA ===== -->
+        <div class="seccion" id="seccion-salud-fisica">
+            <div class="page-title">
+                <h1>🩺 <strong>Tu salud física</strong></h1>
+                <p>Cuéntanos sobre tu salud para poder cuidarte mejor.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📄 Datos médicos</div>
+
                 <div class="input-group">
-                    <label for="longitud">Longitud</label>
-                    <input type="text" id="longitud" placeholder="-77.042793" />
+                    <label>¿Tienes algún tratamiento médico?</label>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn-opcion" data-tratamiento="si" style="flex:1;text-align:center;">Sí</button>
+                        <button class="btn-opcion" data-tratamiento="no" style="flex:1;text-align:center;">No</button>
+                    </div>
                 </div>
-            </div>
-            <button class="btn-outline" onclick="obtenerUbicacion()" style="padding:10px;font-size:13px;">
-                📍 Obtener ubicación automática
-            </button>
-            <div id="ubicacionMensaje" style="font-size:12px;color:var(--gris-calido);margin-top:8px;"></div>
-        </div>
 
-        <!-- ===== PASO 4: ÁREA Y PUESTO ===== -->
-        <div class="card">
-            <div class="card-title">📂 Área de trabajo <span class="badge-obligatorio">Obligatorio</span></div>
-            <div class="input-group">
-                <select id="area">
-                    <option value="">-- Selecciona --</option>
-                    <option value="Almacén">📦 Almacén</option>
-                    <option value="Producción">🏭 Producción</option>
-                    <option value="Oficinas" selected>🏢 Oficinas</option>
-                    <option value="Mantenimiento">🔧 Mantenimiento</option>
-                    <option value="Carga/Descarga">🚛 Carga/Descarga</option>
-                    <option value="Otro">➕ Otro</option>
-                </select>
-            </div>
-            <div class="input-group" id="inputOtroArea" style="display:none;">
-                <label for="otroArea">Especifica tu área</label>
-                <input type="text" id="otroArea" placeholder="Ej: Zona de carga" />
-            </div>
-            <div class="input-group">
-                <label for="puesto">Tu puesto</label>
-                <input type="text" id="puesto" placeholder="Ej: Almacenero de víveres frescos" />
-            </div>
-        </div>
-
-        <!-- ===== PASO 5: ACCIONES SEGÚN NORMATIVA ===== -->
-        <div class="card" style="border-color: rgba(201, 168, 76, 0.15);">
-            <div class="card-title">
-                ⚖️ ¿Qué deseas hacer? (según normativa)
-                <span class="badge-obligatorio">Selecciona</span>
-            </div>
-            <div class="input-group">
-                <select id="accion">
-                    <option value="">-- Selecciona una acción --</option>
-                    <option value="detectar_peligros">🔍 Detectar peligros y riesgos</option>
-                    <option value="evaluar_riesgos">📊 Evaluación de riesgos (Art. 56)</option>
-                    <option value="reportar_inseguro">📝 Reportar condiciones inseguras (Art. 25)</option>
-                    <option value="solicitar_epp">🛡️ Solicitar EPP (Art. 42)</option>
-                    <option value="solicitar_capacitacion">📚 Solicitar capacitación (Art. 49)</option>
-                    <option value="negarse_trabajar">🛑 Negarse a trabajar (Art. 25)</option>
-                    <option value="informe_tecnico">📜 Solicitar informe técnico</option>
-                </select>
-            </div>
-            <div id="accionInfo" style="font-size:12px;color:var(--gris-calido);margin-top:4px;">
-                📌 Selecciona una acción basada en la normativa vigente.
-            </div>
-        </div>
-
-        <!-- ===== PASO 6: DETECCIÓN DE PELIGROS Y RIESGOS ===== -->
-        <div class="card" id="cardRiesgos" style="display:none;">
-            <div class="card-title">
-                🚨 Peligros y riesgos detectados
-                <span class="badge-opcional">Análisis detallado</span>
-            </div>
-            <div id="riesgosLista"></div>
-        </div>
-
-        <!-- ===== PASO 7: EVIDENCIA ===== -->
-        <div class="card">
-            <div class="card-title">📎 Subir evidencia <span class="badge-opcional">Opcional pero recomendado</span></div>
-            <div class="input-group">
-                <label for="fotoInput">📷 Subir fotos o documentos</label>
-                <div class="input-con-foto">
-                    <input type="file" id="fotoInput" accept="image/*,.pdf,.doc,.docx" multiple />
+                <div id="camposTratamiento" style="display:none;">
+                    <div class="input-group">
+                        <label for="tratamientoDescripcion">📝 ¿Qué tratamiento sigues?</label>
+                        <textarea id="tratamientoDescripcion" placeholder="Ej: Tratamiento para la presión arterial"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="horaMedicina">🕐 ¿A qué hora tomas tu medicina?</label>
+                        <input type="text" id="horaMedicina" placeholder="Ej: 8:00 am, 8:00 pm" />
+                    </div>
+                    <div class="input-group">
+                        <label for="receta">📸 Sube tu receta o indicaciones médicas</label>
+                        <input type="file" id="receta" accept="image/*,.pdf" />
+                    </div>
                 </div>
-                <div class="fotos-preview" id="fotosPreview"></div>
-            </div>
-            <div class="input-group">
-                <label for="contexto">📝 Agregar contexto / comentario</label>
-                <textarea id="contexto" placeholder="Describe lo que ves, el peligro, la condición insegura..."></textarea>
-            </div>
-            <button class="btn-outline" onclick="aceptarEvidencia()" style="padding:10px;font-size:13px;">
-                ✅ Aceptar evidencia
-            </button>
-            <div id="evidenciaMensaje" style="font-size:12px;color:var(--gris-calido);margin-top:8px;"></div>
-        </div>
 
-        <!-- ===== PASO 8: FORMATO Y UBICACIÓN ===== -->
-        <div class="card" style="border-color: rgba(46, 204, 113, 0.15);">
-            <div class="card-title">📄 Formato y ubicación de descarga <span class="badge-obligatorio">Selecciona</span></div>
-
-            <div class="grid-2">
                 <div class="input-group">
-                    <label for="formato">Formato de descarga</label>
-                    <select id="formato">
-                        <option value="PDF">📄 PDF</option>
-                        <option value="Word">📝 Word (DOCX)</option>
-                        <option value="Excel">📊 Excel (XLSX)</option>
-                        <option value="TXT">📋 Texto (TXT)</option>
+                    <label for="horaComida">🍽️ ¿A qué hora sueles comer?</label>
+                    <input type="text" id="horaComida" placeholder="Ej: 1:00 pm" />
+                </div>
+
+                <div class="input-group">
+                    <label>😴 ¿Descansas lo suficiente?</label>
+                    <div style="display:flex;gap:10px;">
+                        <button class="btn-opcion" data-descanso="si" style="flex:1;text-align:center;">Sí</button>
+                        <button class="btn-opcion" data-descanso="no" style="flex:1;text-align:center;">No</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="molestias">💪 ¿Tienes alguna molestia física?</label>
+                    <textarea id="molestias" placeholder="Ej: Dolor de espalda, cansancio, etc."></textarea>
+                </div>
+
+                <button class="btn-dorado" id="btnGuardarSaludFisica">✅ Guardar</button>
+                <div class="mensaje" id="mensajeSaludFisica"></div>
+            </div>
+        </div>
+
+        <!-- ===== SECCIÓN 4: SALUD MENTAL ===== -->
+        <div class="seccion" id="seccion-salud-mental">
+            <div class="page-title">
+                <h1>🧠 <strong>Tu salud mental</strong></h1>
+                <p>Tu mente también necesita cuidado. Cuéntanos cómo te sientes.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📊 Evaluación de salud mental</div>
+
+                <div class="input-group">
+                    <label>😟 ¿Sientes estrés en el trabajo?</label>
+                    <select id="estres">
+                        <option value="">-- Selecciona --</option>
+                        <option value="siempre">Siempre</option>
+                        <option value="a_veces">A veces</option>
+                        <option value="nunca">Nunca</option>
                     </select>
                 </div>
+
                 <div class="input-group">
-                    <label for="ubicacionDescarga">Ubicación de descarga</label>
-                    <select id="ubicacionDescarga">
-                        <option value="descargas">💻 Mi PC / Descargas</option>
-                        <option value="google_drive">☁️ Google Drive</option>
-                        <option value="onedrive">☁️ OneDrive</option>
-                        <option value="correo">📧 Enviar por correo</option>
-                        <option value="dropbox">☁️ Dropbox</option>
+                    <label>😤 ¿Has sufrido acoso o presión excesiva?</label>
+                    <select id="acoso">
+                        <option value="">-- Selecciona --</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
                     </select>
                 </div>
-            </div>
 
-            <div class="input-group">
-                <label for="nombreArchivo">Nombre del archivo</label>
-                <input type="text" id="nombreArchivo" value="Informe_Tecnico_LEGADO" placeholder="Ej: Informe_Tecnico_LEGADO" />
+                <div class="input-group">
+                    <label>⏰ ¿Tienes pausas activas o descansos?</label>
+                    <select id="pausas">
+                        <option value="">-- Selecciona --</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>📊 ¿Sientes que tu carga de trabajo es excesiva?</label>
+                    <select id="carga">
+                        <option value="">-- Selecciona --</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>😴 ¿Duermes bien?</label>
+                    <select id="sueno">
+                        <option value="">-- Selecciona --</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <button class="btn-dorado" id="btnGuardarSaludMental">✅ Guardar</button>
+                <div class="mensaje" id="mensajeSaludMental"></div>
             </div>
         </div>
 
-        <!-- ===== PASO 9: GENERAR Y ENVIAR ===== -->
-        <div class="card">
-            <div class="card-title">🚀 Generar y enviar reporte</div>
-
-            <button class="btn-dorado" id="btnGenerar">📜 Generar informe técnico</button>
-
-            <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                <button class="btn-verde" id="btnEnviarEmpleador" disabled>
-                    📄 Enviar al empleador
-                </button>
-                <button class="btn-peligro" id="btnEnviarAnonimo" disabled>
-                    🕵️ Enviar denuncia anónima
-                </button>
+        <!-- ===== SECCIÓN 5: INFORME COMPLETO ===== -->
+        <div class="seccion" id="seccion-informe">
+            <div class="page-title">
+                <h1>📊 <strong>Tu informe completo</strong></h1>
+                <p>Aquí tienes todo lo que hemos analizado.</p>
             </div>
 
-            <div class="mensaje" id="mensaje"></div>
+            <div class="card" id="cardInforme">
+                <div id="contenidoInforme"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📋 ¿Qué quieres hacer?</div>
+                <div class="grid-2">
+                    <button class="btn-opcion" onclick="alert('🛒 Redirigiendo a tienda de EPP')">
+                        <span class="emoji">🛒</span> Comprar equipo de protección
+                        <span class="sub">Protege tu cuerpo</span>
+                    </button>
+                    <button class="btn-opcion" onclick="alert('🔧 Sugerencias para mejorar tu espacio')">
+                        <span class="emoji">🔧</span> Hacer cambios en tu espacio
+                        <span class="sub">Mejora tu entorno</span>
+                    </button>
+                    <button class="btn-opcion" onclick="alert('📢 Reporte enviado')">
+                        <span class="emoji">📢</span> Reportar a quien corresponda
+                        <span class="sub">Exige mejoras</span>
+                    </button>
+                    <button class="btn-opcion" onclick="alert('📜 Documento legal generado')">
+                        <span class="emoji">📜</span> Generar documento legal
+                        <span class="sub">Con peso legal</span>
+                    </button>
+                    <button class="btn-opcion" onclick="alert('📚 Capacitación recomendada')">
+                        <span class="emoji">📚</span> Capacitarte en SST
+                        <span class="sub">Aprende a protegerte</span>
+                    </button>
+                    <button class="btn-opcion" onclick="alert('⏰ Recordatorios configurados')">
+                        <span class="emoji">⏰</span> Configurar recordatorios
+                        <span class="sub">Medicinas, comidas, descanso</span>
+                    </button>
+                </div>
+            </div>
+
+            <button class="btn-dorado" id="btnDescargarInforme">📥 Descargar informe completo</button>
+            <div class="mensaje" id="mensajeInforme"></div>
+        </div>
+
+        <!-- ===== SECCIÓN 6: RECORDATORIOS ===== -->
+        <div class="seccion" id="seccion-recordatorios">
+            <div class="page-title">
+                <h1>⏰ <strong>Tus recordatorios</strong></h1>
+                <p>La IA de LEGADO te recuerda lo que importa.</p>
+            </div>
+
+            <div class="card">
+                <div id="listaRecordatorios"></div>
+                <button class="btn-dorado" id="btnVolverDashboard" style="margin-top:16px;">🏛️ Volver al Dashboard</button>
+            </div>
         </div>
 
         <a href="dashboard.html" class="link">🏛️ Volver al Dashboard</a>
 
         <div class="footer">
-            ⚡ <strong>LEGADO</strong> · Seguridad Laboral Automática · v1.0
+            ⚡ <strong>LEGADO</strong> · La IA que te cuida · v1.0
         </div>
 
     </div>
 
     <script>
         // ============================================
-        //  SESSION STORAGE (GUARDAR EN LA PESTAÑA)
-        // ============================================
-
-        const SS = {
-            get: (key) => sessionStorage.getItem(key),
-            set: (key, val) => sessionStorage.setItem(key, val),
-            getJSON: (key) => {
-                try { return JSON.parse(sessionStorage.getItem(key)); } catch (e) { return null; }
-            },
-            setJSON: (key, val) => sessionStorage.setItem(key, JSON.stringify(val))
-        };
-
-        // ============================================
-        //  GUARDAR TODOS LOS DATOS EN SESSION
-        // ============================================
-        function guardarSesion() {
-            const datos = {
-                pais: document.getElementById('pais').value,
-                region: document.getElementById('region').value,
-                direccion: document.getElementById('direccion').value,
-                latitud: document.getElementById('latitud').value,
-                longitud: document.getElementById('longitud').value,
-                area: document.getElementById('area').value,
-                otroArea: document.getElementById('otroArea').value,
-                puesto: document.getElementById('puesto').value,
-                accion: document.getElementById('accion').value,
-                contexto: document.getElementById('contexto').value,
-                formato: document.getElementById('formato').value,
-                ubicacionDescarga: document.getElementById('ubicacionDescarga').value,
-                nombreArchivo: document.getElementById('nombreArchivo').value,
-                fotos: fotosSubidas,
-                evidenciaAceptada: evidenciaAceptada,
-                reporteGenerado: reporteGenerado,
-                codigoReporte: codigoReporte,
-                riesgos: riesgosDetectados
-            };
-            SS.setJSON('legado_trabajador_sesion', datos);
-            SS.set('legado_trabajador_activo', 'true');
-            console.log('💾 Sesión guardada');
-        }
-
-        // ============================================
-        //  CARGAR DATOS DESDE SESSION
-        // ============================================
-        function cargarSesion() {
-            const activo = SS.get('legado_trabajador_activo');
-            if (!activo) return;
-
-            const datos = SS.getJSON('legado_trabajador_sesion');
-            if (!datos) return;
-
-            try {
-                document.getElementById('pais').value = datos.pais || '';
-                document.getElementById('region').value = datos.region || '';
-                document.getElementById('direccion').value = datos.direccion || '';
-                document.getElementById('latitud').value = datos.latitud || '';
-                document.getElementById('longitud').value = datos.longitud || '';
-                document.getElementById('area').value = datos.area || '';
-                document.getElementById('otroArea').value = datos.otroArea || '';
-                document.getElementById('puesto').value = datos.puesto || '';
-                document.getElementById('accion').value = datos.accion || '';
-                document.getElementById('contexto').value = datos.contexto || '';
-                document.getElementById('formato').value = datos.formato || 'PDF';
-                document.getElementById('ubicacionDescarga').value = datos.ubicacionDescarga || 'descargas';
-                document.getElementById('nombreArchivo').value = datos.nombreArchivo || 'Informe_Tecnico_LEGADO';
-
-                fotosSubidas = datos.fotos || [];
-                evidenciaAceptada = datos.evidenciaAceptada || false;
-                reporteGenerado = datos.reporteGenerado || false;
-                codigoReporte = datos.codigoReporte || '';
-                riesgosDetectados = datos.riesgos || [];
-
-                // Mostrar fotos guardadas
-                if (fotosSubidas.length > 0) {
-                    const preview = document.getElementById('fotosPreview');
-                    preview.innerHTML = '';
-                    fotosSubidas.forEach((nombre, i) => {
-                        const div = document.createElement('div');
-                        div.className = 'foto-mini';
-                        div.style.display = 'flex';
-                        div.style.alignItems = 'center';
-                        div.style.justifyContent = 'center';
-                        div.textContent = '📷';
-                        const btn = document.createElement('button');
-                        btn.className = 'btn-eliminar';
-                        btn.textContent = '×';
-                        btn.onclick = function() {
-                            div.remove();
-                            fotosSubidas = fotosSubidas.filter((_, idx) => idx !== i);
-                            guardarSesion();
-                        };
-                        div.appendChild(btn);
-                        preview.appendChild(div);
-                    });
-                }
-
-                if (document.getElementById('area').value === 'Otro') {
-                    document.getElementById('inputOtroArea').style.display = 'block';
-                }
-
-                if (evidenciaAceptada) {
-                    document.getElementById('evidenciaMensaje').textContent = '✅ Evidencia aceptada (sesión)';
-                    document.getElementById('evidenciaMensaje').style.color = 'var(--verde-exito)';
-                }
-
-                if (reporteGenerado) {
-                    document.getElementById('mensaje').innerHTML = `
-                        ✅ <strong>Reporte ya generado</strong><br>
-                        📄 Código: <strong>${codigoReporte}</strong><br>
-                        ⚖️ El reporte fue generado en esta sesión.
-                    `;
-                    document.getElementById('mensaje').className = 'mensaje exito';
-                    document.getElementById('btnEnviarEmpleador').disabled = false;
-                    document.getElementById('btnEnviarAnonimo').disabled = false;
-                }
-
-                // Mostrar riesgos si se cargaron
-                if (riesgosDetectados.length > 0) {
-                    document.getElementById('cardRiesgos').style.display = 'block';
-                    mostrarRiesgos();
-                }
-
-                console.log('📂 Datos cargados desde sesión');
-            } catch (e) {
-                console.warn('Error cargando sesión:', e);
-            }
-        }
-
-        // ============================================
-        //  MOSTRAR RIESGOS
-        // ============================================
-        function mostrarRiesgos() {
-            const lista = document.getElementById('riesgosLista');
-            lista.innerHTML = '';
-            riesgosDetectados.forEach(r => {
-                const div = document.createElement('div');
-                div.className = 'riesgo-item';
-                const icono = r.nivel === 'Alto' ? '🔴' : r.nivel === 'Medio' ? '🟡' : '🟢';
-                div.innerHTML = `
-                    <span class="icono">${icono}</span>
-                    <div class="info">
-                        <strong>${r.peligro}</strong>
-                        <div style="color:var(--gris-calido);font-size:12px;">Riesgo: ${r.riesgo}</div>
-                    </div>
-                    <span class="nivel ${r.nivel.toLowerCase()}">${r.nivel}</span>
-                `;
-                lista.appendChild(div);
-            });
-        }
-
-        // ============================================
         //  VARIABLES GLOBALES
         // ============================================
-        let fotosSubidas = [];
-        let evidenciaAceptada = false;
-        let reporteGenerado = false;
-        let codigoReporte = '';
-        let riesgosDetectados = [];
+        let fotosSeguridad = [];
+        let datosSeguridad = {};
+        let datosSaludFisica = {};
+        let datosSaludMental = {};
+        let informeGenerado = false;
 
         // ============================================
         //  CARGAR USUARIO
@@ -876,319 +830,290 @@
         }
 
         // ============================================
-        //  ÁREA OTRO
+        //  NAVEGACIÓN ENTRE SECCIONES
         // ============================================
-        document.getElementById('area').addEventListener('change', function() {
-            document.getElementById('inputOtroArea').style.display = this.value === 'Otro' ? 'block' : 'none';
-            guardarSesion();
-        });
-
-        // ============================================
-        //  ACCIÓN
-        // ============================================
-        document.getElementById('accion').addEventListener('change', function() {
-            const info = document.getElementById('accionInfo');
-            const acciones = {
-                'detectar_peligros': '🔍 Identificar y clasificar peligros en tu área de trabajo.',
-                'evaluar_riesgos': '📊 Evaluar el nivel de riesgo según la matriz IPERC (Art. 56).',
-                'reportar_inseguro': '📝 Reportar condiciones inseguras al empleador (Art. 25).',
-                'solicitar_epp': '🛡️ Solicitar Equipos de Protección Personal (Art. 42).',
-                'solicitar_capacitacion': '📚 Solicitar capacitación en seguridad (Art. 49).',
-                'negarse_trabajar': '🛑 Negarse a trabajar en riesgo grave (Art. 25).',
-                'informe_tecnico': '📜 Solicitar informe técnico detallado de SST.'
-            };
-            info.textContent = acciones[this.value] || '📌 Selecciona una acción basada en la normativa vigente.';
-
-            const cardRiesgos = document.getElementById('cardRiesgos');
-            if (this.value === 'detectar_peligros' || this.value === 'evaluar_riesgos') {
-                cardRiesgos.style.display = 'block';
-                generarRiesgos();
-            } else {
-                cardRiesgos.style.display = 'none';
-            }
-            guardarSesion();
-        });
-
-        // ============================================
-        //  GENERAR RIESGOS
-        // ============================================
-        function generarRiesgos() {
-            const lista = document.getElementById('riesgosLista');
-            const area = document.getElementById('area').value || 'Oficinas';
-            const peligrosPorArea = {
-                'Almacén': [
-                    { peligro: 'Escaleras en mal estado', riesgo: 'Caída a distinto nivel', nivel: 'Alto' },
-                    { peligro: 'Falta de señalización', riesgo: 'Atropello o golpe', nivel: 'Medio' },
-                    { peligro: 'Piso resbaladizo', riesgo: 'Caída al mismo nivel', nivel: 'Medio' },
-                    { peligro: 'Sobrecarga de estanterías', riesgo: 'Desplome o caída de objetos', nivel: 'Alto' }
-                ],
-                'Producción': [
-                    { peligro: 'Máquinas sin protección', riesgo: 'Atrapamiento o amputación', nivel: 'Alto' },
-                    { peligro: 'Ventilación deficiente', riesgo: 'Enfermedades respiratorias', nivel: 'Medio' },
-                    { peligro: 'Ruido excesivo', riesgo: 'Pérdida auditiva', nivel: 'Medio' },
-                    { peligro: 'Productos químicos', riesgo: 'Intoxicación o quemaduras', nivel: 'Alto' }
-                ],
-                'Oficinas': [
-                    { peligro: 'Cables sueltos', riesgo: 'Caída al mismo nivel', nivel: 'Bajo' },
-                    { peligro: 'Mobiliario inadecuado', riesgo: 'Trastornos musculoesqueléticos', nivel: 'Medio' },
-                    { peligro: 'Mala iluminación', riesgo: 'Fatiga visual', nivel: 'Bajo' },
-                    { peligro: 'Sillas en mal estado', riesgo: 'Caída', nivel: 'Medio' }
-                ],
-                'Mantenimiento': [
-                    { peligro: 'Herramientas sin mantenimiento', riesgo: 'Lesiones por herramienta', nivel: 'Medio' },
-                    { peligro: 'Falta de EPP', riesgo: 'Lesiones o intoxicación', nivel: 'Alto' },
-                    { peligro: 'Trabajo en altura', riesgo: 'Caída de altura', nivel: 'Alto' }
-                ],
-                'Carga/Descarga': [
-                    { peligro: 'Sobrecarga de peso', riesgo: 'Lesiones lumbares', nivel: 'Alto' },
-                    { peligro: 'Falta de señalización', riesgo: 'Atropello o golpe', nivel: 'Medio' },
-                    { peligro: 'Piso irregular', riesgo: 'Caída al mismo nivel', nivel: 'Medio' }
-                ],
-                'Otro': [
-                    { peligro: 'Condiciones inseguras', riesgo: 'Riesgo no específico', nivel: 'Medio' }
-                ]
-            };
-
-            riesgosDetectados = peligrosPorArea[area] || peligrosPorArea['Otro'];
-            riesgosDetectados = riesgosDetectados.slice(0, 3);
-
-            lista.innerHTML = '';
-            riesgosDetectados.forEach(r => {
-                const div = document.createElement('div');
-                div.className = 'riesgo-item';
-                const icono = r.nivel === 'Alto' ? '🔴' : r.nivel === 'Medio' ? '🟡' : '🟢';
-                div.innerHTML = `
-                    <span class="icono">${icono}</span>
-                    <div class="info">
-                        <strong>${r.peligro}</strong>
-                        <div style="color:var(--gris-calido);font-size:12px;">Riesgo: ${r.riesgo}</div>
-                    </div>
-                    <span class="nivel ${r.nivel.toLowerCase()}">${r.nivel}</span>
-                `;
-                lista.appendChild(div);
-            });
-            guardarSesion();
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
+            document.getElementById(id).classList.add('activa');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ============================================
-        //  UBICACIÓN
+        //  BIENVENIDA → SEGURIDAD
         // ============================================
-        function obtenerUbicacion() {
-            const msg = document.getElementById('ubicacionMensaje');
-            if (navigator.geolocation) {
-                msg.textContent = '⏳ Obteniendo ubicación...';
-                navigator.geolocation.getCurrentPosition(
-                    function(position) {
-                        document.getElementById('latitud').value = position.coords.latitude.toFixed(6);
-                        document.getElementById('longitud').value = position.coords.longitude.toFixed(6);
-                        msg.textContent = '✅ Ubicación obtenida';
-                        msg.style.color = 'var(--verde-exito)';
-                        guardarSesion();
-                    },
-                    function() {
-                        msg.textContent = '⚠️ No se pudo obtener. Ingresa manualmente.';
-                        msg.style.color = 'var(--rojo-alerta)';
-                    }
-                );
-            } else {
-                msg.textContent = '⚠️ Geolocalización no soportada. Ingresa manualmente.';
-                msg.style.color = 'var(--rojo-alerta)';
-            }
-        }
+        document.getElementById('btnComenzar').addEventListener('click', function() {
+            mostrarSeccion('seccion-seguridad');
+        });
 
         // ============================================
-        //  FOTOS
+        //  SEGURIDAD FÍSICA
         // ============================================
-        document.getElementById('fotoInput').addEventListener('change', function(e) {
+        document.getElementById('fotosSeguridad').addEventListener('change', function(e) {
             const files = e.target.files;
-            const preview = document.getElementById('fotosPreview');
-            fotosSubidas = [];
+            const preview = document.getElementById('previewSeguridad');
+            fotosSeguridad = [];
             preview.innerHTML = '';
             for (let i = 0; i < files.length; i++) {
                 const reader = new FileReader();
                 reader.onload = function(ev) {
                     const div = document.createElement('div');
                     div.className = 'foto-mini';
-                    if (files[i].type.startsWith('image/')) {
-                        div.style.backgroundImage = `url(${ev.target.result})`;
-                    } else {
-                        div.style.display = 'flex';
-                        div.style.alignItems = 'center';
-                        div.style.justifyContent = 'center';
-                        div.textContent = '📄';
-                    }
+                    div.style.backgroundImage = `url(${ev.target.result})`;
                     const btn = document.createElement('button');
                     btn.className = 'btn-eliminar';
                     btn.textContent = '×';
-                    btn.onclick = function() {
-                        div.remove();
-                        fotosSubidas = fotosSubidas.filter((_, idx) => idx !== i);
-                        guardarSesion();
-                    };
+                    btn.onclick = function() { div.remove(); fotosSeguridad = fotosSeguridad.filter((_, idx) => idx !== i); };
                     div.appendChild(btn);
                     preview.appendChild(div);
                 };
                 reader.readAsDataURL(files[i]);
-                fotosSubidas.push(files[i].name);
+                fotosSeguridad.push(files[i].name);
             }
-            guardarSesion();
+        });
+
+        document.getElementById('btnAnalizarSeguridad').addEventListener('click', function() {
+            const msg = document.getElementById('mensajeSeguridad');
+
+            if (fotosSeguridad.length === 0) {
+                msg.textContent = '⚠️ Sube al menos una foto para analizar tu área.';
+                msg.className = 'mensaje info';
+                return;
+            }
+
+            msg.textContent = '🔍 Analizando tu entorno...';
+            msg.className = 'mensaje info';
+
+            setTimeout(() => {
+                // Simulación de análisis
+                const riesgos = [
+                    { icono: '⚠️', texto: 'Escaleras en mal estado (Art. 56)', nivel: 'alto' },
+                    { icono: '⚠️', texto: 'Falta de señalización (Art. 56)', nivel: 'medio' },
+                    { icono: '⚠️', texto: 'Ruido excesivo', nivel: 'medio' },
+                    { icono: '✅', texto: 'Ventilación adecuada', nivel: 'bajo' },
+                    { icono: '✅', texto: 'Iluminación correcta', nivel: 'bajo' }
+                ];
+
+                const html = `
+                    <div style="margin-bottom:12px;">
+                        <p style="font-size:14px;color:var(--gris-calido);">📸 Fotos analizadas: ${fotosSeguridad.length}</p>
+                    </div>
+                    ${riesgos.map(r => `
+                        <div class="riesgo-item">
+                            <span class="icono">${r.icono}</span>
+                            <div class="info">${r.texto}</div>
+                            <span class="nivel ${r.nivel}">${r.nivel.toUpperCase()}</span>
+                        </div>
+                    `).join('')}
+                    <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.04);">
+                        <p style="font-size:13px;color:var(--gris-calido);">
+                            💡 Recomendaciones:
+                            <br>✅ Reparar escaleras
+                            <br>✅ Instalar señalización
+                            <br>✅ Usar protectores auditivos
+                        </p>
+                    </div>
+                    <button class="btn-dorado" id="btnIrSaludFisica" style="margin-top:12px;">🩺 Continuar con mi salud</button>
+                `;
+
+                document.getElementById('resultadosSeguridad').style.display = 'block';
+                document.getElementById('contenidoResultadosSeguridad').innerHTML = html;
+
+                document.getElementById('btnIrSaludFisica').addEventListener('click', function() {
+                    mostrarSeccion('seccion-salud-fisica');
+                });
+
+                msg.textContent = '✅ Análisis completo.';
+                msg.className = 'mensaje exito';
+            }, 1500);
         });
 
         // ============================================
-        //  ACEPTAR EVIDENCIA
+        //  SALUD FÍSICA
         // ============================================
-        function aceptarEvidencia() {
-            const msg = document.getElementById('evidenciaMensaje');
-            const contexto = document.getElementById('contexto').value.trim();
-            if (fotosSubidas.length === 0 && !contexto) {
-                msg.textContent = '⚠️ Sube al menos una foto o agrega contexto.';
-                msg.style.color = 'var(--rojo-alerta)';
-                return;
+        let tratamientoSeleccionado = null;
+        let descansoSeleccionado = null;
+
+        document.querySelectorAll('[data-tratamiento]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-tratamiento]').forEach(b => b.classList.remove('seleccionado'));
+                this.classList.add('seleccionado');
+                tratamientoSeleccionado = this.dataset.tratamiento;
+                document.getElementById('camposTratamiento').style.display = tratamientoSeleccionado === 'si' ? 'block' : 'none';
+            });
+        });
+
+        document.querySelectorAll('[data-descanso]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-descanso]').forEach(b => b.classList.remove('seleccionado'));
+                this.classList.add('seleccionado');
+                descansoSeleccionado = this.dataset.descanso;
+            });
+        });
+
+        document.getElementById('btnGuardarSaludFisica').addEventListener('click', function() {
+            const msg = document.getElementById('mensajeSaludFisica');
+
+            datosSaludFisica = {
+                tratamiento: tratamientoSeleccionado,
+                tratamientoDescripcion: document.getElementById('tratamientoDescripcion').value,
+                horaMedicina: document.getElementById('horaMedicina').value,
+                horaComida: document.getElementById('horaComida').value,
+                descanso: descansoSeleccionado,
+                molestias: document.getElementById('molestias').value
+            };
+
+            msg.textContent = '✅ Datos de salud física guardados.';
+            msg.className = 'mensaje exito';
+
+            setTimeout(() => {
+                mostrarSeccion('seccion-salud-mental');
+            }, 800);
+        });
+
+        // ============================================
+        //  SALUD MENTAL
+        // ============================================
+        document.getElementById('btnGuardarSaludMental').addEventListener('click', function() {
+            const msg = document.getElementById('mensajeSaludMental');
+
+            datosSaludMental = {
+                estres: document.getElementById('estres').value,
+                acoso: document.getElementById('acoso').value,
+                pausas: document.getElementById('pausas').value,
+                carga: document.getElementById('carga').value,
+                sueno: document.getElementById('sueno').value
+            };
+
+            // Validar que todos los campos estén seleccionados
+            for (let key in datosSaludMental) {
+                if (!datosSaludMental[key]) {
+                    msg.textContent = '⚠️ Completa todas las preguntas.';
+                    msg.className = 'mensaje error';
+                    return;
+                }
             }
-            evidenciaAceptada = true;
-            msg.textContent = '✅ Evidencia aceptada. Puedes continuar.';
-            msg.style.color = 'var(--verde-exito)';
-            guardarSesion();
+
+            msg.textContent = '✅ Datos de salud mental guardados.';
+            msg.className = 'mensaje exito';
+
+            setTimeout(() => {
+                mostrarSeccion('seccion-informe');
+                generarInforme();
+            }, 800);
+        });
+
+        // ============================================
+        //  GENERAR INFORME
+        // ============================================
+        function generarInforme() {
+            const container = document.getElementById('contenidoInforme');
+
+            // Calcular porcentajes
+            const segFisica = 80;
+            const saludFisica = tratamientoSeleccionado === 'si' ? 75 : 85;
+            const saludMental = datosSaludMental.estres === 'nunca' ? 90 : datosSaludMental.estres === 'a_veces' ? 70 : 50;
+
+            const alertas = [];
+            if (tratamientoSeleccionado === 'si') alertas.push('⚠️ Tratamiento médico registrado (recordatorio activo)');
+            if (datosSaludMental.estres === 'siempre') alertas.push('⚠️ Estrés alto detectado (recomendaciones activadas)');
+            if (datosSaludMental.acoso === 'si') alertas.push('⚠️ Situación de acoso reportada');
+            if (datosSaludMental.pausas === 'no') alertas.push('⚠️ Sin pausas activas (recomendación: cada 2 horas)');
+
+            const recordatorios = [];
+            if (tratamientoSeleccionado === 'si' && document.getElementById('horaMedicina').value) {
+                recordatorios.push({ icono: '💊', titulo: 'Tomar medicina', hora: document.getElementById('horaMedicina').value });
+            }
+            if (document.getElementById('horaComida').value) {
+                recordatorios.push({ icono: '🍽️', titulo: 'Comer', hora: document.getElementById('horaComida').value });
+            }
+            if (datosSaludMental.pausas === 'no') {
+                recordatorios.push({ icono: '😴', titulo: 'Descansar', hora: 'cada 2 horas' });
+            }
+
+            const html = `
+                <div style="margin-bottom:16px;">
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;">
+                        <div style="background:var(--negro-profundo);padding:14px;border-radius:10px;text-align:center;">
+                            <span style="font-size:28px;">🛡️</span>
+                            <div style="font-size:22px;font-weight:700;color:var(--dorado-epico);">${segFisica}%</div>
+                            <div style="font-size:11px;color:var(--gris-calido);">Seguridad física</div>
+                        </div>
+                        <div style="background:var(--negro-profundo);padding:14px;border-radius:10px;text-align:center;">
+                            <span style="font-size:28px;">❤️</span>
+                            <div style="font-size:22px;font-weight:700;color:var(--dorado-epico);">${saludFisica}%</div>
+                            <div style="font-size:11px;color:var(--gris-calido);">Salud física</div>
+                        </div>
+                        <div style="background:var(--negro-profundo);padding:14px;border-radius:10px;text-align:center;">
+                            <span style="font-size:28px;">🧠</span>
+                            <div style="font-size:22px;font-weight:700;color:var(--dorado-epico);">${saludMental}%</div>
+                            <div style="font-size:11px;color:var(--gris-calido);">Salud mental</div>
+                        </div>
+                    </div>
+                </div>
+
+                ${alertas.length > 0 ? `
+                    <div style="margin-bottom:16px;padding:14px;background:rgba(231,76,60,0.06);border-radius:10px;border-left:3px solid var(--rojo-alerta);">
+                        <strong style="color:var(--rojo-alerta);">🚨 Alertas</strong>
+                        ${alertas.map(a => `<div style="font-size:13px;color:var(--blanco-roto);margin-top:4px;">${a}</div>`).join('')}
+                    </div>
+                ` : ''}
+
+                ${recordatorios.length > 0 ? `
+                    <div style="margin-bottom:16px;padding:14px;background:rgba(46,204,113,0.06);border-radius:10px;border-left:3px solid var(--verde-exito);">
+                        <strong style="color:var(--verde-exito);">⏰ Recordatorios activos</strong>
+                        ${recordatorios.map(r => `
+                            <div style="display:flex;align-items:center;gap:10px;margin-top:4px;font-size:13px;">
+                                <span>${r.icono}</span>
+                                <span>${r.titulo}</span>
+                                <span style="color:var(--gris-calido);">${r.hora}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+
+                <div style="padding:14px;background:var(--negro-profundo);border-radius:10px;border:1px solid rgba(201,168,76,0.06);">
+                    <strong>💡 Recomendaciones</strong>
+                    <ul style="padding-left:20px;font-size:13px;color:var(--gris-calido);margin-top:6px;line-height:1.8;">
+                        <li>✅ Reparar escaleras y señalización</li>
+                        <li>✅ Usar protectores auditivos</li>
+                        ${tratamientoSeleccionado === 'si' ? '<li>✅ Seguir tu tratamiento médico (recordatorios activos)</li>' : ''}
+                        ${datosSaludMental.estres === 'siempre' || datosSaludMental.estres === 'a_veces' ? '<li>✅ Ejercicios de respiración para el estrés</li>' : ''}
+                        ${datosSaludMental.pausas === 'no' ? '<li>✅ Incorporar pausas activas cada 2 horas</li>' : ''}
+                    </ul>
+                </div>
+            `;
+
+            container.innerHTML = html;
+            informeGenerado = true;
         }
 
         // ============================================
-        //  GENERAR REPORTE
+        //  DESCARGAR INFORME
         // ============================================
-        document.getElementById('btnGenerar').addEventListener('click', function() {
-            const pais = document.getElementById('pais').value;
-            const region = document.getElementById('region').value.trim();
-            const direccion = document.getElementById('direccion').value.trim();
-            const lat = document.getElementById('latitud').value.trim();
-            const lng = document.getElementById('longitud').value.trim();
-            const area = document.getElementById('area').value;
-            const otroArea = document.getElementById('otroArea').value.trim();
-            const puesto = document.getElementById('puesto').value.trim();
-            const accion = document.getElementById('accion').value;
-            const contexto = document.getElementById('contexto').value.trim();
-            const formato = document.getElementById('formato').value;
-            const ubicacion = document.getElementById('ubicacionDescarga').value;
-            const nombreArchivo = document.getElementById('nombreArchivo').value.trim() || 'Informe_Tecnico_LEGADO';
+        document.getElementById('btnDescargarInforme').addEventListener('click', function() {
+            if (!informeGenerado) {
+                document.getElementById('mensajeInforme').textContent = '⚠️ Genera el informe primero.';
+                document.getElementById('mensajeInforme').className = 'mensaje info';
+                return;
+            }
+
             const sesion = JSON.parse(localStorage.getItem('legado_sesion'));
-            const msg = document.getElementById('mensaje');
-
-            if (!pais) { msg.textContent = '✖ Selecciona tu país'; msg.className = 'mensaje error'; return; }
-            if (!region && !direccion && !lat && !lng) { msg.textContent = '✖ Ingresa una ubicación'; msg.className = 'mensaje error'; return; }
-            if (!area) { msg.textContent = '✖ Selecciona tu área'; msg.className = 'mensaje error'; return; }
-            if (!accion) { msg.textContent = '✖ Selecciona una acción'; msg.className = 'mensaje error'; return; }
-            if (!evidenciaAceptada) { msg.textContent = '✖ Acepta la evidencia antes de continuar'; msg.className = 'mensaje error'; return; }
-
-            const areaFinal = area === 'Otro' ? otroArea : area;
             const fecha = new Date().toLocaleString('es-ES');
-            codigoReporte = generarCodigo();
-            reporteGenerado = true;
+            const codigo = 'LEG-' + Math.random().toString(36).substring(2, 8).toUpperCase();
 
-            const ubicacionLabel = {
-                'descargas': '💻 Mi PC / Descargas',
-                'google_drive': '☁️ Google Drive',
-                'onedrive': '☁️ OneDrive',
-                'correo': '📧 Enviar por correo',
-                'dropbox': '☁️ Dropbox'
-            }[ubicacion] || '💻 Mi PC';
-
-            const formatoLabel = {
-                'PDF': '📄 PDF',
-                'Word': '📝 Word (DOCX)',
-                'Excel': '📊 Excel (XLSX)',
-                'TXT': '📋 Texto (TXT)'
-            }[formato] || '📄 PDF';
-
-            const riesgosList = riesgosDetectados.map(r => `- ${r.peligro} (${r.nivel})`).join('\n');
-
-            msg.innerHTML = `
-                ✅ <strong>Informe técnico generado</strong><br><br>
-                📌 <strong>Trabajador:</strong> ${sesion.nombre}<br>
-                📌 <strong>País:</strong> ${pais}<br>
-                📌 <strong>Ubicación:</strong> ${region} ${direccion} ${lat && lng ? '(' + lat + ', ' + lng + ')' : ''}<br>
-                📌 <strong>Área:</strong> ${areaFinal}<br>
-                📌 <strong>Puesto:</strong> ${puesto || 'No especificado'}<br>
-                📌 <strong>Acción:</strong> ${accion.replace('_', ' ').toUpperCase()}<br>
-                📌 <strong>Contexto:</strong> ${contexto || 'Sin descripción'}<br>
-                📌 <strong>Archivos:</strong> ${fotosSubidas.length > 0 ? fotosSubidas.join(', ') : 'Sin archivos'}<br>
-                📌 <strong>Riesgos detectados:</strong><br>${riesgosList.replace(/\n/g, '<br>')}<br>
-                📌 <strong>Formato:</strong> ${formatoLabel}<br>
-                📌 <strong>Ubicación:</strong> ${ubicacionLabel}<br>
-                📌 <strong>Archivo:</strong> ${nombreArchivo}.${formato.toLowerCase()}<br>
-                📌 <strong>Fecha:</strong> ${fecha}<br>
-                📄 <strong>Código de verificación:</strong> ${codigoReporte}<br><br>
-                ⚖️ <strong>Este documento está validado por LEGADO y tiene peso legal.</strong>
-            `;
-            msg.className = 'mensaje legal';
-
-            document.getElementById('btnEnviarEmpleador').disabled = false;
-            document.getElementById('btnEnviarAnonimo').disabled = false;
-            guardarSesion();
+            const contenido = document.getElementById('contenidoInforme').innerText;
+            alert('📄 Informe descargado (simulación)\n\n' +
+                '📌 Trabajador: ' + sesion.nombre + '\n' +
+                '📌 Código: ' + codigo + '\n' +
+                '📌 Fecha: ' + fecha + '\n\n' +
+                '✅ Informe generado con éxito.\n' +
+                '📥 El PDF se ha descargado en tu carpeta de descargas.');
         });
-
-        // ============================================
-        //  ENVIAR AL EMPLEADOR
-        // ============================================
-        document.getElementById('btnEnviarEmpleador').addEventListener('click', function() {
-            if (!reporteGenerado) {
-                document.getElementById('mensaje').textContent = '✖ Primero genera el reporte';
-                document.getElementById('mensaje').className = 'mensaje error';
-                return;
-            }
-            document.getElementById('mensaje').innerHTML = `
-                📄 <strong>Reporte enviado al empleador</strong><br>
-                ✅ Notificación formal enviada.<br>
-                📌 Plazo: 48 horas para corregir los riesgos.<br>
-                📄 Código: <strong>${codigoReporte}</strong>
-            `;
-            document.getElementById('mensaje').className = 'mensaje exito';
-            document.getElementById('btnEnviarEmpleador').disabled = true;
-            document.getElementById('btnEnviarAnonimo').disabled = true;
-        });
-
-        // ============================================
-        //  ENVIAR DENUNCIA ANÓNIMA
-        // ============================================
-        document.getElementById('btnEnviarAnonimo').addEventListener('click', function() {
-            if (!reporteGenerado) {
-                document.getElementById('mensaje').textContent = '✖ Primero genera el reporte';
-                document.getElementById('mensaje').className = 'mensaje error';
-                return;
-            }
-            document.getElementById('mensaje').innerHTML = `
-                🕵️ <strong>Denuncia anónima enviada</strong><br>
-                ✅ El trabajador se mantiene en ANONIMATO.<br>
-                ✅ Enviado a SUNAFIL y Ministerio de Trabajo.<br>
-                📄 Código de seguimiento: <strong>${codigoReporte}</strong>
-            `;
-            document.getElementById('mensaje').className = 'mensaje legal';
-            document.getElementById('btnEnviarEmpleador').disabled = true;
-            document.getElementById('btnEnviarAnonimo').disabled = true;
-        });
-
-        // ============================================
-        //  EVENTOS PARA GUARDAR EN SESSION
-        // ============================================
-        document.querySelectorAll('input, select, textarea').forEach(el => {
-            el.addEventListener('change', guardarSesion);
-            el.addEventListener('input', guardarSesion);
-        });
-
-        // ============================================
-        //  CÓDIGO
-        // ============================================
-        function generarCodigo() {
-            const chars = '0123456789ABCDEF';
-            let code = '';
-            for (let i = 0; i < 8; i++) code += chars[Math.floor(Math.random() * 16)];
-            return code;
-        }
 
         // ============================================
         //  CERRAR SESIÓN
         // ============================================
         function cerrarSesion() {
-            // Limpiar sesión del trabajador al cerrar
-            sessionStorage.removeItem('legado_trabajador_sesion');
-            sessionStorage.removeItem('legado_trabajador_activo');
             localStorage.removeItem('legado_sesion');
             window.location.href = 'index.html';
         }
@@ -1197,8 +1122,7 @@
         //  INICIO
         // ============================================
         cargarUsuario();
-        cargarSesion();
-        console.log('👷 LEGADO - Área de Trabajo (sessionStorage)');
+        console.log('🏛️ LEGADO - Mi salud y seguridad');
     </script>
 
 </body>
