@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LEGADO - Panel del Fiscalizador</title>
+    <style>
+        :root {
+            --negro-profundo: #0A0A0A;
+            --negro-carbon: #1A1A1A;
+            --dorado-epico: #C9A84C;
+            --dorado-claro: #E8D5A3;
+            --blanco-roto: #F5F0E8;
+            --gris-calido: #8A7E6B;
+            --rojo-alerta: #E74C3C;
+            --verde-exito: #2ECC71;
+            --naranja: #E67E22;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--negro-profundo);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: var(--blanco-roto);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0 30px;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header .logo {
+            font-family: 'Georgia', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dorado-epico);
+            letter-spacing: 4px;
+        }
+
+        .header .logo span {
+            font-size: 12px;
+            font-weight: 300;
+            color: var(--gris-calido);
+            letter-spacing: 1px;
+            margin-left: 8px;
+        }
+
+        .header .user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header .user .nombre {
+            color: var(--blanco-roto);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .header .user .badge {
+            background: rgba(201, 168, 76, 0.15);
+            color: var(--dorado-epico);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            color: var(--gris-calido);
+            padding: 6px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 12px;
+        }
+
+        .btn-logout:hover {
+            border-color: var(--rojo-alerta);
+            color: var(--rojo-alerta);
+        }
+
+        .page-title {
+            margin: 24px 0 8px;
+        }
+
+        .page-title h1 {
+            font-size: 26px;
+            font-weight: 300;
+            color: var(--blanco-roto);
+        }
+
+        .page-title h1 strong {
+            color: var(--dorado-epico);
+            font-weight: 700;
+        }
+
+        .page-title p {
+            color: var(--gris-calido);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .card {
+            background: var(--negro-carbon);
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px solid rgba(201, 168, 76, 0.06);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--blanco-roto);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: var(--negro-profundo);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid rgba(201, 168, 76, 0.06);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(201, 168, 76, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .stat-card .numero {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dorado-epico);
+            display: block;
+        }
+
+        .stat-card .label {
+            font-size: 12px;
+            color: var(--gris-calido);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .btn-dorado {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--dorado-epico), #B8942E);
+            color: var(--negro-profundo);
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(201, 168, 76, 0.15);
+        }
+
+        .btn-dorado:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+        }
+
+        .btn-outline {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            color: var(--dorado-claro);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--dorado-epico);
+            background: rgba(201, 168, 76, 0.04);
+        }
+
+        .btn-peligro {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--rojo-alerta), #C0392B);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.2);
+        }
+
+        .btn-peligro:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.3);
+        }
+
+        .acciones-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .alerta-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .alerta-item:last-child {
+            border-bottom: none;
+        }
+
+        .alerta-item .icono {
+            font-size: 18px;
+        }
+
+        .alerta-item .info {
+            flex: 1;
+        }
+
+        .alerta-item .info .titulo {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .alerta-item .info .desc {
+            font-size: 13px;
+            color: var(--gris-calido);
+        }
+
+        .alerta-item .estado {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 10px;
+        }
+
+        .alerta-item .estado.critico {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--rojo-alerta);
+        }
+
+        .alerta-item .estado.medio {
+            background: rgba(230, 126, 34, 0.15);
+            color: var(--naranja);
+        }
+
+        .alerta-item .estado.bajo {
+            background: rgba(46, 204, 113, 0.15);
+            color: var(--verde-exito);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0 10px;
+            color: var(--gris-calido);
+            font-size: 11px;
+            border-top: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .footer strong {
+            color: var(--dorado-epico);
+        }
+
+        .link {
+            display: block;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--gris-calido);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .link:hover {
+            color: var(--dorado-claro);
+        }
+
+        @media (max-width: 600px) {
+            .header { flex-direction: column; align-items: stretch; text-align: center; }
+            .header .user { justify-content: center; flex-wrap: wrap; }
+            .page-title h1 { font-size: 22px; }
+            .acciones-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .card { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <header class="header">
+            <div class="logo">
+                LEGADO <span>· Fiscalizador</span>
+            </div>
+            <div class="user">
+                <span class="nombre" id="userName">👤 Usuario</span>
+                <span class="badge" id="userLevel">🏛️ Gubernamental</span>
+                <button class="btn-logout" onclick="cerrarSesion()">Salir</button>
+            </div>
+        </header>
+
+        <!-- ===== TÍTULO ===== -->
+        <div class="page-title">
+            <h1>🏛️ <strong>Panel del Fiscalizador</strong></h1>
+            <p>Supervisa empresas, realiza auditorías y gestiona sanciones.</p>
+        </div>
+
+        <!-- ===== ESTADÍSTICAS ===== -->
+        <div class="card">
+            <div class="card-title">📊 Estadísticas generales</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="numero">1,234</span>
+                    <span class="label">📋 Empresas</span>
+                </div>
+                <div class="stat-card">
+                    <span class="numero">56</span>
+                    <span class="label">🚨 Alertas</span>
+                </div>
+                <div class="stat-card">
+                    <span class="numero">23</span>
+                    <span class="label">⚠️ Incumplimientos</span>
+                </div>
+                <div class="stat-card">
+                    <span class="numero">45</span>
+                    <span class="label">✅ Auditorías</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ACCIONES ===== -->
+        <div class="card">
+            <div class="card-title">⚡ Acciones</div>
+            <div class="acciones-grid">
+                <button class="btn-dorado" onclick="alert('📋 Lista de empresas')">📋 Ver empresas</button>
+                <button class="btn-dorado" onclick="alert('🔍 Realizar auditoría')">🔍 Auditorías</button>
+                <button class="btn-peligro" onclick="alert('⚖️ Imponer sanción')">⚖️ Sanciones</button>
+                <button class="btn-outline" onclick="alert('📊 Generar reporte')">📊 Reportes</button>
+            </div>
+        </div>
+
+        <!-- ===== ALERTAS CRÍTICAS ===== -->
+        <div class="card" style="border-color: rgba(231, 76, 60, 0.15);">
+            <div class="card-title">🚨 Alertas críticas <span style="font-size:12px;color:var(--gris-calido);font-weight:400;">(requieren atención inmediata)</span></div>
+
+            <div class="alerta-item">
+                <span class="icono">🔴</span>
+                <div class="info">
+                    <div class="titulo">LEGADO CORPORATION S.A.C.</div>
+                    <div class="desc">Riesgo grave - Art. 56 - Ley N° 29783</div>
+                </div>
+                <span class="estado critico">CRÍTICO</span>
+            </div>
+
+            <div class="alerta-item">
+                <span class="icono">🟡</span>
+                <div class="info">
+                    <div class="titulo">Empresa XYZ S.A.C.</div>
+                    <div class="desc">Incumplimiento medio - Falta de señalización</div>
+                </div>
+                <span class="estado medio">MEDIO</span>
+            </div>
+
+            <div class="alerta-item">
+                <span class="icono">🟡</span>
+                <div class="info">
+                    <div class="titulo">Servicios Generales ABC</div>
+                    <div class="desc">Equipo sin mantenimiento - 45 días sin revisión</div>
+                </div>
+                <span class="estado medio">MEDIO</span>
+            </div>
+        </div>
+
+        <!-- ===== ENLACE VOLVER ===== -->
+        <a href="index.html" class="link">🏛️ Volver al inicio</a>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="footer">
+            ⚡ <strong>LEGADO</strong> · Seguridad Laboral Automática · v1.0
+        </div>
+
+    </div>
+
+    <script>
+        function cargarUsuario() {
+            const sesion = JSON.parse(localStorage.getItem('legado_sesion'));
+            if (!sesion) {
+                window.location.href = 'index.html';
+                return;
+            }
+            document.getElementById('userName').textContent = '👤 ' + sesion.nombre;
+            const niveles = {
+                'trabajador': '👷 Trabajador',
+                'empresa': '🏢 Empresa',
+                'especialista': '👨‍🔬 Especialista SST',
+                'gubernamental': '🏛️ Gubernamental'
+            };
+            document.getElementById('userLevel').textContent = niveles[sesion.nivel] || sesion.nivel;
+        }
+
+        function cerrarSesion() {
+            localStorage.removeItem('legado_sesion');
+            window.location.href = 'index.html';
+        }
+
+        cargarUsuario();
+        console.log('🏛️ LEGADO - Panel del Fiscalizador');
+    </script>
+
+</body>
+</html>
