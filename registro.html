@@ -3,606 +3,531 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LEGADO - Registro</title>
+    <title>LEGADO - Iniciar sesión</title>
     <style>
         :root {
             --negro-profundo: #0A0A0A;
-            --negro-carbon: #1A1A1A;
+            --negro-carbono: #1A1A1A;
             --dorado-epico: #C9A84C;
-            --dorado-claro: #E8D5A3;
+            --dorado-claro: #E0D5A3;
             --blanco-roto: #F5F0E8;
-            --gris-calido: #8A7E6B;
+            --gris-calido: #BA7E68;
             --rojo-alerta: #E74C3C;
             --verde-exito: #2ECC71;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--negro-profundo);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            color: var(--blanco-roto);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
-
-        .container {
+        .login-container {
+            background: var(--negro-carbono);
+            padding: 50px 40px;
+            border-radius: 20px;
+            border: 1px solid var(--dorado-epico);
             max-width: 440px;
             width: 100%;
-            background: var(--negro-carbon);
-            border-radius: 32px;
-            padding: 40px 28px 35px;
-            border: 1px solid rgba(201, 168, 76, 0.12);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(201, 168, 76, 0.15);
+            animation: fadeIn 0.8s ease;
         }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            left: -40%;
-            width: 180%;
-            height: 180%;
-            background: radial-gradient(ellipse at 20% 20%, rgba(201, 168, 76, 0.04), transparent 60%);
-            pointer-events: none;
-            z-index: 0;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .logo {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 24px;
-        }
-
-        .logo h1 {
-            font-family: 'Georgia', serif;
-            font-size: 28px;
-            color: var(--dorado-epico);
-            letter-spacing: 6px;
-        }
-
-        .logo .sub {
-            font-size: 11px;
-            color: var(--gris-calido);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.6;
-        }
-
-        .form-title {
-            position: relative;
-            z-index: 1;
-            font-size: 22px;
-            font-weight: 300;
-            margin-bottom: 4px;
-        }
-
-        .form-subtitle {
-            position: relative;
-            z-index: 1;
-            font-size: 14px;
-            color: var(--gris-calido);
-            margin-bottom: 24px;
-        }
-
-        .form-subtitle span {
-            color: var(--dorado-epico);
-        }
-
-        .input-group {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 16px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 12px;
-            color: var(--gris-calido);
-            margin-bottom: 4px;
-            letter-spacing: 0.5px;
-        }
-
-        .input-group label .requerido {
-            color: var(--rojo-alerta);
-        }
-
-        .input-group input,
-        .input-group select {
-            width: 100%;
-            padding: 14px 16px;
-            background: var(--negro-profundo);
-            border: 1px solid rgba(201, 168, 76, 0.08);
-            border-radius: 12px;
-            color: var(--blanco-roto);
-            font-size: 15px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .input-group input:focus,
-        .input-group select:focus {
-            border-color: var(--dorado-epico);
-        }
-
-        .input-group select option {
-            background: var(--negro-carbon);
-            color: var(--blanco-roto);
-        }
-
-        .input-group .input-con-verificacion {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .input-group .input-con-verificacion input {
-            flex: 1;
-        }
-
-        .btn-verificar {
-            padding: 14px 16px;
-            background: var(--negro-profundo);
-            border: 1px solid rgba(201, 168, 76, 0.15);
-            border-radius: 12px;
-            color: var(--dorado-claro);
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.3s;
-            white-space: nowrap;
-        }
-
-        .btn-verificar:hover:not(:disabled) {
-            border-color: var(--dorado-epico);
-            background: rgba(201, 168, 76, 0.05);
-        }
-
-        .btn-verificar:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        .btn-verificar.valido {
-            border-color: var(--verde-exito);
-            color: var(--verde-exito);
-        }
-
-        .btn-verificar.invalido {
-            border-color: var(--rojo-alerta);
-            color: var(--rojo-alerta);
-        }
-
-        .btn-verificar.verificando {
-            color: var(--gris-calido);
-            border-color: var(--gris-calido);
-        }
-
-        .datos-dni {
-            background: var(--negro-profundo);
-            border-radius: 12px;
-            padding: 14px 16px;
-            margin-top: -8px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(46, 204, 113, 0.1);
-            display: none;
-        }
-
-        .datos-dni.visible {
-            display: block;
-            animation: fadeUp 0.3s ease;
-        }
-
-        .datos-dni .dni-nombre {
-            color: var(--verde-exito);
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .datos-dni .dni-label {
-            font-size: 11px;
-            color: var(--gris-calido);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .btn-dorado {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--dorado-epico), #B8942E);
-            color: var(--negro-profundo);
-            border: none;
-            border-radius: 14px;
-            font-size: 16px;
+        .login-title {
+            color: var(--dorado-epico);
+            font-size: 32px;
             font-weight: 700;
-            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 4px;
+        }
+        .login-subtitle {
+            color: var(--gris-calido);
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 35px;
+            letter-spacing: 2px;
+        }
+
+        /* Selector de idioma */
+        .idioma-selector {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+        .idioma-selector select {
+            background: var(--negro-profundo);
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: var(--blanco-roto);
+            padding: 6px 12px;
+            font-size: 13px;
             cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 25px rgba(201, 168, 76, 0.15);
+            outline: none;
+        }
+        .idioma-selector select:focus {
+            border-color: var(--dorado-epico);
         }
 
-        .btn-dorado:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 35px rgba(201, 168, 76, 0.3);
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
         }
-
-        .btn-dorado:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .form-group label {
+            display: block;
+            color: var(--dorado-claro);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
         }
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--negro-profundo);
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: var(--blanco-roto);
+            font-size: 15px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: var(--dorado-epico);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
+        }
+        .form-group input::placeholder { color: #555; }
 
-        .toggle-password {
+        .password-wrapper { position: relative; }
+        .password-wrapper input { padding-right: 50px; }
+        .btn-toggle-password {
             position: absolute;
             right: 14px;
-            top: 40px;
-            cursor: pointer;
-            color: var(--gris-calido);
-            font-size: 18px;
-            background: transparent;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
             border: none;
+            color: #666;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+            font-family: inherit;
+            line-height: 1;
         }
+        .btn-toggle-password:hover { color: var(--dorado-epico); }
 
-        .link {
-            position: relative;
-            z-index: 1;
-            display: block;
-            margin-top: 12px;
-            font-size: 13px;
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .form-options label {
             color: var(--gris-calido);
-            text-decoration: none;
-        }
-
-        .link:hover {
-            color: var(--dorado-claro);
-        }
-
-        .mensaje {
-            position: relative;
-            z-index: 1;
             font-size: 13px;
-            margin-top: 12px;
-            text-align: center;
-        }
-
-        .mensaje.error { color: var(--rojo-alerta); }
-        .mensaje.exito { color: var(--verde-exito); }
-
-        .footer {
-            position: relative;
-            z-index: 1;
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(201, 168, 76, 0.05);
-            font-size: 11px;
-            color: var(--gris-calido);
-        }
-
-        .footer strong { color: var(--dorado-epico); }
-
-        .terminos {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 12px;
-            color: var(--gris-calido);
-            margin: 12px 0 16px;
-            text-align: left;
-        }
-
-        .terminos input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--dorado-epico);
+            gap: 8px;
             cursor: pointer;
         }
+        .form-options label input[type="checkbox"] {
+            accent-color: var(--dorado-epico);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        .btn-forgot {
+            background: none;
+            border: none;
+            color: var(--dorado-epico);
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+            font-family: inherit;
+        }
+        .btn-forgot:hover { color: var(--dorado-claro); }
 
-        .terminos a {
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            background: var(--dorado-epico);
+            border: none;
+            border-radius: 10px;
+            color: var(--negro-profundo);
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .btn-login:hover {
+            background: var(--dorado-claro);
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(201, 168, 76, 0.3);
+        }
+        .btn-login:active { transform: scale(0.98); }
+
+        .btn-register {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            border: 2px solid var(--dorado-epico);
+            border-radius: 10px;
+            color: var(--dorado-epico);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: inherit;
+        }
+        .btn-register:hover {
+            background: var(--dorado-epico);
+            color: var(--negro-profundo);
+            transform: scale(1.02);
+        }
+        .btn-register:active { transform: scale(0.98); }
+
+        .message-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .message {
+            padding: 12px 40px 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            animation: slideDown 0.4s ease;
+            display: none;
+            position: relative;
+        }
+        .message.show { display: block; }
+        .message.success {
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid var(--verde-exito);
+            color: var(--verde-exito);
+        }
+        .message.error {
+            background: rgba(231, 76, 60, 0.15);
+            border: 1px solid var(--rojo-alerta);
+            color: var(--rojo-alerta);
+        }
+        .message.info {
+            background: rgba(201, 168, 76, 0.15);
+            border: 1px solid var(--dorado-epico);
+            color: var(--dorado-claro);
+        }
+        .btn-close-message {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+            padding: 4px 8px;
+            font-family: inherit;
+            line-height: 1;
+        }
+        .btn-close-message:hover { opacity: 1; }
+
+        .footer-text {
+            text-align: center;
+            color: #444;
+            font-size: 12px;
+            margin-top: 25px;
+            letter-spacing: 1px;
+        }
+        .footer-text a {
             color: var(--dorado-epico);
             text-decoration: none;
+            transition: color 0.3s ease;
         }
-
-        .terminos a:hover {
+        .footer-text a:hover {
+            color: var(--dorado-claro);
             text-decoration: underline;
         }
 
-        @media (max-width: 420px) {
-            .container { padding: 28px 16px 24px; }
-            .logo h1 { font-size: 24px; }
-            .input-group .input-con-verificacion {
-                flex-direction: column;
-            }
-            .btn-verificar {
-                width: 100%;
-            }
+        @media (max-width: 480px) {
+            .login-container { padding: 30px 20px; }
+            .login-title { font-size: 26px; }
+            .form-options { flex-direction: column; align-items: flex-start; }
+            .idioma-selector { justify-content: center; }
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-
-        <div class="logo">
-            <h1>LEGADO</h1>
-            <div class="sub">✦ Seguridad Laboral Automática ✦</div>
-        </div>
-
-        <div class="form-title">📝 Crear cuenta</div>
-        <div class="form-subtitle">Comienza tu viaje con <span>LEGADO</span></div>
-
-        <!-- DNI -->
-        <div class="input-group">
-            <label for="regDNI">Documento de Identidad (DNI) <span class="requerido">*</span></label>
-            <div class="input-con-verificacion">
-                <input type="text" id="regDNI" placeholder="Ej: 12345678" maxlength="8" />
-                <button class="btn-verificar" id="btnVerificarDNI">🔍 Verificar</button>
-            </div>
-            <div style="font-size:11px;color:var(--gris-calido);margin-top:4px;">
-                Verificamos tu identidad con fuentes públicas oficiales (RENIEC/SUNAT)
-            </div>
-        </div>
-
-        <!-- Datos del DNI -->
-        <div class="datos-dni" id="datosDNI">
-            <div class="dni-label">✅ Identidad verificada</div>
-            <div class="dni-nombre" id="dniNombreCompleto">—</div>
-            <div style="font-size:12px;color:var(--gris-calido);margin-top:2px;" id="dniDetalles"></div>
-        </div>
-
-        <!-- Correo -->
-        <div class="input-group">
-            <label for="regEmail">Correo electrónico <span class="requerido">*</span></label>
-            <input type="email" id="regEmail" placeholder="tu@correo.com" />
-        </div>
-
-        <!-- Contraseña -->
-        <div class="input-group" style="position:relative;">
-            <label for="regPassword">Contraseña <span class="requerido">*</span></label>
-            <input type="password" id="regPassword" placeholder="Mínimo 6 caracteres" />
-            <button class="toggle-password" id="togglePassword" type="button" aria-label="Mostrar contraseña">👁️</button>
-        </div>
-
-        <!-- NIVEL ACTUALIZADO CON GUBERNAMENTAL -->
-        <div class="input-group">
-            <label for="regNivel">Tipo de perfil</label>
-            <select id="regNivel">
-                <option value="trabajador">👷 Trabajador</option>
-                <option value="empresa" selected>🏢 Empresa</option>
-                <option value="especialista">👨‍🔬 Especialista SST</option>
-                <option value="gubernamental">🏛️ Gubernamental (Estado)</option>
+    <div class="login-container">
+        <!-- Selector de idioma -->
+        <div class="idioma-selector">
+            <select id="idiomaSelect">
+                <option value="es">🇪🇸 Español</option>
+                <option value="en">🇬🇧 English</option>
             </select>
         </div>
 
-        <!-- Términos -->
-        <div class="terminos">
-            <input type="checkbox" id="checkTerminos" />
-            <label for="checkTerminos">
-                Acepto los <a href="#">Términos y Condiciones</a> y la
-                <a href="#">Política de Privacidad</a>
-            </label>
+        <h1 class="login-title" id="titulo">LEGADO</h1>
+        <p class="login-subtitle" id="subtitulo">SST CORE</p>
+
+        <div class="message-container">
+            <div id="message" class="message">
+                <span id="messageText"></span>
+                <button class="btn-close-message" id="btnCloseMessage" aria-label="Cerrar mensaje">✕</button>
+            </div>
         </div>
 
-        <button class="btn-dorado" id="btnRegister" disabled>Verifica tu DNI primero</button>
+        <form id="loginForm" novalidate>
+            <div class="form-group">
+                <label for="email" id="labelEmail">Correo electrónico</label>
+                <input type="email" id="email" placeholder="usuario@legado.com" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+                <label for="password" id="labelPassword">Contraseña</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password" minlength="6" />
+                    <button type="button" class="btn-toggle-password" id="btnTogglePassword" aria-label="Mostrar contraseña">👁️</button>
+                </div>
+            </div>
+            <div class="form-options">
+                <label id="labelRecordarme"><input type="checkbox" id="remember" /> Recordarme</label>
+                <button type="button" class="btn-forgot" id="btnForgot">¿Olvidaste tu contraseña?</button>
+            </div>
+            <button type="submit" class="btn-login" id="btnLogin">Iniciar Sesión</button>
+        </form>
 
-        <div class="mensaje" id="mensaje"></div>
+        <button class="btn-register" id="btnRegister">Crear cuenta nueva</button>
 
-        <a href="login.html" class="link">¿Ya tienes cuenta? 🔐 Inicia sesión</a>
-
-        <div class="footer">
-            ⚡ <strong>LEGADO</strong> · Seguridad Laboral Automática · v1.0
-        </div>
-
+        <p class="footer-text" id="footerTexto">&copy; 2026 <a href="#">Legado SST</a> — Todos los derechos reservados</p>
     </div>
 
     <script>
-        // ============================================
-        //  ELEMENTOS DOM
-        // ============================================
-        const regDNI = document.getElementById('regDNI');
-        const btnVerificar = document.getElementById('btnVerificarDNI');
-        const datosDNI = document.getElementById('datosDNI');
-        const dniNombre = document.getElementById('dniNombreCompleto');
-        const dniDetalles = document.getElementById('dniDetalles');
-        const regEmail = document.getElementById('regEmail');
-        const regPassword = document.getElementById('regPassword');
-        const regNivel = document.getElementById('regNivel');
-        const checkTerminos = document.getElementById('checkTerminos');
-        const btnRegister = document.getElementById('btnRegister');
-        const mensaje = document.getElementById('mensaje');
+        (function() {
+            'use strict';
 
-        let dniVerificado = false;
-        let datosVerificados = null;
+            // --- ELEMENTOS DOM ---
+            const form = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const rememberCheck = document.getElementById('remember');
+            const messageDiv = document.getElementById('message');
+            const messageText = document.getElementById('messageText');
 
-        // ============================================
-        //  TOGGLE CONTRASEÑA
-        // ============================================
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const type = regPassword.type === 'password' ? 'text' : 'password';
-            regPassword.type = type;
-            this.textContent = type === 'password' ? '👁️' : '🙈';
-        });
+            const btnLogin = document.getElementById('btnLogin');
+            const btnRegister = document.getElementById('btnRegister');
+            const btnForgot = document.getElementById('btnForgot');
+            const btnTogglePassword = document.getElementById('btnTogglePassword');
+            const btnCloseMessage = document.getElementById('btnCloseMessage');
+            const idiomaSelect = document.getElementById('idiomaSelect');
 
-        // ============================================
-        //  VERIFICAR DNI (DEMO)
-        // ============================================
-        async function verificarDNI(dni) {
-            if (!dni || dni.length !== 8 || !/^\d{8}$/.test(dni)) {
-                mensaje.textContent = '✖ Ingresa un DNI válido de 8 dígitos';
-                mensaje.className = 'mensaje error';
-                return false;
-            }
-
-            btnVerificar.textContent = '⏳ Verificando...';
-            btnVerificar.disabled = true;
-            btnVerificar.className = 'btn-verificar verificando';
-            mensaje.textContent = '';
-
-            try {
-                await new Promise(resolve => setTimeout(resolve, 800));
-
-                const dnisValidos = [
-                    '00000001', '00000002', '00000003', '00000004', '00000005',
-                    '12345678', '11111111', '22222222', '33333333', '44444444'
-                ];
-
-                if (!dnisValidos.includes(dni)) {
-                    throw new Error('DNI no encontrado. Prueba con: 12345678, 00000001, 11111111');
+            // --- TEXTOS POR IDIOMA ---
+            const textos = {
+                es: {
+                    titulo: 'LEGADO',
+                    subtitulo: 'SST CORE',
+                    email: 'Correo electrónico',
+                    password: 'Contraseña',
+                    recordarme: 'Recordarme',
+                    olvidaste: '¿Olvidaste tu contraseña?',
+                    iniciar: 'Iniciar Sesión',
+                    crear: 'Crear cuenta nueva',
+                    footer: '© 2026 Legado SST — Todos los derechos reservados',
+                    placeholderEmail: 'usuario@legado.com',
+                    placeholderPass: '••••••••',
+                    mensajeExito: '✅ ¡Bienvenido {email}! Inicio de sesión exitoso.',
+                    mensajeErrorEmail: 'Por favor, ingresa tu correo electrónico.',
+                    mensajeErrorEmailInvalido: 'Ingresa un correo electrónico válido.',
+                    mensajeErrorPass: 'Por favor, ingresa tu contraseña.',
+                    mensajeErrorPassCorta: 'La contraseña debe tener al menos 6 caracteres.',
+                    mensajeRegistro: '📝 Redirigiendo al formulario de registro...',
+                    mensajeRecuperar: '📧 Enlace de recuperación enviado a {email}',
+                    mensajeRecuperarSinEmail: '📧 Ingresa tu correo para recuperar la contraseña.'
+                },
+                en: {
+                    titulo: 'LEGADO',
+                    subtitulo: 'SST CORE',
+                    email: 'Email',
+                    password: 'Password',
+                    recordarme: 'Remember me',
+                    olvidaste: 'Forgot your password?',
+                    iniciar: 'Sign In',
+                    crear: 'Create new account',
+                    footer: '© 2026 Legado SST — All rights reserved',
+                    placeholderEmail: 'user@legado.com',
+                    placeholderPass: '••••••••',
+                    mensajeExito: '✅ Welcome {email}! Login successful.',
+                    mensajeErrorEmail: 'Please enter your email.',
+                    mensajeErrorEmailInvalido: 'Please enter a valid email.',
+                    mensajeErrorPass: 'Please enter your password.',
+                    mensajeErrorPassCorta: 'Password must be at least 6 characters.',
+                    mensajeRegistro: '📝 Redirecting to registration form...',
+                    mensajeRecuperar: '📧 Recovery link sent to {email}',
+                    mensajeRecuperarSinEmail: '📧 Enter your email to recover your password.'
                 }
-
-                const seed = parseInt(dni) % 10;
-                const nombres = ['JUAN CARLOS', 'MARIA ELENA', 'CARLOS ALBERTO', 'ANA PATRICIA', 'JOSE LUIS',
-                    'ROSA MARIA', 'PEDRO ANTONIO', 'LUCIA FERNANDA', 'MIGUEL ANGEL', 'CARMEN ROSA'];
-                const apellidos = ['GONZALES', 'PEREZ', 'RODRIGUEZ', 'SANCHEZ', 'FLORES', 'RAMIREZ', 'GARCIA', 'MARTINEZ', 'TORRES', 'CASTRO'];
-
-                const nombreCompleto = `${nombres[seed % nombres.length]} ${apellidos[seed % apellidos.length]} ${apellidos[(seed+3) % apellidos.length]}`;
-
-                datosVerificados = {
-                    dni: dni,
-                    nombreCompleto: nombreCompleto,
-                    fuente: 'DEMO (simulación)'
-                };
-
-                datosDNI.classList.add('visible');
-                dniNombre.textContent = datosVerificados.nombreCompleto;
-                dniDetalles.textContent = `DNI: ${dni} | Fuente: ${datosVerificados.fuente}`;
-
-                btnVerificar.textContent = '✅ Verificado';
-                btnVerificar.className = 'btn-verificar valido';
-                btnVerificar.disabled = false;
-
-                dniVerificado = true;
-                mensaje.textContent = '✓ Identidad verificada correctamente';
-                mensaje.className = 'mensaje exito';
-                actualizarBotonRegistro();
-                return true;
-
-            } catch (error) {
-                mensaje.textContent = '✖ ' + error.message;
-                mensaje.className = 'mensaje error';
-                btnVerificar.textContent = '🔍 Reintentar';
-                btnVerificar.className = 'btn-verificar invalido';
-                btnVerificar.disabled = false;
-                return false;
-            }
-        }
-
-        // ============================================
-        //  ACTUALIZAR BOTÓN REGISTRO
-        // ============================================
-        function actualizarBotonRegistro() {
-            const emailOk = regEmail.value.trim() !== '' && regEmail.value.includes('@');
-            const passOk = regPassword.value.length >= 6;
-            const terminosOk = checkTerminos.checked;
-
-            if (dniVerificado && emailOk && passOk && terminosOk) {
-                btnRegister.disabled = false;
-                btnRegister.textContent = '✅ Crear cuenta →';
-            } else {
-                btnRegister.disabled = true;
-                btnRegister.textContent = 'Completa todos los campos';
-            }
-        }
-
-        // ============================================
-        //  EVENTOS
-        // ============================================
-        btnVerificar.addEventListener('click', function(e) {
-            e.preventDefault();
-            const dni = regDNI.value.trim();
-            verificarDNI(dni);
-        });
-
-        regDNI.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') btnVerificar.click();
-        });
-
-        regDNI.addEventListener('input', function() {
-            this.value = this.value.replace(/\D/g, '').slice(0, 8);
-        });
-
-        regEmail.addEventListener('input', actualizarBotonRegistro);
-        regPassword.addEventListener('input', actualizarBotonRegistro);
-        checkTerminos.addEventListener('change', actualizarBotonRegistro);
-
-        // ============================================
-        //  REGISTRO
-        // ============================================
-        btnRegister.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            if (!dniVerificado || !datosVerificados) {
-                mensaje.textContent = '✖ Primero verifica tu DNI';
-                mensaje.className = 'mensaje error';
-                return;
-            }
-
-            const email = regEmail.value.trim();
-            const password = regPassword.value.trim();
-            const nivel = regNivel.value;
-
-            const usuarios = JSON.parse(localStorage.getItem('legado_usuarios') || '[]');
-
-            if (usuarios.find(u => u.email === email)) {
-                mensaje.textContent = '✖ Este correo ya está registrado';
-                mensaje.className = 'mensaje error';
-                return;
-            }
-
-            if (usuarios.find(u => u.dni === regDNI.value.trim())) {
-                mensaje.textContent = '✖ Este DNI ya está registrado';
-                mensaje.className = 'mensaje error';
-                return;
-            }
-
-            const nuevoUsuario = {
-                dni: regDNI.value.trim(),
-                nombre: datosVerificados.nombreCompleto,
-                email: email,
-                password: password,
-                nivel: nivel,
-                fecha: new Date().toISOString()
             };
 
-            usuarios.push(nuevoUsuario);
-            localStorage.setItem('legado_usuarios', JSON.stringify(usuarios));
+            function cambiarIdioma(idioma) {
+                const t = textos[idioma] || textos.es;
+                document.getElementById('titulo').textContent = t.titulo;
+                document.getElementById('subtitulo').textContent = t.subtitulo;
+                document.getElementById('labelEmail').textContent = t.email;
+                document.getElementById('labelPassword').textContent = t.password;
+                document.getElementById('labelRecordarme').innerHTML = `<input type="checkbox" id="remember" /> ${t.recordarme}`;
+                document.getElementById('btnForgot').textContent = t.olvidaste;
+                document.getElementById('btnLogin').textContent = t.iniciar;
+                document.getElementById('btnRegister').textContent = t.crear;
+                document.getElementById('footerTexto').innerHTML = t.footer;
+                emailInput.placeholder = t.placeholderEmail;
+                passwordInput.placeholder = t.placeholderPass;
+                // Guardar idioma actual para usar en mensajes dinámicos
+                window.idiomaActual = idioma;
+            }
 
-            localStorage.setItem('legado_sesion', JSON.stringify({
-                dni: nuevoUsuario.dni,
-                nombre: nuevoUsuario.nombre,
-                email: nuevoUsuario.email,
-                nivel: nuevoUsuario.nivel
-            }));
+            idiomaSelect.addEventListener('change', function() {
+                cambiarIdioma(this.value);
+            });
 
-            mensaje.textContent = '✓ ¡Cuenta creada exitosamente!';
-            mensaje.className = 'mensaje exito';
-            btnRegister.disabled = true;
-            btnRegister.textContent = '✅ Cuenta creada';
+            // --- FUNCIÓN PARA MOSTRAR MENSAJES CON IDIOMA ---
+            function showMessage(textKey, type, params = {}) {
+                const idioma = window.idiomaActual || 'es';
+                const t = textos[idioma] || textos.es;
+                let texto = t[textKey] || textKey;
+                // Reemplazar placeholders
+                for (const [key, value] of Object.entries(params)) {
+                    texto = texto.replace(`{${key}}`, value);
+                }
+                messageText.textContent = texto;
+                messageDiv.className = 'message ' + type + ' show';
+                if (type !== 'error') {
+                    clearTimeout(window.messageTimeout);
+                    window.messageTimeout = setTimeout(() => { hideMessage(); }, 6000);
+                }
+            }
 
-            setTimeout(() => {
-                window.location.href = 'dashboard.html';
-            }, 1200);
-        });
+            function hideMessage() {
+                messageDiv.className = 'message';
+                messageText.textContent = '';
+                clearTimeout(window.messageTimeout);
+            }
 
-        // ============================================
-        //  INICIO
-        // ============================================
-        console.log('📝 LEGADO - Ventana de Registro');
-        console.log('🔑 DNIs demo válidos: 12345678, 00000001, 11111111, 22222222, 33333333');
-        console.log('🏛️ Perfil Gubernamental (Estado) disponible');
-        actualizarBotonRegistro();
+            btnCloseMessage.addEventListener('click', hideMessage);
+
+            // --- TOGGLE CONTRASEÑA ---
+            let passwordVisible = false;
+            btnTogglePassword.addEventListener('click', function() {
+                passwordVisible = !passwordVisible;
+                passwordInput.type = passwordVisible ? 'text' : 'password';
+                this.textContent = passwordVisible ? '🙈' : '👁️';
+                this.setAttribute('aria-label', passwordVisible ? 'Ocultar contraseña' : 'Mostrar contraseña');
+            });
+
+            // --- VALIDACIÓN LOGIN ---
+            function handleLogin(event) {
+                if (event) event.preventDefault();
+                const email = emailInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                if (!email) {
+                    showMessage('mensajeErrorEmail', 'error');
+                    emailInput.focus();
+                    return false;
+                }
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showMessage('mensajeErrorEmailInvalido', 'error');
+                    emailInput.focus();
+                    return false;
+                }
+                if (!password) {
+                    showMessage('mensajeErrorPass', 'error');
+                    passwordInput.focus();
+                    return false;
+                }
+                if (password.length < 6) {
+                    showMessage('mensajeErrorPassCorta', 'error');
+                    passwordInput.focus();
+                    return false;
+                }
+
+                console.log('🔐 Login:', { email, password, remember: rememberCheck.checked });
+                showMessage('mensajeExito', 'success', { email });
+                setTimeout(() => { alert('🔁 Redirigiendo al panel principal...'); }, 1500);
+                return true;
+            }
+
+            // --- REGISTRO ---
+            function handleRegister() {
+                console.log('📝 Registro');
+                showMessage('mensajeRegistro', 'info');
+                setTimeout(() => { alert('📝 Redirigiendo a registro...'); }, 1000);
+            }
+
+            // --- RECUPERAR CONTRASEÑA ---
+            function handleForgot() {
+                console.log('🔑 Recuperar contraseña');
+                const email = emailInput.value.trim();
+                if (email && email.includes('@')) {
+                    showMessage('mensajeRecuperar', 'info', { email });
+                } else {
+                    showMessage('mensajeRecuperarSinEmail', 'info');
+                    emailInput.focus();
+                }
+                setTimeout(() => { alert('🔑 Redirigiendo a recuperación...'); }, 1500);
+            }
+
+            // --- EVENTOS ---
+            form.addEventListener('submit', handleLogin);
+            btnLogin.addEventListener('click', function(e) {
+                if (!form.checkValidity()) { form.dispatchEvent(new Event('submit')); }
+            });
+            btnRegister.addEventListener('click', handleRegister);
+            btnForgot.addEventListener('click', handleForgot);
+
+            // Validaciones en tiempo real
+            emailInput.addEventListener('blur', function() {
+                const val = this.value.trim();
+                this.style.borderColor = (val && !val.includes('@')) ? 'var(--rojo-alerta)' : '#333';
+            });
+            passwordInput.addEventListener('blur', function() {
+                const val = this.value.trim();
+                this.style.borderColor = (val && val.length < 6) ? 'var(--rojo-alerta)' : '#333';
+            });
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('focus', function() { this.style.borderColor = 'var(--dorado-epico)'; });
+            });
+
+            // --- INICIALIZAR IDIOMA ---
+            cambiarIdioma('es');
+            window.idiomaActual = 'es';
+
+            console.log('✅ 5 botones funcionando + selector de idioma:');
+            console.log('   🔐 Iniciar Sesión');
+            console.log('   👁️ Mostrar/Ocultar contraseña');
+            console.log('   ❌ Cerrar mensaje');
+            console.log('   📝 Crear cuenta');
+            console.log('   🔑 Olvidaste contraseña');
+            console.log('   🌐 Cambio de idioma (Español/Inglés)');
+        })();
     </script>
-
 </body>
 </html>
