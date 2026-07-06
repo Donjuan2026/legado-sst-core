@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LEGADO - Iniciar sesión</title>
+    <title>LEGADO - Inicio</title>
     <style>
         :root {
             --negro-profundo: #0A0A0A;
@@ -14,59 +14,153 @@
             --gris-calido: #BA7E68;
             --rojo-alerta: #E74C3C;
             --verde-exito: #2ECC71;
+            --sidebar-width: 220px;
+            --header-height: 60px;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             background: var(--negro-profundo);
-            min-height: 100vh;
+            color: var(--blanco-roto);
+            height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            overflow: hidden;
         }
-        .login-container {
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: var(--sidebar-width);
             background: var(--negro-carbono);
-            padding: 50px 40px;
-            border-radius: 20px;
-            border: 1px solid var(--dorado-epico);
-            max-width: 440px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(201, 168, 76, 0.15);
-            animation: fadeIn 0.8s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .login-title {
-            color: var(--dorado-epico);
-            font-size: 32px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 8px;
-            letter-spacing: 4px;
-        }
-        .login-subtitle {
-            color: var(--gris-calido);
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 35px;
-            letter-spacing: 2px;
-        }
-
-        /* Selector de idioma */
-        .idioma-selector {
+            border-right: 1px solid rgba(201, 168, 76, 0.1);
+            padding: 20px 0;
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
+            flex-direction: column;
+            height: 100vh;
+            flex-shrink: 0;
         }
-        .idioma-selector select {
+        .sidebar-logo {
+            text-align: center;
+            padding: 0 16px 20px;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+        }
+        .sidebar-logo h1 {
+            color: var(--dorado-epico);
+            font-size: 22px;
+            letter-spacing: 3px;
+        }
+        .sidebar-logo small {
+            color: var(--gris-calido);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .sidebar-menu {
+            flex: 1;
+            padding: 20px 12px 0;
+            overflow-y: auto;
+        }
+        .sidebar-menu .menu-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--gris-calido);
+            letter-spacing: 1px;
+            padding: 8px 8px 4px;
+            opacity: 0.5;
+        }
+        .sidebar-menu button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 10px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 10px;
+            color: var(--blanco-roto);
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            text-align: left;
+            margin-bottom: 2px;
+        }
+        .sidebar-menu button:hover {
+            background: rgba(201, 168, 76, 0.08);
+            color: var(--dorado-claro);
+        }
+        .sidebar-menu button.activo {
+            background: rgba(201, 168, 76, 0.12);
+            color: var(--dorado-epico);
+            border-left: 3px solid var(--dorado-epico);
+        }
+        .sidebar-menu button .icono {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+        .sidebar-footer {
+            padding: 16px 12px;
+            border-top: 1px solid rgba(201, 168, 76, 0.08);
+        }
+        .sidebar-footer button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 10px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 10px;
+            color: var(--blanco-roto);
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .sidebar-footer button:hover {
+            background: rgba(201, 168, 76, 0.08);
+            color: var(--rojo-alerta);
+        }
+
+        /* ===== MAIN ===== */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            height: var(--header-height);
+            background: var(--negro-carbono);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            flex-shrink: 0;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .header-left h2 {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--blanco-roto);
+        }
+        .header-left h2 span {
+            color: var(--dorado-epico);
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .header-right select {
             background: var(--negro-profundo);
             border: 1px solid #333;
             border-radius: 8px;
@@ -76,458 +170,411 @@
             cursor: pointer;
             outline: none;
         }
-        .idioma-selector select:focus {
+        .header-right select:focus {
             border-color: var(--dorado-epico);
         }
-
-        .form-group {
-            margin-bottom: 22px;
+        .notificaciones {
             position: relative;
-        }
-        .form-group label {
-            display: block;
-            color: var(--dorado-claro);
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            letter-spacing: 1px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 14px 16px;
-            background: var(--negro-profundo);
-            border: 1px solid #333;
-            border-radius: 10px;
-            color: var(--blanco-roto);
-            font-size: 15px;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-        .form-group input:focus {
-            border-color: var(--dorado-epico);
-            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
-        }
-        .form-group input::placeholder { color: #555; }
-
-        .password-wrapper { position: relative; }
-        .password-wrapper input { padding-right: 50px; }
-        .btn-toggle-password {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #666;
-            font-size: 18px;
             cursor: pointer;
-            padding: 5px;
-            transition: color 0.3s ease;
-            font-family: inherit;
-            line-height: 1;
+            font-size: 20px;
         }
-        .btn-toggle-password:hover { color: var(--dorado-epico); }
+        .notificaciones .badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--rojo-alerta);
+            color: #fff;
+            font-size: 10px;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--dorado-epico);
+            color: var(--negro-profundo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-        .form-options {
+        /* ===== CONTENT ===== */
+        .content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        /* ===== TARJETAS ===== */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--negro-carbono);
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            border-radius: 14px;
+            padding: 18px 20px;
+        }
+        .stat-card .label {
+            font-size: 12px;
+            color: var(--gris-calido);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stat-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dorado-claro);
+            margin-top: 4px;
+        }
+        .stat-card .sub {
+            font-size: 12px;
+            color: var(--gris-calido);
+            margin-top: 4px;
+        }
+
+        /* ===== PANEL ===== */
+        .panel-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+        .panel {
+            background: var(--negro-carbono);
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            border-radius: 14px;
+            padding: 20px;
+        }
+        .panel h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dorado-claro);
+            margin-bottom: 14px;
+        }
+        .panel .item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 28px;
-            flex-wrap: wrap;
-            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.05);
         }
-        .form-options label {
-            color: var(--gris-calido);
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
+        .panel .item:last-child {
+            border-bottom: none;
         }
-        .form-options label input[type="checkbox"] {
-            accent-color: var(--dorado-epico);
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
-        .btn-forgot {
-            background: none;
-            border: none;
-            color: var(--dorado-epico);
-            font-size: 13px;
-            cursor: pointer;
-            text-decoration: underline;
-            transition: color 0.3s ease;
-            font-family: inherit;
-        }
-        .btn-forgot:hover { color: var(--dorado-claro); }
-
-        .btn-login {
-            width: 100%;
-            padding: 16px;
-            background: var(--dorado-epico);
-            border: none;
-            border-radius: 10px;
-            color: var(--negro-profundo);
-            font-size: 17px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-        .btn-login:hover {
-            background: var(--dorado-claro);
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(201, 168, 76, 0.3);
-        }
-        .btn-login:active { transform: scale(0.98); }
-
-        .btn-register {
-            width: 100%;
-            padding: 14px;
-            background: transparent;
-            border: 2px solid var(--dorado-epico);
-            border-radius: 10px;
-            color: var(--dorado-epico);
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: inherit;
-        }
-        .btn-register:hover {
-            background: var(--dorado-epico);
-            color: var(--negro-profundo);
-            transform: scale(1.02);
-        }
-        .btn-register:active { transform: scale(0.98); }
-
-        .message-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .message {
-            padding: 12px 40px 12px 16px;
-            border-radius: 8px;
+        .panel .item .texto {
             font-size: 14px;
-            animation: slideDown 0.4s ease;
-            display: none;
-            position: relative;
         }
-        .message.show { display: block; }
-        .message.success {
+        .panel .item .estado {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(201, 168, 76, 0.1);
+            color: var(--dorado-claro);
+        }
+        .panel .item .estado.verde {
             background: rgba(46, 204, 113, 0.15);
-            border: 1px solid var(--verde-exito);
             color: var(--verde-exito);
         }
-        .message.error {
+        .panel .item .estado.rojo {
             background: rgba(231, 76, 60, 0.15);
-            border: 1px solid var(--rojo-alerta);
             color: var(--rojo-alerta);
         }
-        .message.info {
+        .panel .item .estado.amarillo {
             background: rgba(201, 168, 76, 0.15);
-            border: 1px solid var(--dorado-epico);
-            color: var(--dorado-claro);
-        }
-        .btn-close-message {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: inherit;
-            font-size: 18px;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
-            padding: 4px 8px;
-            font-family: inherit;
-            line-height: 1;
-        }
-        .btn-close-message:hover { opacity: 1; }
-
-        .footer-text {
-            text-align: center;
-            color: #444;
-            font-size: 12px;
-            margin-top: 25px;
-            letter-spacing: 1px;
-        }
-        .footer-text a {
             color: var(--dorado-epico);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .footer-text a:hover {
-            color: var(--dorado-claro);
-            text-decoration: underline;
         }
 
+        /* ===== ACCIONES RÁPIDAS ===== */
+        .acciones-rapidas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .acciones-rapidas button {
+            padding: 10px 18px;
+            background: var(--negro-profundo);
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            border-radius: 10px;
+            color: var(--blanco-roto);
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .acciones-rapidas button:hover {
+            border-color: var(--dorado-epico);
+            background: rgba(201, 168, 76, 0.05);
+        }
+        .acciones-rapidas button.principal {
+            background: var(--dorado-epico);
+            color: var(--negro-profundo);
+            border: none;
+            font-weight: 600;
+        }
+        .acciones-rapidas button.principal:hover {
+            background: var(--dorado-claro);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .panel-grid { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr 1fr; }
+        }
         @media (max-width: 480px) {
-            .login-container { padding: 30px 20px; }
-            .login-title { font-size: 26px; }
-            .form-options { flex-direction: column; align-items: flex-start; }
-            .idioma-selector { justify-content: center; }
+            .stats { grid-template-columns: 1fr; }
+            .header-left h2 { font-size: 14px; }
+            .header { padding: 0 12px; flex-wrap: wrap; gap: 8px; }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <!-- Selector de idioma -->
-        <div class="idioma-selector">
-            <select id="idiomaSelect">
-                <option value="es">🇪🇸 Español</option>
-                <option value="en">🇬🇧 English</option>
-            </select>
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <h1>LEGADO</h1>
+            <small>SST Core</small>
         </div>
-
-        <h1 class="login-title" id="titulo">LEGADO</h1>
-        <p class="login-subtitle" id="subtitulo">SST CORE</p>
-
-        <div class="message-container">
-            <div id="message" class="message">
-                <span id="messageText"></span>
-                <button class="btn-close-message" id="btnCloseMessage" aria-label="Cerrar mensaje">✕</button>
-            </div>
+        <nav class="sidebar-menu">
+            <div class="menu-label">Principal</div>
+            <button class="activo" data-seccion="inicio"><span class="icono">🏠</span> Inicio</button>
+            <button data-seccion="incidentes"><span class="icono">⚠️</span> Incidentes</button>
+            <button data-seccion="capacitaciones"><span class="icono">📚</span> Capacitaciones</button>
+            <button data-seccion="evaluaciones"><span class="icono">📊</span> Evaluaciones</button>
+            <div class="menu-label" style="margin-top:16px;">Gestión</div>
+            <button data-seccion="trabajadores"><span class="icono">👥</span> Trabajadores</button>
+            <button data-seccion="auditorias"><span class="icono">🔍</span> Auditorías</button>
+            <button data-seccion="documentos"><span class="icono">📄</span> Documentos</button>
+            <button data-seccion="reportes"><span class="icono">📈</span> Reportes</button>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="btnCerrarSesion"><span class="icono">🚪</span> Cerrar sesión</button>
         </div>
+    </aside>
 
-        <form id="loginForm" novalidate>
-            <div class="form-group">
-                <label for="email" id="labelEmail">Correo electrónico</label>
-                <input type="email" id="email" placeholder="usuario@legado.com" required autocomplete="email" />
+    <!-- ===== MAIN ===== -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-left">
+                <h2>Bienvenido, <span id="nombreUsuario">Juan Carlos</span></h2>
             </div>
-            <div class="form-group">
-                <label for="password" id="labelPassword">Contraseña</label>
-                <div class="password-wrapper">
-                    <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password" minlength="6" />
-                    <button type="button" class="btn-toggle-password" id="btnTogglePassword" aria-label="Mostrar contraseña">👁️</button>
+            <div class="header-right">
+                <select id="idiomaSelect">
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="en">🇬🇧 English</option>
+                </select>
+                <div class="notificaciones" id="btnNotificaciones">
+                    🔔
+                    <span class="badge">3</span>
+                </div>
+                <div class="avatar" id="btnPerfil">JC</div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <section class="content">
+
+            <!-- STATS -->
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="label">Incidentes</div>
+                    <div class="value">12</div>
+                    <div class="sub">+2 este mes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Trabajadores</div>
+                    <div class="value">48</div>
+                    <div class="sub">Activos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Capacitaciones</div>
+                    <div class="value">6</div>
+                    <div class="sub">Próximas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Evaluaciones</div>
+                    <div class="value">83%</div>
+                    <div class="sub">Cumplimiento</div>
                 </div>
             </div>
-            <div class="form-options">
-                <label id="labelRecordarme"><input type="checkbox" id="remember" /> Recordarme</label>
-                <button type="button" class="btn-forgot" id="btnForgot">¿Olvidaste tu contraseña?</button>
+
+            <!-- PANEL GRID -->
+            <div class="panel-grid">
+                <!-- Actividad Reciente -->
+                <div class="panel">
+                    <h3>📋 Actividad reciente</h3>
+                    <div class="item">
+                        <span class="texto">Incidente #45 - Caída de material</span>
+                        <span class="estado rojo">Pendiente</span>
+                    </div>
+                    <div class="item">
+                        <span class="texto">Capacitación - Uso de EPP</span>
+                        <span class="estado verde">Completado</span>
+                    </div>
+                    <div class="item">
+                        <span class="texto">Auditoría interna - Planta 2</span>
+                        <span class="estado amarillo">En revisión</span>
+                    </div>
+                    <div class="item">
+                        <span class="texto">Evaluación de riesgo - Área química</span>
+                        <span class="estado verde">Aprobado</span>
+                    </div>
+                    <div class="item">
+                        <span class="texto">Reporte mensual SST - Junio</span>
+                        <span class="estado amarillo">Pendiente</span>
+                    </div>
+                </div>
+
+                <!-- Calendario / Próximos eventos -->
+                <div class="panel">
+                    <h3>📅 Próximos eventos</h3>
+                    <div class="item">
+                        <span class="texto">Capacitación: EPP</span>
+                        <span class="estado">15 jul</span>
+                    </div>
+                    <div class="item">
+                        <span class="texto">Auditoría planta 1</span>
+                        <span class="estado">18 jul</span>
+                    </div>
+                    <div class="item">
+                        <span class="texto">Evaluación trimestral</span>
+                        <span class="estado">22 jul</span>
+                    </div>
+                    <div class="item">
+                        <span class="texto">Reunión SST</span>
+                        <span class="estado">25 jul</span>
+                    </div>
+                    <div class="item">
+                        <span class="texto">Inspección gubernamental</span>
+                        <span class="estado rojo">30 jul</span>
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="btn-login" id="btnLogin">Iniciar Sesión</button>
-        </form>
 
-        <button class="btn-register" id="btnRegister">Crear cuenta nueva</button>
+            <!-- ACCIONES RÁPIDAS -->
+            <div style="margin-top: 20px;">
+                <h3 style="color: var(--dorado-claro); font-weight: 400; margin-bottom: 10px;">⚡ Acciones rápidas</h3>
+                <div class="acciones-rapidas">
+                    <button class="principal" id="btnReportarIncidente">⚠️ Reportar incidente</button>
+                    <button id="btnRegistrarTrabajador">👤 Registrar trabajador</button>
+                    <button id="btnCrearEvaluacion">📊 Crear evaluación</button>
+                    <button id="btnProgramarCapacitacion">📚 Programar capacitación</button>
+                    <button id="btnGenerarReporte">📈 Generar reporte</button>
+                </div>
+            </div>
 
-        <p class="footer-text" id="footerTexto">&copy; 2026 <a href="#">Legado SST</a> — Todos los derechos reservados</p>
-    </div>
+        </section>
+    </main>
 
     <script>
         (function() {
             'use strict';
 
-            // --- ELEMENTOS DOM ---
-            const form = document.getElementById('loginForm');
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const rememberCheck = document.getElementById('remember');
-            const messageDiv = document.getElementById('message');
-            const messageText = document.getElementById('messageText');
-
-            const btnLogin = document.getElementById('btnLogin');
-            const btnRegister = document.getElementById('btnRegister');
-            const btnForgot = document.getElementById('btnForgot');
-            const btnTogglePassword = document.getElementById('btnTogglePassword');
-            const btnCloseMessage = document.getElementById('btnCloseMessage');
+            // ===== ELEMENTOS =====
+            const nombreUsuario = document.getElementById('nombreUsuario');
+            const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+            const btnPerfil = document.getElementById('btnPerfil');
+            const btnNotificaciones = document.getElementById('btnNotificaciones');
             const idiomaSelect = document.getElementById('idiomaSelect');
 
-            // --- TEXTOS POR IDIOMA ---
-            const textos = {
-                es: {
-                    titulo: 'LEGADO',
-                    subtitulo: 'SST CORE',
-                    email: 'Correo electrónico',
-                    password: 'Contraseña',
-                    recordarme: 'Recordarme',
-                    olvidaste: '¿Olvidaste tu contraseña?',
-                    iniciar: 'Iniciar Sesión',
-                    crear: 'Crear cuenta nueva',
-                    footer: '© 2026 Legado SST — Todos los derechos reservados',
-                    placeholderEmail: 'usuario@legado.com',
-                    placeholderPass: '••••••••',
-                    mensajeExito: '✅ ¡Bienvenido {email}! Inicio de sesión exitoso.',
-                    mensajeErrorEmail: 'Por favor, ingresa tu correo electrónico.',
-                    mensajeErrorEmailInvalido: 'Ingresa un correo electrónico válido.',
-                    mensajeErrorPass: 'Por favor, ingresa tu contraseña.',
-                    mensajeErrorPassCorta: 'La contraseña debe tener al menos 6 caracteres.',
-                    mensajeRegistro: '📝 Redirigiendo al formulario de registro...',
-                    mensajeRecuperar: '📧 Enlace de recuperación enviado a {email}',
-                    mensajeRecuperarSinEmail: '📧 Ingresa tu correo para recuperar la contraseña.'
-                },
-                en: {
-                    titulo: 'LEGADO',
-                    subtitulo: 'SST CORE',
-                    email: 'Email',
-                    password: 'Password',
-                    recordarme: 'Remember me',
-                    olvidaste: 'Forgot your password?',
-                    iniciar: 'Sign In',
-                    crear: 'Create new account',
-                    footer: '© 2026 Legado SST — All rights reserved',
-                    placeholderEmail: 'user@legado.com',
-                    placeholderPass: '••••••••',
-                    mensajeExito: '✅ Welcome {email}! Login successful.',
-                    mensajeErrorEmail: 'Please enter your email.',
-                    mensajeErrorEmailInvalido: 'Please enter a valid email.',
-                    mensajeErrorPass: 'Please enter your password.',
-                    mensajeErrorPassCorta: 'Password must be at least 6 characters.',
-                    mensajeRegistro: '📝 Redirecting to registration form...',
-                    mensajeRecuperar: '📧 Recovery link sent to {email}',
-                    mensajeRecuperarSinEmail: '📧 Enter your email to recover your password.'
-                }
+            // Acciones rápidas
+            const btnReportarIncidente = document.getElementById('btnReportarIncidente');
+            const btnRegistrarTrabajador = document.getElementById('btnRegistrarTrabajador');
+            const btnCrearEvaluacion = document.getElementById('btnCrearEvaluacion');
+            const btnProgramarCapacitacion = document.getElementById('btnProgramarCapacitacion');
+            const btnGenerarReporte = document.getElementById('btnGenerarReporte');
+
+            // Menú lateral
+            const menuButtons = document.querySelectorAll('.sidebar-menu button');
+
+            // ===== SIMULAR USUARIO LOGUEADO =====
+            const usuarioSimulado = {
+                nombre: 'Juan Carlos Gonzales',
+                nivel: 'empresa' // trabajador, empresa, especialista, gubernamental
             };
+            nombreUsuario.textContent = usuarioSimulado.nombre;
 
-            function cambiarIdioma(idioma) {
-                const t = textos[idioma] || textos.es;
-                document.getElementById('titulo').textContent = t.titulo;
-                document.getElementById('subtitulo').textContent = t.subtitulo;
-                document.getElementById('labelEmail').textContent = t.email;
-                document.getElementById('labelPassword').textContent = t.password;
-                document.getElementById('labelRecordarme').innerHTML = `<input type="checkbox" id="remember" /> ${t.recordarme}`;
-                document.getElementById('btnForgot').textContent = t.olvidaste;
-                document.getElementById('btnLogin').textContent = t.iniciar;
-                document.getElementById('btnRegister').textContent = t.crear;
-                document.getElementById('footerTexto').innerHTML = t.footer;
-                emailInput.placeholder = t.placeholderEmail;
-                passwordInput.placeholder = t.placeholderPass;
-                // Guardar idioma actual para usar en mensajes dinámicos
-                window.idiomaActual = idioma;
-            }
+            // ===== MENÚ LATERAL =====
+            menuButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    menuButtons.forEach(b => b.classList.remove('activo'));
+                    this.classList.add('activo');
+                    const seccion = this.dataset.seccion || 'inicio';
+                    console.log('📂 Navegando a:', seccion);
+                    alert(`📂 Navegando a: ${seccion}`);
+                });
+            });
 
+            // ===== CERRAR SESIÓN =====
+            btnCerrarSesion.addEventListener('click', function() {
+                console.log('🚪 Cerrando sesión');
+                alert('🚪 Cerrando sesión...');
+                // window.location.href = 'login.html';
+            });
+
+            // ===== PERFIL =====
+            btnPerfil.addEventListener('click', function() {
+                console.log('👤 Abriendo perfil');
+                alert('👤 Abriendo perfil de usuario');
+            });
+
+            // ===== NOTIFICACIONES =====
+            btnNotificaciones.addEventListener('click', function() {
+                console.log('🔔 Mostrando notificaciones');
+                alert('🔔 3 notificaciones sin leer');
+            });
+
+            // ===== IDIOMA =====
             idiomaSelect.addEventListener('change', function() {
-                cambiarIdioma(this.value);
+                console.log('🌐 Cambiando idioma a:', this.value);
+                alert(`🌐 Cambiando idioma a: ${this.value === 'es' ? 'Español' : 'English'}`);
             });
 
-            // --- FUNCIÓN PARA MOSTRAR MENSAJES CON IDIOMA ---
-            function showMessage(textKey, type, params = {}) {
-                const idioma = window.idiomaActual || 'es';
-                const t = textos[idioma] || textos.es;
-                let texto = t[textKey] || textKey;
-                // Reemplazar placeholders
-                for (const [key, value] of Object.entries(params)) {
-                    texto = texto.replace(`{${key}}`, value);
-                }
-                messageText.textContent = texto;
-                messageDiv.className = 'message ' + type + ' show';
-                if (type !== 'error') {
-                    clearTimeout(window.messageTimeout);
-                    window.messageTimeout = setTimeout(() => { hideMessage(); }, 6000);
-                }
-            }
-
-            function hideMessage() {
-                messageDiv.className = 'message';
-                messageText.textContent = '';
-                clearTimeout(window.messageTimeout);
-            }
-
-            btnCloseMessage.addEventListener('click', hideMessage);
-
-            // --- TOGGLE CONTRASEÑA ---
-            let passwordVisible = false;
-            btnTogglePassword.addEventListener('click', function() {
-                passwordVisible = !passwordVisible;
-                passwordInput.type = passwordVisible ? 'text' : 'password';
-                this.textContent = passwordVisible ? '🙈' : '👁️';
-                this.setAttribute('aria-label', passwordVisible ? 'Ocultar contraseña' : 'Mostrar contraseña');
+            // ===== ACCIONES RÁPIDAS =====
+            btnReportarIncidente.addEventListener('click', function() {
+                console.log('⚠️ Reportar incidente');
+                alert('⚠️ Abriendo formulario de reporte de incidente');
+            });
+            btnRegistrarTrabajador.addEventListener('click', function() {
+                console.log('👤 Registrar trabajador');
+                alert('👤 Abriendo formulario de registro de trabajador');
+            });
+            btnCrearEvaluacion.addEventListener('click', function() {
+                console.log('📊 Crear evaluación');
+                alert('📊 Abriendo formulario de evaluación de riesgos');
+            });
+            btnProgramarCapacitacion.addEventListener('click', function() {
+                console.log('📚 Programar capacitación');
+                alert('📚 Abriendo formulario de programación de capacitación');
+            });
+            btnGenerarReporte.addEventListener('click', function() {
+                console.log('📈 Generar reporte');
+                alert('📈 Generando reporte...');
             });
 
-            // --- VALIDACIÓN LOGIN ---
-            function handleLogin(event) {
-                if (event) event.preventDefault();
-                const email = emailInput.value.trim();
-                const password = passwordInput.value.trim();
+            // ===== INICIO =====
+            console.log('✅ Dashboard cargado correctamente');
+            console.log(`👤 Usuario: ${usuarioSimulado.nombre} (${usuarioSimulado.nivel})`);
+            console.log('📋 Menú lateral, estadísticas, actividad reciente, calendario y acciones rápidas funcionando.');
 
-                if (!email) {
-                    showMessage('mensajeErrorEmail', 'error');
-                    emailInput.focus();
-                    return false;
-                }
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    showMessage('mensajeErrorEmailInvalido', 'error');
-                    emailInput.focus();
-                    return false;
-                }
-                if (!password) {
-                    showMessage('mensajeErrorPass', 'error');
-                    passwordInput.focus();
-                    return false;
-                }
-                if (password.length < 6) {
-                    showMessage('mensajeErrorPassCorta', 'error');
-                    passwordInput.focus();
-                    return false;
-                }
-
-                console.log('🔐 Login:', { email, password, remember: rememberCheck.checked });
-                showMessage('mensajeExito', 'success', { email });
-                setTimeout(() => { alert('🔁 Redirigiendo al panel principal...'); }, 1500);
-                return true;
-            }
-
-            // --- REGISTRO ---
-            function handleRegister() {
-                console.log('📝 Registro');
-                showMessage('mensajeRegistro', 'info');
-                setTimeout(() => { alert('📝 Redirigiendo a registro...'); }, 1000);
-            }
-
-            // --- RECUPERAR CONTRASEÑA ---
-            function handleForgot() {
-                console.log('🔑 Recuperar contraseña');
-                const email = emailInput.value.trim();
-                if (email && email.includes('@')) {
-                    showMessage('mensajeRecuperar', 'info', { email });
-                } else {
-                    showMessage('mensajeRecuperarSinEmail', 'info');
-                    emailInput.focus();
-                }
-                setTimeout(() => { alert('🔑 Redirigiendo a recuperación...'); }, 1500);
-            }
-
-            // --- EVENTOS ---
-            form.addEventListener('submit', handleLogin);
-            btnLogin.addEventListener('click', function(e) {
-                if (!form.checkValidity()) { form.dispatchEvent(new Event('submit')); }
-            });
-            btnRegister.addEventListener('click', handleRegister);
-            btnForgot.addEventListener('click', handleForgot);
-
-            // Validaciones en tiempo real
-            emailInput.addEventListener('blur', function() {
-                const val = this.value.trim();
-                this.style.borderColor = (val && !val.includes('@')) ? 'var(--rojo-alerta)' : '#333';
-            });
-            passwordInput.addEventListener('blur', function() {
-                const val = this.value.trim();
-                this.style.borderColor = (val && val.length < 6) ? 'var(--rojo-alerta)' : '#333';
-            });
-            document.querySelectorAll('input').forEach(input => {
-                input.addEventListener('focus', function() { this.style.borderColor = 'var(--dorado-epico)'; });
-            });
-
-            // --- INICIALIZAR IDIOMA ---
-            cambiarIdioma('es');
-            window.idiomaActual = 'es';
-
-            console.log('✅ 5 botones funcionando + selector de idioma:');
-            console.log('   🔐 Iniciar Sesión');
-            console.log('   👁️ Mostrar/Ocultar contraseña');
-            console.log('   ❌ Cerrar mensaje');
-            console.log('   📝 Crear cuenta');
-            console.log('   🔑 Olvidaste contraseña');
-            console.log('   🌐 Cambio de idioma (Español/Inglés)');
         })();
     </script>
+
 </body>
 </html>
