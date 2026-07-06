@@ -3,150 +3,58 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LEGADO - Inicio</title>
+    <title>LEGADO - Bienvenida</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
             background: #0A0A0A;
             color: #F5F0E8;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #1A1A1A;
+            border-radius: 32px;
+            padding: 50px 40px 35px;
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            position: relative;
             overflow: hidden;
         }
 
-        /* ===== SIDEBAR ===== */
-        .sidebar {
-            width: 220px;
-            background: #1A1A1A;
-            border-right: 1px solid rgba(201, 168, 76, 0.1);
-            padding: 20px 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            flex-shrink: 0;
-        }
-        .sidebar-logo {
-            text-align: center;
-            padding: 0 16px 20px;
-            border-bottom: 1px solid rgba(201, 168, 76, 0.08);
-        }
-        .sidebar-logo h1 {
-            color: #C9A84C;
-            font-size: 22px;
-            letter-spacing: 3px;
-        }
-        .sidebar-logo small {
-            color: #BA7E68;
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .sidebar-menu {
-            flex: 1;
-            padding: 20px 12px 0;
-            overflow-y: auto;
-        }
-        .sidebar-menu .menu-label {
-            font-size: 10px;
-            text-transform: uppercase;
-            color: #BA7E68;
-            letter-spacing: 1px;
-            padding: 8px 8px 4px;
-            opacity: 0.5;
-        }
-        .sidebar-menu button {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            padding: 10px 12px;
-            background: transparent;
-            border: none;
-            border-radius: 10px;
-            color: #F5F0E8;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: inherit;
-            text-align: left;
-            margin-bottom: 2px;
-        }
-        .sidebar-menu button:hover {
-            background: rgba(201, 168, 76, 0.08);
-            color: #E0D5A3;
-        }
-        .sidebar-menu button.activo {
-            background: rgba(201, 168, 76, 0.12);
-            color: #C9A84C;
-            border-left: 3px solid #C9A84C;
-        }
-        .sidebar-menu button .icono {
-            font-size: 18px;
-            width: 24px;
-            text-align: center;
-        }
-        .sidebar-footer {
-            padding: 16px 12px;
-            border-top: 1px solid rgba(201, 168, 76, 0.08);
-        }
-        .sidebar-footer button {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            padding: 10px 12px;
-            background: transparent;
-            border: none;
-            border-radius: 10px;
-            color: #F5F0E8;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: inherit;
-        }
-        .sidebar-footer button:hover {
-            background: rgba(201, 168, 76, 0.08);
-            color: #E74C3C;
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: -40%;
+            width: 180%;
+            height: 180%;
+            background: radial-gradient(ellipse at 20% 20%, rgba(201, 168, 76, 0.04), transparent 60%);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        /* ===== MAIN ===== */
-        .main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
+        /* ===== IDIOMA ===== */
+        .idioma-selector {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            z-index: 2;
         }
-
-        /* ===== HEADER ===== */
-        .header {
-            height: 60px;
-            background: #1A1A1A;
-            border-bottom: 1px solid rgba(201, 168, 76, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            flex-shrink: 0;
-        }
-        .header-left h2 {
-            font-size: 18px;
-            font-weight: 400;
-        }
-        .header-left h2 span {
-            color: #C9A84C;
-        }
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .header-right select {
+        .idioma-selector select {
             background: #0A0A0A;
             border: 1px solid #333;
             border-radius: 8px;
@@ -156,413 +64,264 @@
             cursor: pointer;
             outline: none;
         }
-        .header-right select:focus {
+        .idioma-selector select:focus {
             border-color: #C9A84C;
         }
-        .notificaciones {
+
+        /* ===== LOGO ===== */
+        .logo {
             position: relative;
-            cursor: pointer;
-            font-size: 20px;
+            z-index: 1;
+            margin-bottom: 10px;
         }
-        .notificaciones .badge {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            background: #E74C3C;
-            color: #fff;
-            font-size: 10px;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
+        .logo h1 {
+            font-family: 'Georgia', serif;
+            font-size: 38px;
+            color: #C9A84C;
+            letter-spacing: 6px;
+        }
+        .logo .slogan {
+            font-size: 13px;
+            color: #BA7E68;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* ===== CITA ===== */
+        .cita {
+            position: relative;
+            z-index: 1;
+            margin: 24px 0 32px;
+            padding: 20px;
+            border-left: 3px solid rgba(201, 168, 76, 0.3);
+            background: rgba(201, 168, 76, 0.03);
+            border-radius: 8px;
+        }
+        .cita .texto {
+            font-size: 18px;
+            font-weight: 300;
+            color: #E0D5A3;
+            line-height: 1.6;
+        }
+        .cita .autor {
+            font-size: 13px;
+            color: #BA7E68;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== BOTONES ===== */
+        .botones {
+            position: relative;
+            z-index: 1;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
+            flex-direction: column;
+            gap: 14px;
+            margin: 30px 0 20px;
         }
-        .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            font-family: inherit;
+            letter-spacing: 1px;
+        }
+        .btn-ingresar {
             background: #C9A84C;
             color: #0A0A0A;
+        }
+        .btn-ingresar:hover {
+            background: #E0D5A3;
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(201, 168, 76, 0.3);
+        }
+        .btn-registrar {
+            background: transparent;
+            color: #C9A84C;
+            border: 2px solid #C9A84C;
+        }
+        .btn-registrar:hover {
+            background: #C9A84C;
+            color: #0A0A0A;
+            transform: scale(1.02);
+        }
+
+        /* ===== TÉRMINOS ===== */
+        .terminos {
+            position: relative;
+            z-index: 1;
             display: flex;
             align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #BA7E68;
+            margin: 16px 0 14px;
             justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
+        }
+        .terminos input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #C9A84C;
             cursor: pointer;
         }
-
-        /* ===== CONTENT ===== */
-        .content {
-            flex: 1;
-            padding: 24px;
-            overflow-y: auto;
+        .terminos a {
+            color: #C9A84C;
+            text-decoration: none;
+        }
+        .terminos a:hover {
+            text-decoration: underline;
         }
 
-        /* ===== TARJETAS ===== */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        .stat-card {
-            background: #1A1A1A;
-            border: 1px solid rgba(201, 168, 76, 0.08);
-            border-radius: 14px;
-            padding: 18px 20px;
-        }
-        .stat-card .label {
-            font-size: 12px;
+        /* ===== MANUAL ===== */
+        .manual {
+            position: relative;
+            z-index: 1;
+            display: block;
+            font-size: 13px;
             color: #BA7E68;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            text-decoration: none;
+            margin: 6px 0 20px;
+            cursor: pointer;
         }
-        .stat-card .value {
-            font-size: 28px;
-            font-weight: 700;
-            color: #E0D5A3;
-            margin-top: 4px;
-        }
-        .stat-card .sub {
-            font-size: 12px;
-            color: #BA7E68;
-            margin-top: 4px;
-        }
-
-        /* ===== PANEL ===== */
-        .panel-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-        .panel {
-            background: #1A1A1A;
-            border: 1px solid rgba(201, 168, 76, 0.08);
-            border-radius: 14px;
-            padding: 20px;
-        }
-        .panel h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #E0D5A3;
-            margin-bottom: 14px;
-        }
-        .panel .item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(201, 168, 76, 0.05);
-        }
-        .panel .item:last-child {
-            border-bottom: none;
-        }
-        .panel .item .texto {
-            font-size: 14px;
-        }
-        .panel .item .estado {
-            font-size: 12px;
-            padding: 4px 12px;
-            border-radius: 20px;
-            background: rgba(201, 168, 76, 0.1);
-            color: #E0D5A3;
-        }
-        .panel .item .estado.verde {
-            background: rgba(46, 204, 113, 0.15);
-            color: #2ECC71;
-        }
-        .panel .item .estado.rojo {
-            background: rgba(231, 76, 60, 0.15);
-            color: #E74C3C;
-        }
-        .panel .item .estado.amarillo {
-            background: rgba(201, 168, 76, 0.15);
+        .manual:hover {
             color: #C9A84C;
         }
 
-        /* ===== ACCIONES RÁPIDAS ===== */
-        .acciones-rapidas {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 12px;
+        /* ===== FOOTER ===== */
+        .footer {
+            position: relative;
+            z-index: 1;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(201, 168, 76, 0.05);
+            font-size: 12px;
+            color: #444;
         }
-        .acciones-rapidas button {
-            padding: 10px 18px;
-            background: #0A0A0A;
-            border: 1px solid rgba(201, 168, 76, 0.15);
-            border-radius: 10px;
-            color: #F5F0E8;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: inherit;
-        }
-        .acciones-rapidas button:hover {
-            border-color: #C9A84C;
-            background: rgba(201, 168, 76, 0.05);
-        }
-        .acciones-rapidas button.principal {
-            background: #C9A84C;
-            color: #0A0A0A;
-            border: none;
-            font-weight: 600;
-        }
-        .acciones-rapidas button.principal:hover {
-            background: #E0D5A3;
+        .footer strong {
+            color: #C9A84C;
         }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-            .panel-grid {
-                grid-template-columns: 1fr;
-            }
-            .stats {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
         @media (max-width: 480px) {
-            .stats {
-                grid-template-columns: 1fr;
+            .container {
+                padding: 40px 20px 28px;
             }
-            .header-left h2 {
-                font-size: 14px;
+            .logo h1 {
+                font-size: 28px;
             }
-            .header {
-                padding: 0 12px;
-                flex-wrap: wrap;
-                gap: 8px;
+            .cita .texto {
+                font-size: 15px;
+            }
+            .idioma-selector {
+                top: 14px;
+                right: 16px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== SIDEBAR ===== -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">
+    <div class="container">
+
+        <!-- SELECTOR DE IDIOMA -->
+        <div class="idioma-selector">
+            <select id="idiomaSelect">
+                <option value="es">🇪🇸 Español</option>
+                <option value="en">🇬🇧 English</option>
+            </select>
+        </div>
+
+        <!-- LOGO -->
+        <div class="logo">
             <h1>LEGADO</h1>
-            <small>SST Core</small>
+            <div class="slogan">+ CONCIENCIA Y FUTURO PARA LA HUMANIDAD +</div>
         </div>
-        <nav class="sidebar-menu">
-            <div class="menu-label">Principal</div>
-            <button class="activo" data-seccion="inicio"><span class="icono">🏠</span> Inicio</button>
-            <button data-seccion="incidentes"><span class="icono">⚠️</span> Incidentes</button>
-            <button data-seccion="capacitaciones"><span class="icono">📚</span> Capacitaciones</button>
-            <button data-seccion="evaluaciones"><span class="icono">📊</span> Evaluaciones</button>
-            <div class="menu-label" style="margin-top:16px;">Gestión</div>
-            <button data-seccion="trabajadores"><span class="icono">👥</span> Trabajadores</button>
-            <button data-seccion="auditorias"><span class="icono">🔍</span> Auditorías</button>
-            <button data-seccion="documentos"><span class="icono">📄</span> Documentos</button>
-            <button data-seccion="reportes"><span class="icono">📈</span> Reportes</button>
-        </nav>
-        <div class="sidebar-footer">
-            <button id="btnCerrarSesion"><span class="icono">🚪</span> Cerrar sesión</button>
+
+        <!-- CITA -->
+        <div class="cita">
+            <div class="texto">"La seguridad laboral no debería ser un lujo. Es un derecho. Hazla automática."</div>
+            <div class="autor">— LEGADO</div>
         </div>
-    </aside>
 
-    <!-- ===== MAIN ===== -->
-    <main class="main">
+        <!-- BOTONES -->
+        <div class="botones">
+            <button class="btn btn-ingresar" id="btnIngresar">Ingresar</button>
+            <button class="btn btn-registrar" id="btnRegistrar">Registrarse</button>
+        </div>
 
-        <!-- HEADER -->
-        <header class="header">
-            <div class="header-left">
-                <h2>Bienvenido, <span id="nombreUsuario">Juan Carlos</span></h2>
-            </div>
-            <div class="header-right">
-                <select id="idiomaSelect">
-                    <option value="es">🇪🇸 Español</option>
-                    <option value="en">🇬🇧 English</option>
-                </select>
-                <div class="notificaciones" id="btnNotificaciones">
-                    🔔
-                    <span class="badge">3</span>
-                </div>
-                <div class="avatar" id="btnPerfil">JC</div>
-            </div>
-        </header>
+        <!-- TÉRMINOS -->
+        <div class="terminos">
+            <input type="checkbox" id="checkTerminos" />
+            <label for="checkTerminos">
+                Acepto los <a href="#">Términos y Condiciones</a> y la
+                <a href="#">Política de Privacidad</a>
+            </label>
+        </div>
 
-        <!-- CONTENT -->
-        <section class="content">
+        <!-- MANUAL -->
+        <a href="#" class="manual" id="btnManual">📖 Manual de uso y atajos</a>
 
-            <!-- STATS -->
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="label">Incidentes</div>
-                    <div class="value">12</div>
-                    <div class="sub">+2 este mes</div>
-                </div>
-                <div class="stat-card">
-                    <div class="label">Trabajadores</div>
-                    <div class="value">48</div>
-                    <div class="sub">Activos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="label">Capacitaciones</div>
-                    <div class="value">6</div>
-                    <div class="sub">Próximas</div>
-                </div>
-                <div class="stat-card">
-                    <div class="label">Evaluaciones</div>
-                    <div class="value">83%</div>
-                    <div class="sub">Cumplimiento</div>
-                </div>
-            </div>
+        <!-- FOOTER -->
+        <div class="footer">
+            <strong>LEGADO</strong> · Seguridad Laboral Automática · v1.0
+        </div>
 
-            <!-- PANEL GRID -->
-            <div class="panel-grid">
-                <!-- Actividad Reciente -->
-                <div class="panel">
-                    <h3>📋 Actividad reciente</h3>
-                    <div class="item">
-                        <span class="texto">Incidente #45 - Caída de material</span>
-                        <span class="estado rojo">Pendiente</span>
-                    </div>
-                    <div class="item">
-                        <span class="texto">Capacitación - Uso de EPP</span>
-                        <span class="estado verde">Completado</span>
-                    </div>
-                    <div class="item">
-                        <span class="texto">Auditoría interna - Planta 2</span>
-                        <span class="estado amarillo">En revisión</span>
-                    </div>
-                    <div class="item">
-                        <span class="texto">Evaluación de riesgo - Área química</span>
-                        <span class="estado verde">Aprobado</span>
-                    </div>
-                    <div class="item">
-                        <span class="texto">Reporte mensual SST - Junio</span>
-                        <span class="estado amarillo">Pendiente</span>
-                    </div>
-                </div>
-
-                <!-- Calendario / Próximos eventos -->
-                <div class="panel">
-                    <h3>📅 Próximos eventos</h3>
-                    <div class="item">
-                        <span class="texto">Capacitación: EPP</span>
-                        <span class="estado">15 jul</span>
-                    </div>
-                    <div class="item">
-                        <span class="texto">Auditoría planta 1</span>
-                        <span class="estado">18 jul</span>
-                    </div>
-                    <div class="item">
-                        <span class="texto">Evaluación trimestral</span>
-                        <span class="estado">22 jul</span>
-                    </div>
-                    <div class="item">
-                        <span class="texto">Reunión SST</span>
-                        <span class="estado">25 jul</span>
-                    </div>
-                    <div class="item">
-                        <span class="texto">Inspección gubernamental</span>
-                        <span class="estado rojo">30 jul</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ACCIONES RÁPIDAS -->
-            <div style="margin-top: 20px;">
-                <h3 style="color: #E0D5A3; font-weight: 400; margin-bottom: 10px;">⚡ Acciones rápidas</h3>
-                <div class="acciones-rapidas">
-                    <button class="principal" id="btnReportarIncidente">⚠️ Reportar incidente</button>
-                    <button id="btnRegistrarTrabajador">👤 Registrar trabajador</button>
-                    <button id="btnCrearEvaluacion">📊 Crear evaluación</button>
-                    <button id="btnProgramarCapacitacion">📚 Programar capacitación</button>
-                    <button id="btnGenerarReporte">📈 Generar reporte</button>
-                </div>
-            </div>
-
-        </section>
-    </main>
+    </div>
 
     <script>
         (function() {
             'use strict';
 
-            // ===== ELEMENTOS =====
-            const nombreUsuario = document.getElementById('nombreUsuario');
-            const btnCerrarSesion = document.getElementById('btnCerrarSesion');
-            const btnPerfil = document.getElementById('btnPerfil');
-            const btnNotificaciones = document.getElementById('btnNotificaciones');
+            const btnIngresar = document.getElementById('btnIngresar');
+            const btnRegistrar = document.getElementById('btnRegistrar');
+            const btnManual = document.getElementById('btnManual');
             const idiomaSelect = document.getElementById('idiomaSelect');
+            const checkTerminos = document.getElementById('checkTerminos');
 
-            const btnReportarIncidente = document.getElementById('btnReportarIncidente');
-            const btnRegistrarTrabajador = document.getElementById('btnRegistrarTrabajador');
-            const btnCrearEvaluacion = document.getElementById('btnCrearEvaluacion');
-            const btnProgramarCapacitacion = document.getElementById('btnProgramarCapacitacion');
-            const btnGenerarReporte = document.getElementById('btnGenerarReporte');
-
-            const menuButtons = document.querySelectorAll('.sidebar-menu button');
-
-            // ===== USUARIO SIMULADO =====
-            const usuarioSimulado = {
-                nombre: 'Juan Carlos Gonzales',
-                nivel: 'empresa'
-            };
-            nombreUsuario.textContent = usuarioSimulado.nombre;
-
-            // ===== MENÚ =====
-            menuButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    menuButtons.forEach(b => b.classList.remove('activo'));
-                    this.classList.add('activo');
-                    const seccion = this.dataset.seccion || 'inicio';
-                    console.log('📂 Navegando a:', seccion);
-                    alert('📂 Navegando a: ' + seccion);
-                });
+            // ===== INGRESAR =====
+            btnIngresar.addEventListener('click', function() {
+                if (!checkTerminos.checked) {
+                    alert('📋 Debes aceptar los Términos y Condiciones.');
+                    return;
+                }
+                console.log('🔐 Ingresar');
+                alert('🔐 Redirigiendo a inicio de sesión...');
+                // window.location.href = 'login.html';
             });
 
-            // ===== BOTONES =====
-            btnCerrarSesion.addEventListener('click', function() {
-                console.log('🚪 Cerrando sesión');
-                alert('🚪 Cerrando sesión...');
+            // ===== REGISTRARSE =====
+            btnRegistrar.addEventListener('click', function() {
+                if (!checkTerminos.checked) {
+                    alert('📋 Debes aceptar los Términos y Condiciones.');
+                    return;
+                }
+                console.log('📝 Registrarse');
+                alert('📝 Redirigiendo a registro...');
+                // window.location.href = 'registro.html';
             });
 
-            btnPerfil.addEventListener('click', function() {
-                console.log('👤 Abriendo perfil');
-                alert('👤 Abriendo perfil de usuario');
+            // ===== MANUAL =====
+            btnManual.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('📖 Manual de uso');
+                alert('📖 Abriendo manual de uso y atajos...');
             });
 
-            btnNotificaciones.addEventListener('click', function() {
-                console.log('🔔 Mostrando notificaciones');
-                alert('🔔 3 notificaciones sin leer');
-            });
-
+            // ===== IDIOMA =====
             idiomaSelect.addEventListener('change', function() {
                 console.log('🌐 Cambiando idioma a:', this.value);
                 alert('🌐 Cambiando idioma a: ' + (this.value === 'es' ? 'Español' : 'English'));
             });
 
-            btnReportarIncidente.addEventListener('click', function() {
-                console.log('⚠️ Reportar incidente');
-                alert('⚠️ Abriendo formulario de reporte de incidente');
-            });
-            btnRegistrarTrabajador.addEventListener('click', function() {
-                console.log('👤 Registrar trabajador');
-                alert('👤 Abriendo formulario de registro de trabajador');
-            });
-            btnCrearEvaluacion.addEventListener('click', function() {
-                console.log('📊 Crear evaluación');
-                alert('📊 Abriendo formulario de evaluación de riesgos');
-            });
-            btnProgramarCapacitacion.addEventListener('click', function() {
-                console.log('📚 Programar capacitación');
-                alert('📚 Abriendo formulario de programación de capacitación');
-            });
-            btnGenerarReporte.addEventListener('click', function() {
-                console.log('📈 Generar reporte');
-                alert('📈 Generando reporte...');
-            });
-
-            console.log('✅ Dashboard cargado correctamente');
-            console.log('👤 Usuario:', usuarioSimulado.nombre, '(' + usuarioSimulado.nivel + ')');
+            console.log('✅ Ventana de bienvenida cargada correctamente.');
+            console.log('🔘 Botones: Ingresar, Registrarse, Manual de uso, Selector de idioma.');
+            console.log('📋 Términos y condiciones con validación.');
 
         })();
     </script>
