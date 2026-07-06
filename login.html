@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,7 +7,6 @@
     <title>LEGADO - Seguridad Laboral Automática</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
-        /* ===== RESET Y BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -23,19 +23,17 @@
             padding: 1.5rem;
         }
 
-        /* ===== TARJETA PRINCIPAL ===== */
         .card {
             background: #ffffff;
-            max-width: 500px;
+            max-width: 480px;
             width: 100%;
             border-radius: 2.5rem;
             padding: 2.8rem 2.2rem 2.5rem;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-            transition: transform 0.2s ease;
             position: relative;
         }
 
-        /* ===== BOTÓN IDIOMAS ===== */
+        /* ===== IDIOMAS ===== */
         .language-selector {
             position: absolute;
             top: 1.2rem;
@@ -57,12 +55,10 @@
             background-repeat: no-repeat;
             background-position: right 0.8rem center;
             background-size: 0.7rem;
-            transition: all 0.3s ease;
         }
 
         .language-selector select:hover {
             border-color: #c8a84e;
-            box-shadow: 0 4px 12px rgba(200, 168, 78, 0.2);
         }
 
         .language-selector select:focus {
@@ -71,16 +67,9 @@
             box-shadow: 0 0 0 3px rgba(200, 168, 78, 0.25);
         }
 
-        .language-selector select option {
-            font-weight: 500;
-            padding: 0.3rem;
-        }
-
-        /* ===== ENCABEZADO ===== */
         .brand {
             text-align: center;
             margin-bottom: 1.8rem;
-            margin-top: 0.5rem;
         }
 
         .brand h1 {
@@ -95,7 +84,7 @@
         }
 
         .brand .subhead {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 3px;
@@ -103,7 +92,6 @@
             margin-top: 0.2rem;
         }
 
-        /* ===== CITA ===== */
         .quote {
             background: #f0f4fa;
             padding: 1.2rem 1.5rem;
@@ -115,7 +103,7 @@
 
         .quote p {
             font-style: italic;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: #1e3347;
             line-height: 1.5;
             font-weight: 500;
@@ -131,7 +119,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* ===== BOTONES DE ACCIÓN ===== */
         .action-group {
             display: flex;
             gap: 1rem;
@@ -174,13 +161,12 @@
             transform: translateY(-2px);
         }
 
-        /* ===== CHECKBOX ===== */
         .terms {
             display: flex;
             align-items: flex-start;
             gap: 0.7rem;
             margin-bottom: 1.8rem;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #2c4057;
         }
 
@@ -210,7 +196,6 @@
             color: #c8a84e;
         }
 
-        /* ===== ENLACE MANUAL ===== */
         .manual-link {
             text-align: center;
             margin-bottom: 2rem;
@@ -223,7 +208,7 @@
             color: #2c4057;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             background: #f0f4fa;
             padding: 0.55rem 1.6rem;
             border-radius: 3rem;
@@ -242,7 +227,6 @@
             transform: scale(1.02);
         }
 
-        /* ===== PIE CON VERSIÓN Y URL ===== */
         .footer-info {
             text-align: center;
             border-top: 1px solid #e2e9f2;
@@ -262,24 +246,6 @@
             margin-right: 0.4rem;
         }
 
-        .footer-info .url {
-            display: block;
-            margin-top: 0.4rem;
-            font-size: 0.7rem;
-            color: #7a8a9e;
-            word-break: break-all;
-            font-family: 'Courier New', monospace;
-            background: #f5f8fc;
-            padding: 0.4rem 1rem;
-            border-radius: 2rem;
-            transition: background 0.2s;
-        }
-
-        .footer-info .url:hover {
-            background: #eef2f7;
-        }
-
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 500px) {
             .card {
                 padding: 2rem 1.5rem;
@@ -309,11 +275,6 @@
                 text-align: right;
                 margin-bottom: 0.5rem;
             }
-
-            .language-selector select {
-                font-size: 0.7rem;
-                padding: 0.3rem 1.6rem 0.3rem 0.8rem;
-            }
         }
     </style>
 </head>
@@ -321,9 +282,9 @@
 
     <div class="card">
 
-        <!-- ===== SELECTOR DE IDIOMAS ===== -->
+        <!-- IDIOMAS -->
         <div class="language-selector">
-            <select id="languageSelect" aria-label="Seleccionar idioma">
+            <select id="languageSelect">
                 <option value="es">🌍 Español</option>
                 <option value="en">🇬🇧 English</option>
                 <option value="zh">🇨🇳 中文</option>
@@ -337,13 +298,13 @@
             </select>
         </div>
 
-        <!-- ===== ENCABEZADO ===== -->
+        <!-- ENCABEZADO -->
         <div class="brand">
             <h1>LEGADO <span>+</span></h1>
             <div class="subhead">Conciencia y futuro para la humanidad</div>
         </div>
 
-        <!-- ===== CITA ===== -->
+        <!-- CITA -->
         <div class="quote">
             <p>
                 “La seguridad laboral no debería ser un lujo. Es un derecho. Hazla automática.”
@@ -351,13 +312,13 @@
             </p>
         </div>
 
-        <!-- ===== BOTONES INGRESAR / REGISTRARSE ===== -->
+        <!-- BOTONES -->
         <div class="action-group">
             <button id="btnLogin">Ingresar</button>
             <button id="btnRegister">Registrarse</button>
         </div>
 
-        <!-- ===== TÉRMINOS Y CONDICIONES ===== -->
+        <!-- TÉRMINOS -->
         <div class="terms">
             <input type="checkbox" id="termsCheck" />
             <label for="termsCheck">
@@ -366,66 +327,47 @@
             </label>
         </div>
 
-        <!-- ===== MANUAL DE USO Y ATAJOS ===== -->
+        <!-- MANUAL -->
         <div class="manual-link">
             <a href="#">
                 <i class="fas fa-book-open"></i> Manual de uso y atajos
             </a>
         </div>
 
-        <!-- ===== PIE CON VERSIÓN Y URL ===== -->
+        <!-- PIE -->
         <div class="footer-info">
             <div class="version">
                 <i class="fas fa-link"></i> LEGADO Seguridad Laboral Automática - v1.0
             </div>
-            <span class="url">
-                https://donjuan2026.github.io/legado-sst-core/login.html
-            </span>
         </div>
 
     </div>
 
-    <!-- ===== SCRIPT ===== -->
     <script>
-        (function() {
-            const loginBtn = document.getElementById('btnLogin');
-            const registerBtn = document.getElementById('btnRegister');
-            const termsCheck = document.getElementById('termsCheck');
-            const languageSelect = document.getElementById('languageSelect');
+        // IDIOMAS
+        document.getElementById('languageSelect').addEventListener('change', function() {
+            alert('🌍 Idioma: ' + this.options[this.selectedIndex].text);
+        });
 
-            // ===== ACCIÓN BOTONES =====
-            function showMessage(action) {
-                if (!termsCheck.checked) {
-                    alert('⚠️ Por favor, acepta los Términos y Condiciones antes de continuar.');
-                    return;
-                }
-                alert(`✅ Has seleccionado "${action}". Redirigiendo...`);
+        // INGRESAR
+        document.getElementById('btnLogin').addEventListener('click', function() {
+            if (!document.getElementById('termsCheck').checked) {
+                alert('⚠️ Acepta los Términos y Condiciones');
+                return;
             }
+            alert('✅ Ingresando...');
+        });
 
-            loginBtn.addEventListener('click', () => showMessage('Ingresar'));
-            registerBtn.addEventListener('click', () => showMessage('Registrarse'));
-
-            // ===== SELECTOR DE IDIOMAS =====
-            languageSelect.addEventListener('change', function() {
-                const lang = this.value;
-                const langNames = {
-                    'es': 'Español',
-                    'en': 'English',
-                    'zh': '中文',
-                    'fr': 'Français',
-                    'de': 'Deutsch',
-                    'ja': '日本語',
-                    'pt': 'Português',
-                    'ru': 'Русский',
-                    'ar': 'العربية',
-                    'hi': 'हिन्दी'
-                };
-                alert(`🌍 Cambiando a: ${langNames[lang]}\n(Función de traducción en desarrollo)`);
-                // Aquí iría la lógica real de cambio de idioma
-            });
-
-        })();
+        // REGISTRARSE
+        document.getElementById('btnRegister').addEventListener('click', function() {
+            if (!document.getElementById('termsCheck').checked) {
+                alert('⚠️ Acepta los Términos y Condiciones');
+                return;
+            }
+            alert('✅ Registrando...');
+        });
     </script>
 
 </body>
 </html>
+```
