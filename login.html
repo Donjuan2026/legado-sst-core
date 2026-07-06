@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,11 +28,10 @@
             width: 100%;
             border-radius: 2.5rem;
             padding: 2.8rem 2.2rem 2.5rem;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 25px 60px rgba(11, 26, 46, 0.5);
             position: relative;
         }
 
-        /* ===== IDIOMAS ===== */
         .language-selector {
             position: absolute;
             top: 1.2rem;
@@ -55,16 +53,18 @@
             background-repeat: no-repeat;
             background-position: right 0.8rem center;
             background-size: 0.7rem;
+            transition: all 0.3s ease;
         }
 
         .language-selector select:hover {
             border-color: #c8a84e;
+            box-shadow: 0 0 0 3px rgba(200, 168, 78, 0.2);
         }
 
         .language-selector select:focus {
             outline: none;
             border-color: #c8a84e;
-            box-shadow: 0 0 0 3px rgba(200, 168, 78, 0.25);
+            box-shadow: 0 0 0 3px rgba(200, 168, 78, 0.3);
         }
 
         .brand {
@@ -73,9 +73,9 @@
         }
 
         .brand h1 {
-            font-size: 2.4rem;
+            font-size: 2.8rem;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
             color: #0b1a2e;
         }
 
@@ -84,12 +84,13 @@
         }
 
         .brand .subhead {
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-size: 0.7rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             color: #7a8a9e;
             margin-top: 0.2rem;
+            word-spacing: 2px;
         }
 
         .quote {
@@ -104,7 +105,7 @@
         .quote p {
             font-style: italic;
             font-size: 0.95rem;
-            color: #1e3347;
+            color: #2c4057;
             line-height: 1.5;
             font-weight: 500;
         }
@@ -134,31 +135,32 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.25s ease;
-            background: #eef2f7;
-            color: #1e3347;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+            background: #f0f4fa;
+            color: #2c4057;
         }
 
         .action-group button:first-child {
             background: #0b1a2e;
-            color: #fff;
-            box-shadow: 0 8px 18px rgba(11, 26, 46, 0.35);
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(11, 26, 46, 0.35);
         }
 
         .action-group button:first-child:hover {
             background: #1a2f44;
             transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(11, 26, 46, 0.4);
+            box-shadow: 0 12px 28px rgba(11, 26, 46, 0.45);
         }
 
         .action-group button:last-child {
-            background: #e8edf5;
+            background: #f0f4fa;
             color: #0b1a2e;
+            border: 2px solid #e2e9f2;
         }
 
         .action-group button:last-child:hover {
-            background: #d5deec;
+            background: #e2e9f2;
             transform: translateY(-2px);
+            border-color: #c8a84e;
         }
 
         .terms {
@@ -222,7 +224,7 @@
         }
 
         .manual-link a:hover {
-            background: #e3eaf3;
+            background: #e2e9f2;
             border-color: #c8a84e;
             transform: scale(1.02);
         }
@@ -246,6 +248,18 @@
             margin-right: 0.4rem;
         }
 
+        .footer-info .url {
+            display: block;
+            margin-top: 0.4rem;
+            font-size: 0.7rem;
+            color: #7a8a9e;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            background: #f5f8fc;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+        }
+
         @media (max-width: 500px) {
             .card {
                 padding: 2rem 1.5rem;
@@ -253,7 +267,7 @@
             }
 
             .brand h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
 
             .action-group {
@@ -282,7 +296,6 @@
 
     <div class="card">
 
-        <!-- IDIOMAS -->
         <div class="language-selector">
             <select id="languageSelect">
                 <option value="es">🌍 Español</option>
@@ -298,13 +311,11 @@
             </select>
         </div>
 
-        <!-- ENCABEZADO -->
         <div class="brand">
             <h1>LEGADO <span>+</span></h1>
             <div class="subhead">Conciencia y futuro para la humanidad</div>
         </div>
 
-        <!-- CITA -->
         <div class="quote">
             <p>
                 “La seguridad laboral no debería ser un lujo. Es un derecho. Hazla automática.”
@@ -312,13 +323,11 @@
             </p>
         </div>
 
-        <!-- BOTONES -->
         <div class="action-group">
             <button id="btnLogin">Ingresar</button>
             <button id="btnRegister">Registrarse</button>
         </div>
 
-        <!-- TÉRMINOS -->
         <div class="terms">
             <input type="checkbox" id="termsCheck" />
             <label for="termsCheck">
@@ -327,29 +336,28 @@
             </label>
         </div>
 
-        <!-- MANUAL -->
         <div class="manual-link">
             <a href="#">
                 <i class="fas fa-book-open"></i> Manual de uso y atajos
             </a>
         </div>
 
-        <!-- PIE -->
         <div class="footer-info">
             <div class="version">
                 <i class="fas fa-link"></i> LEGADO Seguridad Laboral Automática - v1.0
             </div>
+            <span class="url">
+                https://donjuan2026.github.io/legado-sst-core/login.html
+            </span>
         </div>
 
     </div>
 
     <script>
-        // IDIOMAS
         document.getElementById('languageSelect').addEventListener('change', function() {
             alert('🌍 Idioma: ' + this.options[this.selectedIndex].text);
         });
 
-        // INGRESAR
         document.getElementById('btnLogin').addEventListener('click', function() {
             if (!document.getElementById('termsCheck').checked) {
                 alert('⚠️ Acepta los Términos y Condiciones');
@@ -358,7 +366,6 @@
             alert('✅ Ingresando...');
         });
 
-        // REGISTRARSE
         document.getElementById('btnRegister').addEventListener('click', function() {
             if (!document.getElementById('termsCheck').checked) {
                 alert('⚠️ Acepta los Términos y Condiciones');
@@ -370,4 +377,3 @@
 
 </body>
 </html>
-```
