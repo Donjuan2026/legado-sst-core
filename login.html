@@ -353,27 +353,5 @@
 
     </div>
 
-    <script>
-        document.getElementById('languageSelect').addEventListener('change', function() {
-            alert('🌍 Idioma: ' + this.options[this.selectedIndex].text);
-        });
-
-        document.getElementById('btnLogin').addEventListener('click', function() {
-            if (!document.getElementById('termsCheck').checked) {
-                alert('⚠️ Acepta los Términos y Condiciones');
-                return;
-            }
-            alert('✅ Ingresando...');
-        });
-
-        document.getElementById('btnRegister').addEventListener('click', function() {
-            if (!document.getElementById('termsCheck').checked) {
-                alert('⚠️ Acepta los Términos y Condiciones');
-                return;
-            }
-            alert('✅ Registrando...');
-        });
-    </script>
-
 </body>
 </html>
