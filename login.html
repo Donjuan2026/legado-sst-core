@@ -1,291 +1,283 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LEGADO - Iniciar sesión</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEGADO · Iniciar sesión</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --negro-profundo: #0A0A0A;
-            --negro-carbon: #1A1A1A;
-            --dorado-epico: #C9A84C;
-            --dorado-claro: #E8D5A3;
-            --blanco-roto: #F5F0E8;
-            --gris-calido: #8A7E6B;
-            --rojo-alerta: #E74C3C;
-            --verde-exito: #2ECC71;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: var(--negro-profundo);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            color: var(--blanco-roto);
+            font-family: 'Inter', sans-serif;
+            background: #f2ede4;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 20px;
+            justify-content: center;
+            padding: 1.5rem;
         }
 
-        .container {
+        .login-container {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 2.8rem 3rem;
             max-width: 440px;
             width: 100%;
-            background: var(--negro-carbon);
-            border-radius: 32px;
-            padding: 40px 28px 35px;
-            border: 1px solid rgba(201, 168, 76, 0.12);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(31, 42, 54, 0.12);
+            border: 1px solid rgba(180, 139, 90, 0.15);
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            left: -40%;
-            width: 180%;
-            height: 180%;
-            background: radial-gradient(ellipse at 20% 20%, rgba(201, 168, 76, 0.04), transparent 60%);
-            pointer-events: none;
-            z-index: 0;
+        /* Logo */
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 2rem;
         }
 
-        .logo {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 24px;
+        .logo-icon {
+            background: #b48b5a;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: #1f2a36;
+            box-shadow: 0 4px 12px rgba(180, 139, 90, 0.3);
         }
 
-        .logo h1 {
-            font-family: 'Georgia', serif;
-            font-size: 28px;
-            color: var(--dorado-epico);
-            letter-spacing: 6px;
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1f2a36;
+            letter-spacing: -0.02em;
         }
 
-        .logo .sub {
-            font-size: 11px;
-            color: var(--gris-calido);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.6;
+        .logo-text span {
+            color: #b48b5a;
         }
 
-        .form-title {
-            position: relative;
-            z-index: 1;
-            font-size: 22px;
-            font-weight: 300;
-            margin-bottom: 4px;
+        /* Título */
+        .login-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2a36;
+            margin-bottom: 0.3rem;
         }
 
-        .form-subtitle {
-            position: relative;
-            z-index: 1;
-            font-size: 14px;
-            color: var(--gris-calido);
-            margin-bottom: 24px;
+        .login-sub {
+            color: #7a6e5e;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
         }
 
-        .input-group {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 16px;
-            text-align: left;
+        /* Campos */
+        .form-group {
+            margin-bottom: 1.3rem;
         }
 
-        .input-group label {
+        .form-group label {
             display: block;
-            font-size: 12px;
-            color: var(--gris-calido);
-            margin-bottom: 4px;
-            letter-spacing: 0.5px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1f2a36;
+            margin-bottom: 0.4rem;
         }
 
-        .input-group input {
+        .form-group input {
             width: 100%;
-            padding: 14px 16px;
-            background: var(--negro-profundo);
-            border: 1px solid rgba(201, 168, 76, 0.08);
-            border-radius: 12px;
-            color: var(--blanco-roto);
-            font-size: 15px;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e8dfd2;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: #fcf9f4;
+            transition: border-color 0.25s, box-shadow 0.25s;
             outline: none;
-            transition: 0.3s;
+            color: #1f2a36;
         }
 
-        .input-group input:focus {
-            border-color: var(--dorado-epico);
+        .form-group input:focus {
+            border-color: #b48b5a;
+            box-shadow: 0 0 0 4px rgba(180, 139, 90, 0.12);
+            background: #ffffff;
         }
 
-        .input-group .toggle-password {
-            position: absolute;
-            right: 14px;
-            top: 40px;
+        .form-group input::placeholder {
+            color: #cfc1aa;
+        }
+
+        /* Opciones */
+        .options-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.2rem 0 1.8rem 0;
+            font-size: 0.9rem;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #4f4539;
             cursor: pointer;
-            color: var(--gris-calido);
-            font-size: 18px;
-            background: transparent;
-            border: none;
         }
 
-        .btn-dorado {
-            position: relative;
-            z-index: 1;
+        .remember input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #b48b5a;
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: #b48b5a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .forgot-link:hover {
+            color: #1f2a36;
+        }
+
+        /* Botón */
+        .btn-login {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--dorado-epico), #B8942E);
-            color: var(--negro-profundo);
+            padding: 0.9rem;
+            background: #1f2a36;
+            color: #f5efe6;
             border: none;
             border-radius: 14px;
-            font-size: 16px;
+            font-size: 1.05rem;
             font-weight: 700;
-            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
             cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 25px rgba(201, 168, 76, 0.15);
+            transition: background 0.25s, transform 0.1s;
+            letter-spacing: 0.01em;
         }
 
-        .btn-dorado:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 35px rgba(201, 168, 76, 0.3);
+        .btn-login:hover {
+            background: #b48b5a;
+            color: #1f2a36;
         }
 
-        .link {
-            position: relative;
-            z-index: 1;
-            display: block;
-            margin-top: 12px;
-            font-size: 13px;
-            color: var(--gris-calido);
-            text-decoration: none;
-            transition: 0.3s;
+        .btn-login:active {
+            transform: scale(0.98);
         }
 
-        .link:hover {
-            color: var(--dorado-claro);
-        }
-
-        .mensaje {
-            position: relative;
-            z-index: 1;
-            font-size: 13px;
-            margin-top: 12px;
+        /* Registro */
+        .register-row {
             text-align: center;
+            margin-top: 1.8rem;
+            color: #7a6e5e;
+            font-size: 0.95rem;
         }
 
-        .mensaje.error { color: var(--rojo-alerta); }
-        .mensaje.exito { color: var(--verde-exito); }
-
-        .footer {
-            position: relative;
-            z-index: 1;
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(201, 168, 76, 0.05);
-            font-size: 11px;
-            color: var(--gris-calido);
+        .register-row a {
+            color: #b48b5a;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
         }
 
-        .footer strong { color: var(--dorado-epico); }
+        .register-row a:hover {
+            color: #1f2a36;
+        }
 
-        @media (max-width: 420px) {
-            .container { padding: 28px 16px 24px; }
-            .logo h1 { font-size: 24px; }
+        /* Paleta de colores (mini muestra) */
+        .color-strip {
+            display: flex;
+            gap: 6px;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .color-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 2rem 1.5rem;
+            }
+            .logo-text {
+                font-size: 1.6rem;
+            }
+            .login-title {
+                font-size: 1.3rem;
+            }
+            .options-row {
+                flex-wrap: wrap;
+                gap: 0.6rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-
-        <div class="logo">
-            <h1>LEGADO</h1>
-            <div class="sub">✦ Seguridad Laboral Automática ✦</div>
+    <div class="login-container">
+        <!-- Logo -->
+        <div class="logo-area">
+            <div class="logo-icon">L</div>
+            <div class="logo-text">LEGADO<span>.</span></div>
         </div>
 
-        <div class="form-title">🔐 Iniciar sesión</div>
-        <div class="form-subtitle">Ingresa a tu cuenta LEGADO</div>
+        <!-- Título -->
+        <h1 class="login-title">Bienvenido</h1>
+        <p class="login-sub">Inicia sesión para continuar</p>
 
-        <div class="input-group">
-            <label for="loginUser">Usuario (correo o DNI)</label>
-            <input type="text" id="loginUser" placeholder="tu@correo.com o 12345678" />
+        <!-- Formulario -->
+        <form>
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" placeholder="tucorreo@ejemplo.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="options-row">
+                <label class="remember">
+                    <input type="checkbox"> Recordarme
+                </label>
+                <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button type="submit" class="btn-login">Iniciar sesión</button>
+        </form>
+
+        <div class="register-row">
+            ¿No tienes cuenta? <a href="#">Regístrate</a>
         </div>
 
-        <div class="input-group" style="position:relative;">
-            <label for="loginPassword">Contraseña</label>
-            <input type="password" id="loginPassword" placeholder="••••••••" />
-            <button class="toggle-password" id="togglePassword" type="button" aria-label="Mostrar contraseña">👁️</button>
+        <!-- Mini muestra de la paleta LEGADO -->
+        <div class="color-strip">
+            <span class="color-dot" style="background: #1f2a36;" title="#1F2A36"></span>
+            <span class="color-dot" style="background: #b48b5a;" title="#B48B5A"></span>
+            <span class="color-dot" style="background: #f5efe6; border-color: #cfc1aa;" title="#F5EFE6"></span>
+            <span class="color-dot" style="background: #cfc1aa;" title="#CFC1AA"></span>
+            <span class="color-dot" style="background: #f2ede4; border-color: #cfc1aa;" title="#F2EDE4"></span>
         </div>
-
-        <button class="btn-dorado" id="btnLogin">Ingresar →</button>
-
-        <a href="recuperar.html" class="link">¿Olvidaste tu contraseña?</a>
-        <a href="registro.html" class="link">📝 ¿No tienes cuenta? Regístrate</a>
-        <a href="index.html" class="link" style="margin-top: 4px;">🏛️ Volver al inicio</a>
-
-        <div class="mensaje" id="mensaje"></div>
-
-        <div class="footer">
-            ⚡ <strong>LEGADO</strong> · Seguridad Laboral Automática · v1.0
-        </div>
-
     </div>
-
-    <script>
-        const loginUser = document.getElementById('loginUser');
-        const loginPassword = document.getElementById('loginPassword');
-        const btnLogin = document.getElementById('btnLogin');
-        const mensaje = document.getElementById('mensaje');
-
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const type = loginPassword.type === 'password' ? 'text' : 'password';
-            loginPassword.type = type;
-            this.textContent = type === 'password' ? '👁️' : '🙈';
-        });
-
-        btnLogin.addEventListener('click', function() {
-            const user = loginUser.value.trim();
-            const pass = loginPassword.value.trim();
-
-            if (!user || !pass) {
-                mensaje.textContent = '✖ Completa todos los campos';
-                mensaje.className = 'mensaje error';
-                return;
-            }
-
-            const usuarios = JSON.parse(localStorage.getItem('legado_usuarios') || '[]');
-            const usuario = usuarios.find(u =>
-                (u.email === user || u.dni === user) && u.password === pass
-            );
-
-            if (usuario) {
-                mensaje.textContent = '✓ ¡Bienvenido ' + usuario.nombre + '!';
-                mensaje.className = 'mensaje exito';
-                localStorage.setItem('legado_sesion', JSON.stringify({
-                    email: usuario.email,
-                    dni: usuario.dni,
-                    nombre: usuario.nombre,
-                    nivel: usuario.nivel
-                }));
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 800);
-            } else {
-                mensaje.textContent = '✖ Usuario o contraseña incorrectos';
-                mensaje.className = 'mensaje error';
-            }
-        });
-
-        loginUser.addEventListener('keydown', e => { if (e.key === 'Enter') btnLogin.click(); });
-        loginPassword.addEventListener('keydown', e => { if (e.key === 'Enter') btnLogin.click(); });
-
-        console.log('🔐 LEGADO - Ventana de Login');
-    </script>
 
 </body>
 </html>
