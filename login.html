@@ -3,19 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LEGADO - Iniciar sesión</title>
+    <title>LEGADO - Seguridad Laboral Automática</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
-        :root {
-            --negro-profundo: #0A0A0A;
-            --negro-carbono: #1A1A1A;
-            --dorado-epico: #C9A84C;
-            --dorado-claro: #E0D5A3;
-            --blanco-roto: #F5F0E8;
-            --gris-calido: #BA7E68;
-            --rojo-alerta: #E74C3C;
-            --verde-exito: #2ECC71;
-        }
-
+        /* ===== RESET Y BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -23,677 +14,415 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--negro-profundo);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f44 100%);
+            padding: 1.5rem;
         }
 
-        .login-container {
-            background: var(--negro-carbono);
-            padding: 50px 40px;
-            border-radius: 20px;
-            border: 1px solid var(--dorado-epico);
-            max-width: 440px;
+        /* ===== TARJETA PRINCIPAL ===== */
+        .card {
+            background: #ffffff;
+            max-width: 500px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(201, 168, 76, 0.15);
-            animation: fadeIn 0.8s ease;
+            border-radius: 2.5rem;
+            padding: 2.8rem 2.2rem 2.5rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            transition: transform 0.2s ease;
             position: relative;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* ===== BOTÓN IDIOMAS ===== */
+        .language-selector {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .login-title {
-            color: var(--dorado-epico);
-            font-size: 32px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 8px;
-            letter-spacing: 4px;
-        }
-
-        .login-subtitle {
-            color: var(--gris-calido);
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 35px;
-            letter-spacing: 2px;
-        }
-
-        .form-group {
-            margin-bottom: 22px;
-            position: relative;
-        }
-
-        .form-group label {
-            display: block;
-            color: var(--dorado-claro);
-            font-size: 13px;
+        .language-selector select {
+            padding: 0.4rem 1.8rem 0.4rem 1rem;
+            border-radius: 2rem;
+            border: 2px solid #e2e9f2;
+            background: #ffffff;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 6px;
-            letter-spacing: 1px;
+            color: #0b1a2e;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230b1a2e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.8rem center;
+            background-size: 0.7rem;
+            transition: all 0.3s ease;
         }
 
-        .form-group input {
-            width: 100%;
-            padding: 14px 16px;
-            background: var(--negro-profundo);
-            border: 1px solid #333;
-            border-radius: 10px;
-            color: var(--blanco-roto);
-            font-size: 15px;
-            transition: all 0.3s ease;
+        .language-selector select:hover {
+            border-color: #c8a84e;
+            box-shadow: 0 4px 12px rgba(200, 168, 78, 0.2);
+        }
+
+        .language-selector select:focus {
             outline: none;
+            border-color: #c8a84e;
+            box-shadow: 0 0 0 3px rgba(200, 168, 78, 0.25);
         }
 
-        .form-group input:focus {
-            border-color: var(--dorado-epico);
-            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
+        .language-selector select option {
+            font-weight: 500;
+            padding: 0.3rem;
         }
 
-        .form-group input::placeholder {
-            color: #555;
-        }
-
-        /* --- BOTÓN MOSTRAR CONTRASEÑA --- */
-        .password-wrapper {
-            position: relative;
-        }
-
-        .password-wrapper input {
-            padding-right: 50px;
-        }
-
-        .btn-toggle-password {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #666;
-            font-size: 18px;
-            cursor: pointer;
-            padding: 5px;
-            transition: color 0.3s ease;
-            font-family: inherit;
-            line-height: 1;
-        }
-
-        .btn-toggle-password:hover {
-            color: var(--dorado-epico);
-        }
-
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 28px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .form-options label {
-            color: var(--gris-calido);
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-
-        .form-options label input[type="checkbox"] {
-            accent-color: var(--dorado-epico);
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
-
-        .btn-forgot {
-            background: none;
-            border: none;
-            color: var(--dorado-epico);
-            font-size: 13px;
-            cursor: pointer;
-            text-decoration: underline;
-            transition: color 0.3s ease;
-            font-family: inherit;
-        }
-
-        .btn-forgot:hover {
-            color: var(--dorado-claro);
-        }
-
-        /* --- BOTÓN INICIAR SESIÓN --- */
-        .btn-login {
-            width: 100%;
-            padding: 16px;
-            background: var(--dorado-epico);
-            border: none;
-            border-radius: 10px;
-            color: var(--negro-profundo);
-            font-size: 17px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .btn-login:hover {
-            background: var(--dorado-claro);
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(201, 168, 76, 0.3);
-        }
-
-        .btn-login:active {
-            transform: scale(0.98);
-        }
-
-        /* --- BOTÓN REGISTRARSE --- */
-        .btn-register {
-            width: 100%;
-            padding: 14px;
-            background: transparent;
-            border: 2px solid var(--dorado-epico);
-            border-radius: 10px;
-            color: var(--dorado-epico);
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: inherit;
-            margin-bottom: 20px;
-        }
-
-        .btn-register:hover {
-            background: var(--dorado-epico);
-            color: var(--negro-profundo);
-            transform: scale(1.02);
-        }
-
-        .btn-register:active {
-            transform: scale(0.98);
-        }
-
-        /* --- BOTONES SOCIALES --- */
-        .social-login {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .btn-social {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #333;
-            border-radius: 10px;
-            background: var(--negro-profundo);
-            color: var(--blanco-roto);
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-family: inherit;
-        }
-
-        .btn-social:hover {
-            border-color: var(--dorado-epico);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(201, 168, 76, 0.15);
-        }
-
-        .btn-social:active {
-            transform: scale(0.97);
-        }
-
-        .btn-social.google:hover {
-            border-color: #EA4335;
-        }
-
-        .btn-social.github:hover {
-            border-color: #6e5494;
-        }
-
-        .btn-social .icon {
-            font-size: 20px;
-        }
-
-        .separator {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 0 0 20px 0;
-        }
-
-        .separator::before,
-        .separator::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #333;
-        }
-
-        .separator span {
-            color: var(--gris-calido);
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* --- MENSAJES --- */
-        .message-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .message {
-            padding: 12px 40px 12px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            animation: slideDown 0.4s ease;
-            display: none;
-            position: relative;
-        }
-
-        .message.show {
-            display: block;
-        }
-
-        .message.success {
-            background: rgba(46, 204, 113, 0.15);
-            border: 1px solid var(--verde-exito);
-            color: var(--verde-exito);
-        }
-
-        .message.error {
-            background: rgba(231, 76, 60, 0.15);
-            border: 1px solid var(--rojo-alerta);
-            color: var(--rojo-alerta);
-        }
-
-        .message.info {
-            background: rgba(201, 168, 76, 0.15);
-            border: 1px solid var(--dorado-epico);
-            color: var(--dorado-claro);
-        }
-
-        /* --- BOTÓN CERRAR MENSAJE --- */
-        .btn-close-message {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: inherit;
-            font-size: 18px;
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
-            padding: 4px 8px;
-            font-family: inherit;
-            line-height: 1;
-        }
-
-        .btn-close-message:hover {
-            opacity: 1;
-        }
-
-        .footer-text {
+        /* ===== ENCABEZADO ===== */
+        .brand {
             text-align: center;
-            color: #444;
-            font-size: 12px;
-            margin-top: 25px;
-            letter-spacing: 1px;
+            margin-bottom: 1.8rem;
+            margin-top: 0.5rem;
         }
 
-        .footer-text a {
-            color: var(--dorado-epico);
+        .brand h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #0b1a2e;
+        }
+
+        .brand h1 span {
+            color: #c8a84e;
+        }
+
+        .brand .subhead {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #7a8a9e;
+            margin-top: 0.2rem;
+        }
+
+        /* ===== CITA ===== */
+        .quote {
+            background: #f0f4fa;
+            padding: 1.2rem 1.5rem;
+            border-radius: 1.8rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid #c8a84e;
+            text-align: center;
+        }
+
+        .quote p {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #1e3347;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .quote .author {
+            display: block;
+            margin-top: 0.4rem;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #c8a84e;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== BOTONES DE ACCIÓN ===== */
+        .action-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-group button {
+            flex: 1;
+            padding: 0.9rem 0;
+            border: none;
+            border-radius: 3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: #eef2f7;
+            color: #1e3347;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .action-group button:first-child {
+            background: #0b1a2e;
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(11, 26, 46, 0.35);
+        }
+
+        .action-group button:first-child:hover {
+            background: #1a2f44;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(11, 26, 46, 0.4);
+        }
+
+        .action-group button:last-child {
+            background: #e8edf5;
+            color: #0b1a2e;
+        }
+
+        .action-group button:last-child:hover {
+            background: #d5deec;
+            transform: translateY(-2px);
+        }
+
+        /* ===== CHECKBOX ===== */
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            margin-bottom: 1.8rem;
+            font-size: 0.85rem;
+            color: #2c4057;
+        }
+
+        .terms input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-top: 0.1rem;
+            accent-color: #c8a84e;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .terms label {
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .terms label a {
+            color: #0b1a2e;
+            font-weight: 700;
             text-decoration: none;
-            transition: color 0.3s ease;
+            border-bottom: 2px solid #c8a84e;
+            transition: color 0.2s;
         }
 
-        .footer-text a:hover {
-            color: var(--dorado-claro);
-            text-decoration: underline;
+        .terms label a:hover {
+            color: #c8a84e;
         }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 30px 20px;
+        /* ===== ENLACE MANUAL ===== */
+        .manual-link {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .manual-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #2c4057;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: #f0f4fa;
+            padding: 0.55rem 1.6rem;
+            border-radius: 3rem;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .manual-link a i {
+            color: #c8a84e;
+            font-size: 1rem;
+        }
+
+        .manual-link a:hover {
+            background: #e3eaf3;
+            border-color: #c8a84e;
+            transform: scale(1.02);
+        }
+
+        /* ===== PIE CON VERSIÓN Y URL ===== */
+        .footer-info {
+            text-align: center;
+            border-top: 1px solid #e2e9f2;
+            padding-top: 1.5rem;
+            margin-top: 0.3rem;
+        }
+
+        .footer-info .version {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #0b1a2e;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-info .version i {
+            color: #c8a84e;
+            margin-right: 0.4rem;
+        }
+
+        .footer-info .url {
+            display: block;
+            margin-top: 0.4rem;
+            font-size: 0.7rem;
+            color: #7a8a9e;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            background: #f5f8fc;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            transition: background 0.2s;
+        }
+
+        .footer-info .url:hover {
+            background: #eef2f7;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 500px) {
+            .card {
+                padding: 2rem 1.5rem;
+                border-radius: 1.8rem;
             }
 
-            .login-title {
-                font-size: 26px;
+            .brand h1 {
+                font-size: 2rem;
             }
 
-            .form-options {
+            .action-group {
                 flex-direction: column;
-                align-items: flex-start;
+                gap: 0.7rem;
             }
 
-            .social-login {
-                flex-direction: column;
+            .action-group button {
+                padding: 0.8rem 0;
+                font-size: 1rem;
             }
 
-            .btn-social {
-                padding: 14px;
+            .quote p {
+                font-size: 0.85rem;
+            }
+
+            .language-selector {
+                position: static;
+                text-align: right;
+                margin-bottom: 0.5rem;
+            }
+
+            .language-selector select {
+                font-size: 0.7rem;
+                padding: 0.3rem 1.6rem 0.3rem 0.8rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
+    <div class="card">
 
-        <h1 class="login-title">LEGADO</h1>
-        <p class="login-subtitle">SST CORE</p>
-
-        <!-- CONTENEDOR DE MENSAJES CON BOTÓN CERRAR -->
-        <div class="message-container">
-            <div id="message" class="message">
-                <span id="messageText"></span>
-                <button class="btn-close-message" id="btnCloseMessage" aria-label="Cerrar mensaje">✕</button>
-            </div>
+        <!-- ===== SELECTOR DE IDIOMAS ===== -->
+        <div class="language-selector">
+            <select id="languageSelect" aria-label="Seleccionar idioma">
+                <option value="es">🌍 Español</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="zh">🇨🇳 中文</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="ja">🇯🇵 日本語</option>
+                <option value="pt">🇵🇹 Português</option>
+                <option value="ru">🇷🇺 Русский</option>
+                <option value="ar">🇸🇦 العربية</option>
+                <option value="hi">🇮🇳 हिन्दी</option>
+            </select>
         </div>
 
-        <!-- FORMULARIO DE LOGIN -->
-        <form id="loginForm" novalidate>
-            <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    placeholder="usuario@legado.com" 
-                    required
-                    autocomplete="email"
-                />
-            </div>
-
-            <div class="form-group">
-                <label for="password">Contraseña</label>
-                <div class="password-wrapper">
-                    <input 
-                        type="password" 
-                        id="password" 
-                        placeholder="••••••••" 
-                        required
-                        autocomplete="current-password"
-                        minlength="6"
-                    />
-                    <!-- BOTÓN MOSTRAR/OCULTAR CONTRASEÑA -->
-                    <button type="button" class="btn-toggle-password" id="btnTogglePassword" aria-label="Mostrar contraseña">
-                        👁️
-                    </button>
-                </div>
-            </div>
-
-            <div class="form-options">
-                <label>
-                    <input type="checkbox" id="remember" />
-                    Recordarme
-                </label>
-                <!-- BOTÓN OLVIDASTE CONTRASEÑA -->
-                <button type="button" class="btn-forgot" id="btnForgot">
-                    ¿Olvidaste tu contraseña?
-                </button>
-            </div>
-
-            <!-- BOTÓN INICIAR SESIÓN -->
-            <button type="submit" class="btn-login" id="btnLogin">
-                Iniciar Sesión
-            </button>
-        </form>
-
-        <!-- BOTONES SOCIALES -->
-        <div class="social-login">
-            <button class="btn-social google" id="btnGoogle">
-                <span class="icon">G</span> Google
-            </button>
-            <button class="btn-social github" id="btnGithub">
-                <span class="icon">🐙</span> GitHub
-            </button>
+        <!-- ===== ENCABEZADO ===== -->
+        <div class="brand">
+            <h1>LEGADO <span>+</span></h1>
+            <div class="subhead">Conciencia y futuro para la humanidad</div>
         </div>
 
-        <div class="separator">
-            <span>o</span>
+        <!-- ===== CITA ===== -->
+        <div class="quote">
+            <p>
+                “La seguridad laboral no debería ser un lujo. Es un derecho. Hazla automática.”
+                <span class="author">— LEGADO</span>
+            </p>
         </div>
 
-        <!-- BOTÓN REGISTRARSE -->
-        <button class="btn-register" id="btnRegister">
-            Crear cuenta nueva
-        </button>
+        <!-- ===== BOTONES INGRESAR / REGISTRARSE ===== -->
+        <div class="action-group">
+            <button id="btnLogin">Ingresar</button>
+            <button id="btnRegister">Registrarse</button>
+        </div>
 
-        <p class="footer-text">
-            &copy; 2026 <a href="#">Legado SST</a> — Todos los derechos reservados
-        </p>
+        <!-- ===== TÉRMINOS Y CONDICIONES ===== -->
+        <div class="terms">
+            <input type="checkbox" id="termsCheck" />
+            <label for="termsCheck">
+                Acepto los <a href="#">Términos y Condiciones</a> y la
+                <a href="#">Política de Privacidad</a>
+            </label>
+        </div>
+
+        <!-- ===== MANUAL DE USO Y ATAJOS ===== -->
+        <div class="manual-link">
+            <a href="#">
+                <i class="fas fa-book-open"></i> Manual de uso y atajos
+            </a>
+        </div>
+
+        <!-- ===== PIE CON VERSIÓN Y URL ===== -->
+        <div class="footer-info">
+            <div class="version">
+                <i class="fas fa-link"></i> LEGADO Seguridad Laboral Automática - v1.0
+            </div>
+            <span class="url">
+                https://donjuan2026.github.io/legado-sst-core/login.html
+            </span>
+        </div>
+
     </div>
 
+    <!-- ===== SCRIPT ===== -->
     <script>
         (function() {
-            'use strict';
+            const loginBtn = document.getElementById('btnLogin');
+            const registerBtn = document.getElementById('btnRegister');
+            const termsCheck = document.getElementById('termsCheck');
+            const languageSelect = document.getElementById('languageSelect');
 
-            // --- ELEMENTOS DOM ---
-            const form = document.getElementById('loginForm');
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const rememberCheck = document.getElementById('remember');
-            const messageDiv = document.getElementById('message');
-            const messageText = document.getElementById('messageText');
-
-            // BOTONES
-            const btnLogin = document.getElementById('btnLogin');
-            const btnRegister = document.getElementById('btnRegister');
-            const btnForgot = document.getElementById('btnForgot');
-            const btnTogglePassword = document.getElementById('btnTogglePassword');
-            const btnCloseMessage = document.getElementById('btnCloseMessage');
-            const btnGoogle = document.getElementById('btnGoogle');
-            const btnGithub = document.getElementById('btnGithub');
-
-            // --- FUNCIÓN PARA MOSTRAR MENSAJES ---
-            function showMessage(text, type) {
-                messageText.textContent = text;
-                messageDiv.className = 'message ' + type + ' show';
-                
-                // Auto ocultar después de 6 segundos
-                if (type !== 'error') {
-                    clearTimeout(window.messageTimeout);
-                    window.messageTimeout = setTimeout(() => {
-                        hideMessage();
-                    }, 6000);
+            // ===== ACCIÓN BOTONES =====
+            function showMessage(action) {
+                if (!termsCheck.checked) {
+                    alert('⚠️ Por favor, acepta los Términos y Condiciones antes de continuar.');
+                    return;
                 }
+                alert(`✅ Has seleccionado "${action}". Redirigiendo...`);
             }
 
-            function hideMessage() {
-                messageDiv.className = 'message';
-                messageText.textContent = '';
-                clearTimeout(window.messageTimeout);
-            }
+            loginBtn.addEventListener('click', () => showMessage('Ingresar'));
+            registerBtn.addEventListener('click', () => showMessage('Registrarse'));
 
-            // --- BOTÓN CERRAR MENSAJE ---
-            btnCloseMessage.addEventListener('click', hideMessage);
-
-            // --- BOTÓN MOSTRAR/OCULTAR CONTRASEÑA ---
-            let passwordVisible = false;
-            btnTogglePassword.addEventListener('click', function() {
-                passwordVisible = !passwordVisible;
-                passwordInput.type = passwordVisible ? 'text' : 'password';
-                this.textContent = passwordVisible ? '🙈' : '👁️';
-                this.setAttribute('aria-label', passwordVisible ? 'Ocultar contraseña' : 'Mostrar contraseña');
+            // ===== SELECTOR DE IDIOMAS =====
+            languageSelect.addEventListener('change', function() {
+                const lang = this.value;
+                const langNames = {
+                    'es': 'Español',
+                    'en': 'English',
+                    'zh': '中文',
+                    'fr': 'Français',
+                    'de': 'Deutsch',
+                    'ja': '日本語',
+                    'pt': 'Português',
+                    'ru': 'Русский',
+                    'ar': 'العربية',
+                    'hi': 'हिन्दी'
+                };
+                alert(`🌍 Cambiando a: ${langNames[lang]}\n(Función de traducción en desarrollo)`);
+                // Aquí iría la lógica real de cambio de idioma
             });
-
-            // --- VALIDACIÓN DEL LOGIN ---
-            function handleLogin(event) {
-                if (event) event.preventDefault();
-
-                const email = emailInput.value.trim();
-                const password = passwordInput.value.trim();
-
-                // Validar email
-                if (!email) {
-                    showMessage('Por favor, ingresa tu correo electrónico.', 'error');
-                    emailInput.focus();
-                    return false;
-                }
-
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    showMessage('Ingresa un correo electrónico válido.', 'error');
-                    emailInput.focus();
-                    return false;
-                }
-
-                if (!password) {
-                    showMessage('Por favor, ingresa tu contraseña.', 'error');
-                    passwordInput.focus();
-                    return false;
-                }
-
-                if (password.length < 6) {
-                    showMessage('La contraseña debe tener al menos 6 caracteres.', 'error');
-                    passwordInput.focus();
-                    return false;
-                }
-
-                // SIMULACIÓN DE LOGIN EXITOSO
-                console.log('🔐 Login:', { email, password, remember: rememberCheck.checked });
-                showMessage('✅ ¡Bienvenido ' + email + '! Inicio de sesión exitoso.', 'success');
-
-                setTimeout(() => {
-                    // window.location.href = '/dashboard.html';
-                    alert('🔁 Redirigiendo al panel principal...');
-                }, 1500);
-
-                return true;
-            }
-
-            // --- BOTÓN REGISTRARSE ---
-            function handleRegister() {
-                console.log('📝 Registro');
-                showMessage('📝 Redirigiendo al formulario de registro...', 'info');
-                setTimeout(() => {
-                    // window.location.href = '/registro.html';
-                    alert('📝 Redirigiendo a registro...');
-                }, 1000);
-            }
-
-            // --- BOTÓN OLVIDASTE CONTRASEÑA ---
-            function handleForgot() {
-                console.log('🔑 Recuperar contraseña');
-                const email = emailInput.value.trim();
-                if (email && email.includes('@')) {
-                    showMessage('📧 Enlace de recuperación enviado a ' + email, 'info');
-                } else {
-                    showMessage('📧 Ingresa tu correo para recuperar la contraseña.', 'info');
-                    emailInput.focus();
-                }
-                setTimeout(() => {
-                    // window.location.href = '/recuperar.html';
-                    alert('🔑 Redirigiendo a recuperación...');
-                }, 1500);
-            }
-
-            // --- BOTÓN GOOGLE ---
-            function handleGoogleLogin() {
-                console.log('🔵 Login con Google');
-                showMessage('🔵 Redirigiendo a Google...', 'info');
-                setTimeout(() => {
-                    // window.location.href = '/auth/google';
-                    alert('🔵 Autenticando con Google...');
-                }, 1000);
-            }
-
-            // --- BOTÓN GITHUB ---
-            function handleGithubLogin() {
-                console.log('🐙 Login con GitHub');
-                showMessage('🐙 Redirigiendo a GitHub...', 'info');
-                setTimeout(() => {
-                    // window.location.href = '/auth/github';
-                    alert('🐙 Autenticando con GitHub...');
-                }, 1000);
-            }
-
-            // --- ASIGNAR EVENTOS ---
-
-            // 1. Formulario login
-            form.addEventListener('submit', handleLogin);
-
-            // 2. Botón Iniciar Sesión (por si se usa fuera del form)
-            btnLogin.addEventListener('click', function(e) {
-                if (!form.checkValidity()) {
-                    form.dispatchEvent(new Event('submit'));
-                }
-            });
-
-            // 3. Botón Registrarse
-            btnRegister.addEventListener('click', handleRegister);
-
-            // 4. Botón Olvidaste contraseña
-            btnForgot.addEventListener('click', handleForgot);
-
-            // 5. Botón Google
-            btnGoogle.addEventListener('click', handleGoogleLogin);
-
-            // 6. Botón GitHub
-            btnGithub.addEventListener('click', handleGithubLogin);
-
-            // --- VALIDACIONES EN TIEMPO REAL ---
-            emailInput.addEventListener('blur', function() {
-                const val = this.value.trim();
-                this.style.borderColor = (val && !val.includes('@')) ? 'var(--rojo-alerta)' : '#333';
-            });
-
-            passwordInput.addEventListener('blur', function() {
-                const val = this.value.trim();
-                this.style.borderColor = (val && val.length < 6) ? 'var(--rojo-alerta)' : '#333';
-            });
-
-            document.querySelectorAll('input').forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.style.borderColor = 'var(--dorado-epico)';
-                });
-            });
-
-            console.log('✅ Todos los botones funcionan correctamente:');
-            console.log('   🔐 Iniciar Sesión');
-            console.log('   👁️ Mostrar/Ocultar contraseña');
-            console.log('   ❌ Cerrar mensaje');
-            console.log('   📝 Crear cuenta');
-            console.log('   🔑 Olvidaste contraseña');
-            console.log('   🔵 Google');
-            console.log('   🐙 GitHub');
 
         })();
     </script>
