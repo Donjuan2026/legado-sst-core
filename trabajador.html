@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LEGADO - Mi salud y seguridad</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         :root {
             --negro-profundo: #0A0A0A;
             --negro-carbon: #1A1A1A;
@@ -25,13 +29,16 @@
             min-height: 100vh;
             padding: 20px;
         }
-        .container { max-width: 820px; margin: 0 auto; }
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+        }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 0 30px;
-            border-bottom: 1px solid rgba(201,168,76,0.1);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.1);
             flex-wrap: wrap;
             gap: 16px;
         }
@@ -42,501 +49,934 @@
             color: var(--dorado-epico);
             letter-spacing: 4px;
         }
-        .header .logo span { font-size: 12px; font-weight: 300; color: var(--gris-calido); letter-spacing: 1px; margin-left: 8px; }
-        .header .user { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .header .user .nombre { color: var(--blanco-roto); font-weight: 600; font-size: 14px; }
-        .header .user .badge { background: rgba(201,168,76,0.15); color: var(--dorado-epico); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-        .btn-logout { background: transparent; border: 1px solid rgba(201,168,76,0.2); color: var(--gris-calido); padding: 6px 14px; border-radius: 10px; cursor: pointer; transition: all 0.3s; font-size: 12px; }
-        .btn-logout:hover { border-color: var(--rojo-alerta); color: var(--rojo-alerta); }
-        .seccion { display: none; animation: fadeIn 0.4s ease; }
-        .seccion.activa { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .card { background: var(--negro-carbon); border-radius: 16px; padding: 20px 24px; border: 1px solid rgba(201,168,76,0.06); margin-bottom: 20px; }
-        .card-title { font-size: 16px; font-weight: 600; color: var(--blanco-roto); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .page-title { margin: 24px 0 8px; }
-        .page-title h1 { font-size: 26px; font-weight: 300; color: var(--blanco-roto); }
-        .page-title h1 strong { color: var(--dorado-epico); font-weight: 700; }
-        .page-title p { color: var(--gris-calido); font-size: 14px; margin-top: 4px; }
-        .input-group { margin-bottom: 14px; }
-        .input-group label { display: block; font-size: 12px; color: var(--gris-calido); margin-bottom: 4px; letter-spacing: 0.5px; }
-        .input-group input, .input-group textarea, .input-group select { width: 100%; padding: 12px 14px; background: var(--negro-profundo); border: 1px solid rgba(201,168,76,0.08); border-radius: 12px; color: var(--blanco-roto); font-size: 14px; outline: none; transition: 0.3s; font-family: inherit; resize: vertical; }
-        .input-group input:focus, .input-group textarea:focus, .input-group select:focus { border-color: var(--dorado-epico); }
-        .input-group textarea { min-height: 60px; }
-        .input-con-foto { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-        .input-con-foto input[type="file"] { flex: 1; padding: 10px; background: var(--negro-profundo); border: 1px dashed rgba(201,168,76,0.15); border-radius: 12px; color: var(--gris-calido); font-size: 13px; cursor: pointer; min-width: 180px; }
-        .fotos-preview { display: flex; gap: 10px; flex-wrap: wrap; margin: 8px 0 4px; }
-        .fotos-preview .foto-mini { width: 60px; height: 60px; background: var(--negro-profundo); border-radius: 10px; border: 1px solid rgba(201,168,76,0.08); background-size: cover; background-position: center; position: relative; }
-        .fotos-preview .foto-mini .btn-eliminar { position: absolute; top: -6px; right: -6px; background: var(--rojo-alerta); color: #fff; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; cursor: pointer; line-height: 18px; text-align: center; }
-        .btn-dorado { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--dorado-epico), #B8942E); color: var(--negro-profundo); border: none; border-radius: 14px; font-size: 15px; font-weight: 700; letter-spacing: 1px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 20px rgba(201,168,76,0.15); }
-        .btn-dorado:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.3); }
-        .btn-dorado:disabled { opacity: 0.5; cursor: not-allowed; }
-        .btn-outline { width: 100%; padding: 14px; background: transparent; color: var(--dorado-claro); border: 1px solid rgba(201,168,76,0.2); border-radius: 14px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-        .btn-outline:hover { border-color: var(--dorado-epico); background: rgba(201,168,76,0.04); }
-        .btn-peligro { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--rojo-alerta), #C0392B); color: #fff; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 20px rgba(231,76,60,0.2); }
-        .btn-peligro:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(231,76,60,0.3); }
-        .btn-verde { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--verde-exito), #1E8449); color: #fff; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 20px rgba(46,204,113,0.2); }
-        .btn-verde:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(46,204,113,0.3); }
-        .btn-opcion { padding: 12px 16px; background: var(--negro-profundo); border: 1px solid rgba(201,168,76,0.08); border-radius: 12px; color: var(--blanco-roto); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-align: left; width: 100%; }
-        .btn-opcion:hover { border-color: rgba(201,168,76,0.25); background: rgba(201,168,76,0.03); }
-        .btn-opcion.seleccionado { border-color: var(--dorado-epico); background: rgba(201,168,76,0.06); }
-        .btn-opcion .emoji { font-size: 20px; margin-right: 10px; }
-        .btn-opcion .sub { font-size: 12px; color: var(--gris-calido); font-weight: 400; display: block; margin-top: 2px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .mensaje { font-size: 13px; margin-top: 12px; padding: 12px; border-radius: 10px; text-align: left; }
-        .mensaje.error { color: var(--rojo-alerta); background: rgba(231,76,60,0.06); }
-        .mensaje.exito { color: var(--verde-exito); background: rgba(46,204,113,0.06); }
-        .mensaje.info { color: var(--azul-info); background: rgba(52,152,219,0.06); }
-        .mensaje.legal { color: var(--dorado-epico); background: rgba(201,168,76,0.06); border-left: 3px solid var(--dorado-epico); }
-        .riesgo-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-        .riesgo-item:last-child { border-bottom: none; }
-        .riesgo-item .icono { font-size: 18px; }
-        .riesgo-item .info { flex: 1; font-size: 13px; }
-        .riesgo-item .nivel { font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 10px; }
-        .riesgo-item .nivel.alto { background: rgba(231,76,60,0.15); color: var(--rojo-alerta); }
-        .riesgo-item .nivel.medio { background: rgba(230,126,34,0.15); color: var(--naranja); }
-        .riesgo-item .nivel.bajo { background: rgba(46,204,113,0.15); color: var(--verde-exito); }
-        .recordatorio { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--negro-profundo); border-radius: 10px; border: 1px solid rgba(201,168,76,0.06); margin-bottom: 8px; }
-        .recordatorio .icono { font-size: 20px; }
-        .recordatorio .info { flex: 1; }
-        .recordatorio .info .titulo { font-weight: 600; font-size: 14px; }
-        .recordatorio .info .hora { font-size: 12px; color: var(--gris-calido); }
-        .footer { text-align: center; padding: 20px 0 10px; color: var(--gris-calido); font-size: 11px; border-top: 1px solid rgba(255,255,255,0.03); }
-        .footer strong { color: var(--dorado-epico); }
+        .header .logo span {
+            font-size: 12px;
+            font-weight: 300;
+            color: var(--gris-calido);
+            letter-spacing: 1px;
+            margin-left: 8px;
+        }
+        .header .user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .header .user .nombre {
+            color: var(--blanco-roto);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .header .user .badge {
+            background: rgba(201, 168, 76, 0.15);
+            color: var(--dorado-epico);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .btn-logout {
+            background: transparent;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            color: var(--gris-calido);
+            padding: 6px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 12px;
+        }
+        .btn-logout:hover {
+            border-color: var(--rojo-alerta);
+            color: var(--rojo-alerta);
+        }
+        .seccion {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .seccion.activa {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .card {
+            background: var(--negro-carbon);
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px solid rgba(201, 168, 76, 0.06);
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--blanco-roto);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .page-title {
+            margin: 24px 0 8px;
+        }
+        .page-title h1 {
+            font-size: 26px;
+            font-weight: 300;
+            color: var(--blanco-roto);
+        }
+        .page-title h1 strong {
+            color: var(--dorado-epico);
+            font-weight: 700;
+        }
+        .page-title p {
+            color: var(--gris-calido);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        .input-group {
+            margin-bottom: 14px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--gris-calido);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--negro-profundo);
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            border-radius: 12px;
+            color: var(--blanco-roto);
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+            font-family: inherit;
+            resize: vertical;
+        }
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
+            border-color: var(--dorado-epico);
+        }
+        .input-group textarea {
+            min-height: 60px;
+        }
+        .input-con-foto {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .input-con-foto input[type="file"] {
+            flex: 1;
+            padding: 10px;
+            background: var(--negro-profundo);
+            border: 1px dashed rgba(201, 168, 76, 0.15);
+            border-radius: 12px;
+            color: var(--gris-calido);
+            font-size: 13px;
+            cursor: pointer;
+            min-width: 180px;
+        }
+        .fotos-preview {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 8px 0 4px;
+        }
+        .fotos-preview .foto-mini {
+            width: 60px;
+            height: 60px;
+            background: var(--negro-profundo);
+            border-radius: 10px;
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .fotos-preview .foto-mini .btn-eliminar {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--rojo-alerta);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            cursor: pointer;
+            line-height: 18px;
+            text-align: center;
+        }
+        .btn-dorado {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--dorado-epico), #B8942E);
+            color: var(--negro-profundo);
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(201, 168, 76, 0.15);
+        }
+        .btn-dorado:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+        }
+        .btn-dorado:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-outline {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            color: var(--dorado-claro);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-outline:hover {
+            border-color: var(--dorado-epico);
+            background: rgba(201, 168, 76, 0.04);
+        }
+        .btn-peligro {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--rojo-alerta), #C0392B);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.2);
+        }
+        .btn-peligro:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.3);
+        }
+        .btn-verde {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--verde-exito), #1E8449);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(46, 204, 113, 0.2);
+        }
+        .btn-verde:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(46, 204, 113, 0.3);
+        }
+        .btn-opcion {
+            padding: 12px 16px;
+            background: var(--negro-profundo);
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            border-radius: 12px;
+            color: var(--blanco-roto);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            width: 100%;
+        }
+        .btn-opcion:hover {
+            border-color: rgba(201, 168, 76, 0.25);
+            background: rgba(201, 168, 76, 0.03);
+        }
+        .btn-opcion.seleccionado {
+            border-color: var(--dorado-epico);
+            background: rgba(201, 168, 76, 0.06);
+        }
+        .btn-opcion .emoji {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+        .btn-opcion .sub {
+            font-size: 12px;
+            color: var(--gris-calido);
+            font-weight: 400;
+            display: block;
+            margin-top: 2px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .mensaje {
+            font-size: 13px;
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .mensaje.error {
+            color: var(--rojo-alerta);
+            background: rgba(231, 76, 60, 0.06);
+        }
+        .mensaje.exito {
+            color: var(--verde-exito);
+            background: rgba(46, 204, 113, 0.06);
+        }
+        .mensaje.info {
+            color: var(--azul-info);
+            background: rgba(52, 152, 219, 0.06);
+        }
+        .mensaje.legal {
+            color: var(--dorado-epico);
+            background: rgba(201, 168, 76, 0.06);
+            border-left: 3px solid var(--dorado-epico);
+        }
+        .riesgo-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .riesgo-item:last-child {
+            border-bottom: none;
+        }
+        .riesgo-item .icono {
+            font-size: 18px;
+        }
+        .riesgo-item .info {
+            flex: 1;
+            font-size: 13px;
+        }
+        .riesgo-item .nivel {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 10px;
+        }
+        .riesgo-item .nivel.alto {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--rojo-alerta);
+        }
+        .riesgo-item .nivel.medio {
+            background: rgba(230, 126, 34, 0.15);
+            color: var(--naranja);
+        }
+        .riesgo-item .nivel.bajo {
+            background: rgba(46, 204, 113, 0.15);
+            color: var(--verde-exito);
+        }
+        .recordatorio {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--negro-profundo);
+            border-radius: 10px;
+            border: 1px solid rgba(201, 168, 76, 0.06);
+            margin-bottom: 8px;
+        }
+        .recordatorio .icono {
+            font-size: 20px;
+        }
+        .recordatorio .info {
+            flex: 1;
+        }
+        .recordatorio .info .titulo {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .recordatorio .info .hora {
+            font-size: 12px;
+            color: var(--gris-calido);
+        }
+        .footer {
+            text-align: center;
+            padding: 20px 0 10px;
+            color: var(--gris-calido);
+            font-size: 11px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .footer strong {
+            color: var(--dorado-epico);
+        }
+        .link {
+            display: block;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--gris-calido);
+            text-decoration: none;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .link:hover {
+            color: var(--dorado-claro);
+        }
         @media (max-width: 600px) {
-            .header { flex-direction: column; align-items: stretch; text-align: center; }
-            .header .user { justify-content: center; }
-            .page-title h1 { font-size: 22px; }
-            .grid-2 { grid-template-columns: 1fr; }
-            .card { padding: 16px; }
-            .input-con-foto { flex-direction: column; }
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .header .user {
+                justify-content: center;
+            }
+            .page-title h1 {
+                font-size: 22px;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                padding: 16px;
+            }
+            .input-con-foto {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <header class="header">
-        <div class="logo">LEGADO <span>· Mi salud y seguridad</span></div>
-        <div class="user">
-            <span class="nombre" id="userName">👤 Usuario</span>
-            <span class="badge" id="userLevel">👷 Trabajador</span>
-            <button class="btn-logout" onclick="cerrarSesion()">Cerrar sesión</button>
-        </div>
-    </header>
+        <header class="header">
+            <div class="logo">LEGADO <span>· Mi salud y seguridad</span></div>
+            <div class="user">
+                <span class="nombre" id="userName">👤 Usuario</span>
+                <span class="badge" id="userLevel">👷 Trabajador</span>
+                <button class="btn-logout" onclick="cerrarSesion()">Cerrar sesión</button>
+            </div>
+        </header>
 
-    <!-- ===== BIENVENIDA ===== -->
-    <div class="seccion activa" id="seccion-bienvenida">
-        <div class="page-title">
-            <h1>👋 ¡Hola, <strong id="nombreUsuario">trabajador</strong>! Bienvenido a LEGADO</h1>
-            <p>Estamos aquí para cuidarte a ti y a los tuyos.</p>
-        </div>
-        <div class="card">
-            <div class="card-title">🔐 Antes de empezar, queremos que sepas algo importante:</div>
-            <p style="font-size:14px;color:var(--gris-calido);line-height:1.6;">
-                <strong>🔒 Tus datos están cifrados y solo se guardan en tu propio dispositivo.</strong><br>
-                No los almacenamos en servidores externos. No los compartimos con nadie.
-            </p>
-        </div>
-        <div class="card">
-            <div class="card-title">📸 Cuéntanos sobre tu entorno laboral</div>
-            <p style="font-size:13px;color:var(--gris-calido);margin-bottom:10px;">Sube fotos de tu área de trabajo.</p>
-            <div class="input-group">
-                <div class="input-con-foto">
-                    <input type="file" id="fotosSeguridad" accept="image/*" multiple />
+        <!-- ===== BIENVENIDA ===== -->
+        <div class="seccion activa" id="seccion-bienvenida">
+            <div class="page-title">
+                <h1>👋 ¡Hola, <strong id="nombreUsuario">trabajador</strong>! Bienvenido a LEGADO</h1>
+                <p>Estamos aquí para cuidarte a ti y a los tuyos.</p>
+            </div>
+            <div class="card">
+                <div class="card-title">🔐 Antes de empezar, queremos que sepas algo importante:</div>
+                <p style="font-size:14px;color:var(--gris-calido);line-height:1.6;">
+                    <strong>🔒 Tus datos están cifrados y solo se guardan en tu propio dispositivo.</strong><br>
+                    No los almacenamos en servidores externos. No los compartimos con nadie. Tú eres el único dueño de tu información.<br><br>
+                    LEGADO solo procesa lo que le das para darte recomendaciones y mantenerte seguro. Nada queda fuera de tu control.
+                </p>
+            </div>
+            <div class="card">
+                <div class="card-title">📸 Cuéntanos sobre tu entorno laboral</div>
+                <p style="font-size:13px;color:var(--gris-calido);margin-bottom:10px;">
+                    Sube fotos de tu área de trabajo (techo, paredes, piso, herramientas). Así podremos detectar si hay algo que pueda lastimarte.
+                </p>
+                <div class="input-group">
+                    <div class="input-con-foto">
+                        <input type="file" id="fotosSeguridad" accept="image/*" multiple />
+                    </div>
+                    <div class="fotos-preview" id="previewSeguridad"></div>
                 </div>
-                <div class="fotos-preview" id="previewSeguridad"></div>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-title">📄 Comparte tu información de salud</div>
-            <p style="font-size:13px;color:var(--gris-calido);margin-bottom:10px;">Sube tratamientos, recetas o certificados médicos.</p>
-            <div class="input-group">
-                <div class="input-con-foto">
-                    <input type="file" id="archivosSalud" accept=".pdf,.jpg,.jpeg,.png" multiple />
+            <div class="card">
+                <div class="card-title">📄 Comparte tu información de salud</div>
+                <p style="font-size:13px;color:var(--gris-calido);margin-bottom:10px;">
+                    Si tienes tratamientos, recetas o certificados médicos, súbelos aquí. Esto nos ayudará a darte consejos personalizados.
+                </p>
+                <div class="input-group">
+                    <div class="input-con-foto">
+                        <input type="file" id="archivosSalud" accept=".pdf,.jpg,.jpeg,.png" multiple />
+                    </div>
+                    <div class="fotos-preview" id="previewSalud"></div>
                 </div>
-                <div class="fotos-preview" id="previewSalud"></div>
+            </div>
+            <div class="card">
+                <div class="card-title">🧠 Háblanos de cómo te sientes</div>
+                <p style="font-size:13px;color:var(--gris-calido);margin-bottom:10px;">
+                    Cuéntanos sobre tu carga de trabajo, tu descanso o si estás pasando por momentos de estrés. Queremos entender tu día a día para poder acompañarte mejor.
+                </p>
+                <div class="input-group">
+                    <textarea id="saludMental" placeholder="No te preocupes por la forma. Usa tus palabras. Esto es para ti."></textarea>
+                </div>
+            </div>
+            <button class="btn-dorado" id="btnSubirContinuar">✅ Subir y continuar</button>
+            <div class="mensaje" id="mensajeBienvenida"></div>
+        </div>
+
+        <!-- ===== PROCESANDO ===== -->
+        <div class="seccion" id="seccion-procesando">
+            <div class="page-title">
+                <h1>🔍 Esto vimos en tu entorno y en lo que nos contaste</h1>
+            </div>
+            <div class="card" style="text-align:center;padding:40px;">
+                <div style="font-size:48px;margin-bottom:16px;">⏳</div>
+                <p style="color:var(--gris-calido);font-size:16px;">Estamos revisando tus fotos, documentos y lo que nos contaste.</p>
+                <p style="color:var(--gris-calido);font-size:14px;margin-top:8px;">Esto tomará unos segundos.</p>
+                <div style="width:100%;height:6px;background:rgba(255,255,255,0.06);border-radius:4px;margin-top:20px;overflow:hidden;">
+                    <div id="barraProgreso" style="width:0%;height:100%;background:linear-gradient(90deg,var(--dorado-epico),var(--dorado-claro));border-radius:4px;transition:width 0.8s ease;"></div>
+                </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-title">🧠 Háblanos de cómo te sientes</div>
-            <div class="input-group">
-                <textarea id="saludMental" placeholder="Cuéntanos cómo te sientes..."></textarea>
+
+        <!-- ===== RESULTADOS ===== -->
+        <div class="seccion" id="seccion-resultados">
+            <div class="page-title">
+                <h1>🔍 Esto vimos en tu entorno y en lo que nos contaste</h1>
             </div>
-        </div>
-        <button class="btn-dorado" id="btnSubirContinuar">✅ Subir y continuar</button>
-        <div class="mensaje" id="mensajeBienvenida"></div>
-    </div>
 
-    <!-- ===== PROCESANDO ===== -->
-    <div class="seccion" id="seccion-procesando">
-        <div class="page-title"><h1>🔍 Analizando tu información...</h1></div>
-        <div class="card" style="text-align:center;padding:40px;">
-            <div style="font-size:48px;margin-bottom:16px;">⏳</div>
-            <p style="color:var(--gris-calido);font-size:16px;">Estamos revisando tus datos.</p>
-            <div style="width:100%;height:6px;background:rgba(255,255,255,0.06);border-radius:4px;margin-top:20px;overflow:hidden;">
-                <div id="barraProgreso" style="width:0%;height:100%;background:linear-gradient(90deg,var(--dorado-epico),var(--dorado-claro));border-radius:4px;transition:width 0.8s ease;"></div>
+            <div class="grid-2" style="margin-bottom:16px;">
+                <button class="btn-dorado" id="btnVerSeguridadFisica">📸 Ver resultados de Seguridad Física</button>
+                <button class="btn-dorado" id="btnVerSaludFisica">📄 Ver resultados de Salud Física</button>
+                <button class="btn-dorado" id="btnVerSaludMental">🧠 Ver resultados de Salud Mental</button>
             </div>
-        </div>
-    </div>
 
-    <!-- ===== RESULTADOS ===== -->
-    <div class="seccion" id="seccion-resultados">
-        <div class="page-title"><h1>🔍 Esto vimos en tu entorno</h1></div>
-        <div class="grid-2" style="margin-bottom:16px;">
-            <button class="btn-dorado" id="btnVerSeguridadFisica">📸 Seguridad</button>
-            <button class="btn-dorado" id="btnVerSaludFisica">❤️ Salud Física</button>
-            <button class="btn-dorado" id="btnVerSaludMental">🧠 Salud Mental</button>
-            <button class="btn-dorado" id="btnVerInformeIntegrado">📊 Informe Integrado</button>
-        </div>
-        <div id="contenidoResultados"></div>
-        <button class="btn-dorado" id="btnIrPoder">💪 Ir a Mi Poder</button>
-    </div>
+            <div id="contenidoResultados"></div>
 
-    <!-- ===== MI PODER ===== -->
-    <div class="seccion" id="seccion-poder">
-        <div class="page-title"><h1>💪 Mi Poder</h1></div>
-        <div class="card">
-            <div class="grid-2">
-                <button class="btn-opcion" onclick="mostrarSeccion('seccion-organizacion')">📋 Organización laboral</button>
-                <button class="btn-opcion" onclick="mostrarSeccion('seccion-foro')">🗣️ Comunidad</button>
-                <button class="btn-opcion" onclick="alert('📊 Mis reportes')">📊 Mis reportes</button>
-                <button class="btn-opcion" onclick="alert('📥 Mis documentos')">📥 Mis documentos</button>
-                <button class="btn-opcion" onclick="alert('⏰ Mis recordatorios')">⏰ Mis recordatorios</button>
-                <button class="btn-opcion" onclick="mostrarSeccion('seccion-bienvenida')">🏠 Volver</button>
+            <!-- ===== ACCIONES ===== -->
+            <div class="card">
+                <div class="card-title">⚡ ¿Qué podemos hacer con todos estos datos?</div>
+                <div class="input-group">
+                    <select id="accionConjunta">
+                        <option value="">▼ Selecciona una acción sobre el conjunto de tus datos</option>
+                        <option value="informe">📥 Ver informe completo integrado</option>
+                        <option value="recordatorios">⏰ Configurar recordatorios personalizados</option>
+                        <option value="epp">🛒 Recomendaciones de equipo de protección</option>
+                        <option value="reportar">📢 Reportar a quien corresponda</option>
+                        <option value="legal">📜 Generar documento legal</option>
+                        <option value="capacitacion">📚 Capacitación en seguridad</option>
+                        <option value="otro">✏️ Otro (escribe lo que deseas)</option>
+                    </select>
+                </div>
+                <div class="input-group" id="inputOtroAccion" style="display:none;">
+                    <label for="otroTexto">🔍 Digita tu solicitud:</label>
+                    <input type="text" id="otroTexto" placeholder="Ej: Quiero hablar con un abogado" />
+                </div>
+                <button class="btn-dorado" id="btnEjecutarAccionConjunta">✅ Ejecutar acción</button>
+                <div class="mensaje" id="mensajeAccionConjunta"></div>
             </div>
-        </div>
-        <button class="btn-dorado" onclick="mostrarSeccion('seccion-resultados')">🔙 Volver</button>
-    </div>
 
-    <!-- ===== ORGANIZACIÓN ===== -->
-    <div class="seccion" id="seccion-organizacion">
-        <div class="page-title"><h1>📋 Organización Laboral</h1></div>
-        <div class="card">
-            <button class="btn-opcion" onclick="alert('📄 Conociendo tus derechos')">📄 Conocer mis derechos</button>
-            <button class="btn-opcion" onclick="mostrarSeccion('seccion-sindicato-unirse')">🤝 Unirme a un sindicato</button>
-            <button class="btn-opcion" onclick="alert('📋 Sindicatos existentes')">📋 Ver sindicatos</button>
-        </div>
-        <button class="btn-dorado" onclick="mostrarSeccion('seccion-poder')">🔙 Volver</button>
-    </div>
-
-    <!-- ===== SINDICATO ===== -->
-    <div class="seccion" id="seccion-sindicato-unirse">
-        <div class="page-title"><h1>🤝 Unirme al Sindicato LEGADO</h1></div>
-        <div class="card">
-            <ul style="padding-left:20px;color:var(--blanco-roto);font-size:14px;line-height:1.8;">
-                <li>✅ Respaldo legal</li>
-                <li>✅ Protección contra represalias</li>
-                <li>✅ Asesoría jurídica</li>
-                <li>✅ Red de apoyo</li>
-                <li>✅ Comunicación anónima</li>
-            </ul>
-            <button class="btn-dorado" id="btnUnirseSindicato">🔒 Unirme</button>
-            <div class="mensaje" id="mensajeSindicato"></div>
-        </div>
-        <button class="btn-dorado" onclick="mostrarSeccion('seccion-organizacion')">🔙 Volver</button>
-    </div>
-
-    <!-- ===== SINDICATO PANEL ===== -->
-    <div class="seccion" id="seccion-sindicato-panel">
-        <div class="page-title"><h1>🔒 Sindicato LEGADO</h1></div>
-        <div class="card">
-            <div class="grid-2">
-                <button class="btn-opcion" onclick="alert('📢 Denuncia con respaldo legal')">📢 Denunciar</button>
-                <button class="btn-opcion" onclick="alert('📄 Documento de respaldo')">📄 Respaldo</button>
-                <button class="btn-opcion" onclick="mostrarSeccion('seccion-foro')">🗣️ Foro</button>
-                <button class="btn-opcion" onclick="alert('👥 Miembros')">👥 Miembros</button>
-                <button class="btn-opcion" onclick="alert('💬 Chat con abogado')">💬 Abogado</button>
-                <button class="btn-opcion" onclick="mostrarSeccion('seccion-anonimo')">🕊️ Anónimo</button>
+            <!-- ===== RELOJ INTELIGENTE ===== -->
+            <div class="card">
+                <div class="card-title">⌚ ¿Tienes un reloj inteligente?</div>
+                <p style="font-size:13px;color:var(--gris-calido);">
+                    Si lo vinculas, LEGADO podrá monitorear:
+                    <br>- Ritmo cardíaco
+                    <br>- Calidad del sueño
+                    <br>- Nivel de actividad física
+                    <br>- Posibles alertas de salud en tiempo real
+                    <br><br>Esto nos ayudará a darte recomendaciones más precisas.
+                </p>
+                <button class="btn-outline" id="btnVincularReloj" style="margin-top:10px;">🔗 Vincular reloj inteligente</button>
             </div>
+
+            <a href="dashboard.html" class="link">🏛️ Volver al Dashboard</a>
+            <div class="mensaje" id="mensajeResultados"></div>
         </div>
-        <button class="btn-dorado" onclick="mostrarSeccion('seccion-poder')">🔙 Volver</button>
-    </div>
 
-    <!-- ===== FORO ===== -->
-    <div class="seccion" id="seccion-foro">
-        <div class="page-title"><h1>🗣️ Foro Interno</h1></div>
-        <div class="card">
-            <div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-                <div style="font-weight:600;">🔹 Cómo denunciar sin miedo</div>
-                <div style="font-size:12px;color:var(--gris-calido);">💬 45 respuestas</div>
-            </div>
-            <div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-                <div style="font-weight:600;">🔹 Zona de carga sin señalización</div>
-                <div style="font-size:12px;color:var(--gris-calido);">💬 12 respuestas</div>
-            </div>
-            <button class="btn-outline" style="margin-top:12px;" onclick="alert('📝 Crear tema')">📝 Crear tema</button>
+        <div class="footer">
+            ⚡ <strong>LEGADO</strong> · La IA que te cuida · v1.0
         </div>
-        <button class="btn-dorado" onclick="mostrarSeccion('seccion-sindicato-panel')">🔙 Volver</button>
+
     </div>
 
-    <!-- ===== ANÓNIMO ===== -->
-    <div class="seccion" id="seccion-anonimo">
-        <div class="page-title"><h1>🕊️ Conversación Anónima</h1></div>
-        <div class="card">
-            <div class="input-group">
-                <label>Escribe tu mensaje:</label>
-                <textarea id="mensajeAnonimo" placeholder="Escribe aquí..."></textarea>
-            </div>
-            <div class="input-group">
-                <label>Dirigido a:</label>
-                <select id="destinoAnonimo">
-                    <option value="empleador">Empleador</option>
-                    <option value="sunafil">SUNAFIL</option>
-                    <option value="comunidad">Comunidad</option>
-                    <option value="abogado">Abogado</option>
-                </select>
-            </div>
-            <button class="btn-peligro" id="btnEnviarAnonimo">🕊️ Enviar anónimo</button>
-            <div class="mensaje" id="mensajeAnonimo"></div>
-        </div>
-        <button class="btn-dorado" onclick="mostrarSeccion('seccion-sindicato-panel')">🔙 Volver</button>
-    </div>
+    <script>
+        // ================================================================
+        //  VARIABLES GLOBALES
+        // ================================================================
+        let fotosSeguridad = [];
+        let archivosSalud = [];
+        let analisisRealizado = false;
 
-    <div class="footer">
-        ⚡ <strong>LEGADO</strong> · La IA que te cuida · v1.0
-    </div>
-
-</div>
-
-<script>
-    let fotosSeguridad = [], archivosSalud = [], analisisRealizado = false;
-
-    function mostrarSeccion(id) {
-        document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
-        document.getElementById(id).classList.add('activa');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    document.getElementById('fotosSeguridad').addEventListener('change', function(e) {
-        const preview = document.getElementById('previewSeguridad');
-        fotosSeguridad = [];
-        preview.innerHTML = '';
-        for (let i = 0; i < e.target.files.length; i++) {
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                const div = document.createElement('div');
-                div.className = 'foto-mini';
-                div.style.backgroundImage = `url(${ev.target.result})`;
-                const btn = document.createElement('button');
-                btn.className = 'btn-eliminar';
-                btn.textContent = '×';
-                btn.onclick = function() { div.remove(); fotosSeguridad = fotosSeguridad.filter((_, idx) => idx !== i); };
-                div.appendChild(btn);
-                preview.appendChild(div);
-            };
-            reader.readAsDataURL(e.target.files[i]);
-            fotosSeguridad.push(e.target.files[i].name);
+        // ================================================================
+        //  NAVEGACIÓN
+        // ================================================================
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
+            document.getElementById(id).classList.add('activa');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    });
 
-    document.getElementById('archivosSalud').addEventListener('change', function(e) {
-        const preview = document.getElementById('previewSalud');
-        archivosSalud = [];
-        preview.innerHTML = '';
-        for (let i = 0; i < e.target.files.length; i++) {
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                const div = document.createElement('div');
-                div.className = 'foto-mini';
-                div.style.display = 'flex';
-                div.style.alignItems = 'center';
-                div.style.justifyContent = 'center';
-                div.textContent = '📄';
-                const btn = document.createElement('button');
-                btn.className = 'btn-eliminar';
-                btn.textContent = '×';
-                btn.onclick = function() { div.remove(); archivosSalud = archivosSalud.filter((_, idx) => idx !== i); };
-                div.appendChild(btn);
-                preview.appendChild(div);
-            };
-            reader.readAsDataURL(e.target.files[i]);
-            archivosSalud.push(e.target.files[i].name);
-        }
-    });
-
-    document.getElementById('btnSubirContinuar').addEventListener('click', function() {
-        const msg = document.getElementById('mensajeBienvenida');
-        const mental = document.getElementById('saludMental').value.trim();
-        if (fotosSeguridad.length === 0 && archivosSalud.length === 0 && !mental) {
-            msg.textContent = '⚠️ Sube al menos una foto, archivo o cuéntanos cómo te sientes.';
-            msg.className = 'mensaje error';
-            return;
-        }
-        sessionStorage.setItem('legado_fotos_seguridad', JSON.stringify(fotosSeguridad));
-        sessionStorage.setItem('legado_archivos_salud', JSON.stringify(archivosSalud));
-        sessionStorage.setItem('legado_salud_mental', mental);
-        msg.textContent = '✅ Datos guardados. Analizando...';
-        msg.className = 'mensaje exito';
-        mostrarSeccion('seccion-procesando');
-        let p = 0;
-        const barra = document.getElementById('barraProgreso');
-        const interval = setInterval(() => {
-            p += 10;
-            barra.style.width = p + '%';
-            if (p >= 100) {
-                clearInterval(interval);
-                setTimeout(() => { mostrarSeccion('seccion-resultados'); generarResultados(); }, 400);
+        // ================================================================
+        //  SUBIDA DE FOTOS (Seguridad)
+        // ================================================================
+        document.getElementById('fotosSeguridad').addEventListener('change', function(e) {
+            const preview = document.getElementById('previewSeguridad');
+            fotosSeguridad = [];
+            preview.innerHTML = '';
+            for (let i = 0; i < e.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    const div = document.createElement('div');
+                    div.className = 'foto-mini';
+                    div.style.backgroundImage = `url(${ev.target.result})`;
+                    const btn = document.createElement('button');
+                    btn.className = 'btn-eliminar';
+                    btn.textContent = '×';
+                    btn.onclick = function() {
+                        div.remove();
+                        fotosSeguridad = fotosSeguridad.filter((_, idx) => idx !== i);
+                    };
+                    div.appendChild(btn);
+                    preview.appendChild(div);
+                };
+                reader.readAsDataURL(e.target.files[i]);
+                fotosSeguridad.push(e.target.files[i].name);
             }
-        }, 300);
-    });
+        });
 
-    function generarResultados() {
-        analisisRealizado = true;
-        mostrarResultado('integrado');
-    }
+        // ================================================================
+        //  SUBIDA DE ARCHIVOS DE SALUD
+        // ================================================================
+        document.getElementById('archivosSalud').addEventListener('change', function(e) {
+            const preview = document.getElementById('previewSalud');
+            archivosSalud = [];
+            preview.innerHTML = '';
+            for (let i = 0; i < e.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    const div = document.createElement('div');
+                    div.className = 'foto-mini';
+                    div.style.display = 'flex';
+                    div.style.alignItems = 'center';
+                    div.style.justifyContent = 'center';
+                    div.textContent = '📄';
+                    const btn = document.createElement('button');
+                    btn.className = 'btn-eliminar';
+                    btn.textContent = '×';
+                    btn.onclick = function() {
+                        div.remove();
+                        archivosSalud = archivosSalud.filter((_, idx) => idx !== i);
+                    };
+                    div.appendChild(btn);
+                    preview.appendChild(div);
+                };
+                reader.readAsDataURL(e.target.files[i]);
+                archivosSalud.push(e.target.files[i].name);
+            }
+        });
 
-    function mostrarResultado(tipo) {
-        const container = document.getElementById('contenidoResultados');
-        let html = '';
-        const riesgos = [
-            { icono: '⚠️', texto: 'Escaleras en mal estado (Art. 56)', nivel: 'alto' },
-            { icono: '⚠️', texto: 'Falta de señalización (Art. 56)', nivel: 'alto' },
-            { icono: '⚠️', texto: 'Filtración en techo (Art. 42)', nivel: 'medio' }
-        ];
-        const sf = { tratamiento: 'Activo', medicacion: '8:00 am - 8:00 pm', comida: '1:00 pm', molestias: 'Dolor de espalda' };
-        const sm = { estres: 'Detectado', carga: 'Equilibrada', descanso: 'Insuficiente', pausas: 'No registradas' };
+        // ================================================================
+        //  SUBIR Y CONTINUAR
+        // ================================================================
+        document.getElementById('btnSubirContinuar').addEventListener('click', function() {
+            const msg = document.getElementById('mensajeBienvenida');
+            const mental = document.getElementById('saludMental').value.trim();
 
-        if (tipo === 'seguridad') {
-            html = `<div class="card"><div class="card-title">📸 Seguridad Física</div><div style="display:flex;gap:12px;margin:12px 0;">
-                <span style="background:rgba(231,76,60,0.15);padding:4px 12px;border-radius:12px;color:var(--rojo-alerta);font-weight:700;">🔴 Alto: 2</span>
-                <span style="background:rgba(230,126,34,0.15);padding:4px 12px;border-radius:12px;color:var(--naranja);font-weight:700;">🟡 Medio: 1</span>
-                <span style="background:rgba(46,204,113,0.15);padding:4px 12px;border-radius:12px;color:var(--verde-exito);font-weight:700;">🟢 Bajo: 0</span>
-            </div>`;
-            riesgos.forEach(r => {
-                html += `<div class="riesgo-item"><span class="icono">${r.icono}</span><div class="info">${r.texto}</div><span class="nivel ${r.nivel}">${r.nivel.toUpperCase()}</span></div>`;
-            });
-            html += `<div style="padding:12px;background:var(--negro-profundo);border-radius:10px;margin-top:12px;"><strong>💡 Recomendaciones:</strong><ul style="padding-left:20px;font-size:13px;color:var(--gris-calido);line-height:1.8;"><li>✅ Reparar escaleras</li><li>✅ Instalar señalización</li></ul></div></div>`;
-        } else if (tipo === 'salud_fisica') {
-            html = `<div class="card"><div class="card-title">❤️ Salud Física</div><div style="background:var(--negro-profundo);padding:12px;border-radius:10px;margin-bottom:10px;">
-                <div><strong>💊 Tratamiento:</strong> ${sf.tratamiento}</div>
-                <div><strong>🕐 Medicación:</strong> ${sf.medicacion}</div>
-                <div><strong>🍽️ Comida:</strong> ${sf.comida}</div>
-                <div><strong>⚠️ Molestias:</strong> ${sf.molestias}</div>
-            </div>
-            <div style="padding:12px;background:var(--negro-profundo);border-radius:10px;"><strong>💡 Recomendaciones:</strong>
-                <ul style="padding-left:20px;font-size:13px;color:var(--gris-calido);line-height:1.8;">
-                    <li>✅ Seguir tratamiento</li>
-                    <li>✅ Mejorar postura</li>
-                    <li>✅ Pausas activas</li>
-                </ul>
-            </div></div>`;
-        } else if (tipo === 'salud_mental') {
-            html = `<div class="card"><div class="card-title">🧠 Salud Mental</div><div style="background:var(--negro-profundo);padding:12px;border-radius:10px;margin-bottom:10px;">
-                <div><strong>😟 Estrés:</strong> ${sm.estres}</div>
-                <div><strong>📊 Carga:</strong> ${sm.carga}</div>
-                <div><strong>😴 Descanso:</strong> ${sm.descanso}</div>
-                <div><strong>⏰ Pausas:</strong> ${sm.pausas}</div>
-            </div>
-            <div style="padding:12px;background:var(--negro-profundo);border-radius:10px;"><strong>💡 Recomendaciones:</strong>
-                <ul style="padding-left:20px;font-size:13px;color:var(--gris-calido);line-height:1.8;">
-                    <li>✅ Pausas activas cada 2h</li>
-                    <li>✅ Ejercicios de respiración</li>
-                    <li>✅ Mejorar sueño</li>
-                </ul>
-            </div></div>`;
-        } else {
-            html = `<div class="card"><div class="card-title">📊 Informe Integrado</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;">
-                    <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;text-align:center;">
-                        <span style="font-size:24px;">🛡️</span>
-                        <div style="font-weight:700;color:var(--dorado-epico);">2 altos, 1 medio</div>
-                        <div style="font-size:11px;color:var(--gris-calido);">Seguridad</div>
-                    </div>
-                    <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;text-align:center;">
-                        <span style="font-size:24px;">❤️</span>
-                        <div style="font-weight:700;color:var(--dorado-epico);">Tratamiento activo</div>
-                        <div style="font-size:11px;color:var(--gris-calido);">Salud Física</div>
-                    </div>
-                    <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;text-align:center;">
-                        <span style="font-size:24px;">🧠</span>
-                        <div style="font-weight:700;color:var(--dorado-epico);">Estrés detectado</div>
-                        <div style="font-size:11px;color:var(--gris-calido);">Salud Mental</div>
-                    </div>
-                </div>
-                <div style="padding:12px;background:var(--negro-profundo);border-radius:10px;">
-                    <strong>📋 Resumen:</strong>
-                    <ul style="padding-left:20px;font-size:13px;color:var(--gris-calido);line-height:1.8;">
-                        <li>⚠️ Reparar escaleras y señalización</li>
-                        <li>💊 Seguir tratamiento</li>
-                        <li>🧘 Pausas activas y respiración</li>
-                        <li>😴 Mejorar sueño</li>
-                    </ul>
-                </div>
-            </div>`;
-        }
-        container.innerHTML = html + `<div class="card"><div class="card-title">📋 Descarga</div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;">
-                <select id="formatoDescarga" style="flex:1;padding:10px;background:var(--negro-profundo);border:1px solid rgba(201,168,76,0.08);border-radius:12px;color:var(--blanco-roto);">
-                    <option value="PDF">📄 PDF</option><option value="Word">📝 Word</option><option value="Excel">📊 Excel</option><option value="TXT">📋 TXT</option>
-                </select>
-                <select id="ubicacionDescarga" style="flex:1;padding:10px;background:var(--negro-profundo);border:1px solid rgba(201,168,76,0.08);border-radius:12px;color:var(--blanco-roto);">
-                    <option value="descargas">💻 Mi PC</option><option value="google_drive">☁️ Google Drive</option><option value="correo">📧 Correo</option>
-                </select>
-            </div>
-            <div style="padding:12px;background:var(--negro-profundo);border-radius:10px;">
-                <label style="font-size:12px;color:var(--gris-calido);display:flex;align-items:center;gap:8px;">
-                    <input type="checkbox" id="aceptoTerminos" /> 📋 Acepto la declaración jurada (margen de error 5-10%)
-                </label>
-            </div>
-            <button class="btn-dorado" id="btnGenerarDescargar" style="margin-top:12px;">✅ Generar y Descargar</button>
-            <div class="mensaje" id="mensajeDescarga"></div>
-        </div>`;
-        document.getElementById('btnGenerarDescargar')?.addEventListener('click', function() {
-            const check = document.getElementById('aceptoTerminos');
-            if (!check.checked) {
-                document.getElementById('mensajeDescarga').textContent = '⚠️ Acepta la declaración.';
-                document.getElementById('mensajeDescarga').className = 'mensaje error';
+            if (fotosSeguridad.length === 0 && archivosSalud.length === 0 && !mental) {
+                msg.textContent = '⚠️ Sube al menos una foto, un archivo de salud o cuéntanos cómo te sientes.';
+                msg.className = 'mensaje error';
                 return;
             }
-            const formato = document.getElementById('formatoDescarga').value;
-            const ubicacion = document.getElementById('ubicacionDescarga').value;
-            const codigo = 'LEG-' + Math.random().toString(36).substring(2, 8).toUpperCase();
-            const msg = document.getElementById('mensajeDescarga');
-            msg.innerHTML = `✅ Informe ${formato} en ${ubicacion.replace('_',' ')}. Código: ${codigo}`;
+
+            sessionStorage.setItem('legado_fotos_seguridad', JSON.stringify(fotosSeguridad));
+            sessionStorage.setItem('legado_archivos_salud', JSON.stringify(archivosSalud));
+            sessionStorage.setItem('legado_salud_mental', mental);
+
+            msg.textContent = '✅ Datos guardados. Analizando...';
+            msg.className = 'mensaje exito';
+
+            mostrarSeccion('seccion-procesando');
+            let progreso = 0;
+            const barra = document.getElementById('barraProgreso');
+            const interval = setInterval(() => {
+                progreso += 10;
+                barra.style.width = progreso + '%';
+                if (progreso >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        mostrarSeccion('seccion-resultados');
+                        generarResultados();
+                    }, 400);
+                }
+            }, 300);
+        });
+
+        // ================================================================
+        //  GENERAR RESULTADOS (simulación de auditoría)
+        // ================================================================
+        function generarResultados() {
+            analisisRealizado = true;
+            mostrarResultado('integrado');
+        }
+
+        // ================================================================
+        //  MOSTRAR RESULTADOS
+        // ================================================================
+        function mostrarResultado(tipo) {
+            const container = document.getElementById('contenidoResultados');
+            let html = '';
+
+            const riesgos = [
+                { icono: '⚠️', texto: 'Escaleras en mal estado (Art. 56)', nivel: 'alto' },
+                { icono: '⚠️', texto: 'Falta de señalización (Art. 56)', nivel: 'alto' },
+                { icono: '⚠️', texto: 'Filtración en techo (Art. 42)', nivel: 'medio' }
+            ];
+            const sf = {
+                tratamiento: 'Activo',
+                medicacion: '8:00 am - 8:00 pm',
+                comida: '1:00 pm',
+                molestias: 'Dolor de espalda'
+            };
+            const sm = {
+                estres: 'Detectado',
+                carga: 'Equilibrada',
+                descanso: 'Insuficiente',
+                pausas: 'No registradas'
+            };
+
+            if (tipo === 'seguridad') {
+                html = `
+                    <div class="card">
+                        <div class="card-title">📸 Resultados de Seguridad Física</div>
+                        <div style="display:flex;gap:12px;margin:12px 0;">
+                            <span style="background:rgba(231,76,60,0.15);padding:4px 12px;border-radius:12px;color:var(--rojo-alerta);font-weight:700;">🔴 Alto: 2</span>
+                            <span style="background:rgba(230,126,34,0.15);padding:4px 12px;border-radius:12px;color:var(--naranja);font-weight:700;">🟡 Medio: 1</span>
+                            <span style="background:rgba(46,204,113,0.15);padding:4px 12px;border-radius:12px;color:var(--verde-exito);font-weight:700;">🟢 Bajo: 0</span>
+                        </div>
+                        ${riesgos.map(r => `
+                            <div class="riesgo-item">
+                                <span class="icono">${r.icono}</span>
+                                <div class="info">${r.texto}</div>
+                                <span class="nivel ${r.nivel}">${r.nivel.toUpperCase()}</span>
+                            </div>
+                        `).join('')}
+                        <div style="padding:12px;background:var(--negro-profundo);border-radius:10px;margin-top:12px;">
+                            <strong>💡 Recomendaciones:</strong>
+                            <ul style="padding-left:20px;font-size:13px;color:var(--gris-calido);line-height:1.8;">
+                                <li>✅ Reparar escaleras (urgente)</li>
+                                <li>✅ Instalar señalización</li>
+                                <li>✅ Reparar filtración</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            } else if (tipo === 'salud_fisica') {
+                html = `
+                    <div class="card">
+                        <div class="card-title">📄 Resultados de Salud Física</div>
+                        <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;margin-bottom:10px;">
+                            <div><strong>💊 Tratamiento:</strong> ${sf.tratamiento}</div>
+                            <div><strong>🕐 Medicación:</strong> ${sf.medicacion}</div>
+                            <div><strong>🍽️ Comida:</strong> ${sf.comida}</div>
+                            <div><strong>⚠️ Molestias:</strong> ${sf.molestias}</div>
+                        </div>
+                        <div style="padding:12px;background:var(--negro-profundo);border-radius:10px;">
+                            <strong>💡 Recomendaciones:</strong>
+                            <ul style="padding-left:20px;font-size:13px;color:var(--gris-calido);line-height:1.8;">
+                                <li>✅ Seguir tratamiento médico</li>
+                                <li>✅ Mejorar postura al sentarse</li>
+                                <li>✅ Incorporar pausas activas</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            } else if (tipo === 'salud_mental') {
+                html = `
+                    <div class="card">
+                        <div class="card-title">🧠 Resultados de Salud Mental</div>
+                        <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;margin-bottom:10px;">
+                            <div><strong>😟 Estrés:</strong> ${sm.estres}</div>
+                            <div><strong>📊 Carga laboral:</strong> ${sm.carga}</div>
+                            <div><strong>😴 Descanso:</strong> ${sm.descanso}</div>
+                            <div><strong>⏰ Pausas activas:</strong> ${sm.pausas}</div>
+                        </div>
+                        <div style="padding:12px;background:var(--negro-profundo);border-radius:10px;">
+                            <strong>💡 Recomendaciones:</strong>
+                            <ul style="padding-left:20px;font-size:13px;color:var(--gris-calido);line-height:1.8;">
+                                <li>✅ Incorporar pausas activas cada 2 horas</li>
+                                <li>✅ Ejercicios de respiración para el estrés</li>
+                                <li>✅ Mejorar calidad de sueño</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            } else {
+                html = `
+                    <div class="card">
+                        <div class="card-title">📊 Informe Completo Integrado</div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;">
+                            <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;text-align:center;">
+                                <span style="font-size:24px;">🛡️</span>
+                                <div style="font-weight:700;color:var(--dorado-epico);">2 altos, 1 medio</div>
+                                <div style="font-size:11px;color:var(--gris-calido);">Seguridad Física</div>
+                            </div>
+                            <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;text-align:center;">
+                                <span style="font-size:24px;">❤️</span>
+                                <div style="font-weight:700;color:var(--dorado-epico);">Tratamiento activo</div>
+                                <div style="font-size:11px;color:var(--gris-calido);">Salud Física</div>
+                            </div>
+                            <div style="background:var(--negro-profundo);padding:12px;border-radius:10px;text-align:center;">
+                                <span style="font-size:24px;">🧠</span>
+                                <div style="font-weight:700;color:var(--dorado-epico);">Estrés detectado</div>
+                                <div style="font-size:11px;color:var(--gris-calido);">Salud Mental</div>
+                            </div>
+                        </div>
+                        <div style="padding:12px;background:var(--negro-profundo);border-radius:10px;">
+                            <strong>📋 Resumen de recomendaciones:</strong>
+                            <ul style="padding-left:20px;font-size:13px;color:var(--gris-calido);line-height:1.8;">
+                                <li>⚠️ Reparar escaleras y señalización</li>
+                                <li>💊 Seguir tratamiento médico</li>
+                                <li>🧘 Incorporar pausas activas y ejercicios de respiración</li>
+                                <li>😴 Mejorar calidad de sueño</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // ================================================================
+        //  BOTONES DE RESULTADOS
+        // ================================================================
+        document.getElementById('btnVerSeguridadFisica').addEventListener('click', function() {
+            if (analisisRealizado) mostrarResultado('seguridad');
+        });
+        document.getElementById('btnVerSaludFisica').addEventListener('click', function() {
+            if (analisisRealizado) mostrarResultado('salud_fisica');
+        });
+        document.getElementById('btnVerSaludMental').addEventListener('click', function() {
+            if (analisisRealizado) mostrarResultado('salud_mental');
+        });
+
+        // ================================================================
+        //  ACCIÓN CONJUNTA
+        // ================================================================
+        document.getElementById('accionConjunta').addEventListener('change', function() {
+            const otro = document.getElementById('inputOtroAccion');
+            if (this.value === 'otro') {
+                otro.style.display = 'block';
+            } else {
+                otro.style.display = 'none';
+            }
+        });
+
+        document.getElementById('btnEjecutarAccionConjunta').addEventListener('click', function() {
+            const seleccion = document.getElementById('accionConjunta').value;
+            const msg = document.getElementById('mensajeAccionConjunta');
+            if (!seleccion) {
+                msg.textContent = '⚠️ Selecciona una acción.';
+                msg.className = 'mensaje error';
+                return;
+            }
+            if (seleccion === 'otro') {
+                const texto = document.getElementById('otroTexto').value.trim();
+                if (!texto) {
+                    msg.textContent = '⚠️ Escribe lo que deseas hacer.';
+                    msg.className = 'mensaje error';
+                    return;
+                }
+                msg.textContent = '✅ Acción registrada: ' + texto;
+                msg.className = 'mensaje exito';
+                return;
+            }
+            const acciones = {
+                'informe': '📥 Ver informe completo integrado',
+                'recordatorios': '⏰ Configurar recordatorios personalizados',
+                'epp': '🛒 Recomendaciones de equipo de protección',
+                'reportar': '📢 Reportar a quien corresponda',
+                'legal': '📜 Generar documento legal',
+                'capacitacion': '📚 Capacitación en seguridad'
+            };
+            msg.textContent = '✅ ' + acciones[seleccion] + ' (simulación)';
             msg.className = 'mensaje exito';
         });
-    }
 
-    document.getElementById('btnVerSeguridadFisica')?.addEventListener('click', function() { if (analisisRealizado) mostrarResultado('seguridad'); });
-    document.getElementById('btnVerSaludFisica')?.addEventListener('click', function() { if (analisisRealizado) mostrarResultado('salud_fisica'); });
-    document.getElementById('btnVerSaludMental')?.addEventListener('click', function() { if (analisisRealizado) mostrarResultado('salud_mental'); });
-    document.getElementById('btnVerInformeIntegrado')?.addEventListener('click', function() { if (analisisRealizado) mostrarResultado('integrado'); });
+        // ================================================================
+        //  VINCULAR RELOJ INTELIGENTE
+        // ================================================================
+        document.getElementById('btnVincularReloj').addEventListener('click', function() {
+            alert('⌚ Vinculación de reloj inteligente (simulación).\n\n' +
+                'LEGADO podrá monitorear:\n' +
+                '- Ritmo cardíaco\n' +
+                '- Calidad del sueño\n' +
+                '- Actividad física\n' +
+                '- Alertas de salud en tiempo real');
+        });
 
-    document.getElementById('btnIrPoder')?.addEventListener('click', function() { mostrarSeccion('seccion-poder'); });
-    document.getElementById('btnUnirseSindicato')?.addEventListener('click', function() {
-        document.getElementById('mensajeSindicato').innerHTML = '✅ Has sido aceptado en el Sindicato LEGADO.';
-        document.getElementById('mensajeSindicato').className = 'mensaje exito';
-        setTimeout(() => mostrarSeccion('seccion-sindicato-panel'), 1000);
-    });
-    document.getElementById('btnEnviarAnonimo')?.addEventListener('click', function() {
-        const msg = document.getElementById('mensajeAnonimo');
-        const texto = document.getElementById('mensajeAnonimo').value.trim();
-        if (!texto) { msg.textContent = '⚠️ Escribe un mensaje.'; msg.className = 'mensaje error'; return; }
-        msg.innerHTML = '🕊️ Mensaje enviado anónimamente.';
-        msg.className = 'mensaje exito';
-        document.getElementById('mensajeAnonimo').value = '';
-    });
+        // ================================================================
+        //  CERRAR SESIÓN
+        // ================================================================
+        function cerrarSesion() {
+            localStorage.removeItem('legado_sesion');
+            window.location.href = 'index.html';
+        }
 
-    function cerrarSesion() { localStorage.removeItem('legado_sesion'); window.location.href = 'index.html'; }
+        // ================================================================
+        //  INICIO
+        // ================================================================
+        const sesion = JSON.parse(localStorage.getItem('legado_sesion'));
+        if (sesion) {
+            document.getElementById('userName').textContent = '👤 ' + sesion.nombre;
+            document.getElementById('nombreUsuario').textContent = sesion.nombre;
+            const niveles = {
+                trabajador: '👷 Trabajador',
+                empresa: '🏢 Empresa',
+                especialista: '👨‍🔬 Especialista SST',
+                gubernamental: '🏛️ Gubernamental'
+            };
+            document.getElementById('userLevel').textContent = niveles[sesion.nivel] || sesion.nivel;
+        } else {
+            window.location.href = 'index.html';
+        }
 
-    const sesion = JSON.parse(localStorage.getItem('legado_sesion'));
-    if (sesion) {
-        document.getElementById('userName').textContent = '👤 ' + sesion.nombre;
-        document.getElementById('nombreUsuario').textContent = sesion.nombre;
-        const niveles = { trabajador: '👷 Trabajador', empresa: '🏢 Empresa', especialista: '👨‍🔬 Especialista SST', gubernamental: '🏛️ Gubernamental' };
-        document.getElementById('userLevel').textContent = niveles[sesion.nivel] || sesion.nivel;
-    } else {
-        window.location.href = 'index.html';
-    }
+        // Restaurar datos desde sessionStorage
+        const fg = sessionStorage.getItem('legado_fotos_seguridad');
+        const ag = sessionStorage.getItem('legado_archivos_salud');
+        const mg = sessionStorage.getItem('legado_salud_mental');
+        if (fg) {
+            fotosSeguridad = JSON.parse(fg);
+            const p = document.getElementById('previewSeguridad');
+            fotosSeguridad.forEach(() => {
+                const d = document.createElement('div');
+                d.className = 'foto-mini';
+                d.style.display = 'flex';
+                d.style.alignItems = 'center';
+                d.style.justifyContent = 'center';
+                d.textContent = '📷';
+                p.appendChild(d);
+            });
+        }
+        if (ag) {
+            archivosSalud = JSON.parse(ag);
+            const p = document.getElementById('previewSalud');
+            archivosSalud.forEach(() => {
+                const d = document.createElement('div');
+                d.className = 'foto-mini';
+                d.style.display = 'flex';
+                d.style.alignItems = 'center';
+                d.style.justifyContent = 'center';
+                d.textContent = '📄';
+                p.appendChild(d);
+            });
+        }
+        if (mg) {
+            document.getElementById('saludMental').value = mg;
+        }
 
-    const fg = sessionStorage.getItem('legado_fotos_seguridad');
-    const ag = sessionStorage.getItem('legado_archivos_salud');
-    const mg = sessionStorage.getItem('legado_salud_mental');
-    if (fg) { fotosSeguridad = JSON.parse(fg); const p = document.getElementById('previewSeguridad'); fotosSeguridad.forEach(() => { const d = document.createElement('div'); d.className = 'foto-mini'; d.style.display = 'flex'; d.style.alignItems = 'center'; d.style.justifyContent = 'center'; d.textContent = '📷'; p.appendChild(d); }); }
-    if (ag) { archivosSalud = JSON.parse(ag); const p = document.getElementById('previewSalud'); archivosSalud.forEach(() => { const d = document.createElement('div'); d.className = 'foto-mini'; d.style.display = 'flex'; d.style.alignItems = 'center'; d.style.justifyContent = 'center'; d.textContent = '📄'; p.appendChild(d); }); }
-    if (mg) document.getElementById('saludMental').value = mg;
-</script>
+        console.log('🏛️ LEGADO - Ventana del Trabajador (diseño exacto)');
+    </script>
 
 </body>
 </html>
