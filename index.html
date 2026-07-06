@@ -4,288 +4,308 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LEGADO - Seguridad Laboral Automática</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
-        :root {
-            --negro-profundo: #0A0A0A;
-            --negro-carbon: #1A1A1A;
-            --dorado-epico: #C9A84C;
-            --dorado-claro: #E8D5A3;
-            --blanco-roto: #F5F0E8;
-            --gris-calido: #8A7E6B;
-            --rojo-alerta: #E74C3C;
-            --verde-exito: #2ECC71;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            background: var(--negro-profundo);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            color: var(--blanco-roto);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f44 100%);
+            padding: 1.5rem;
         }
 
-        .container {
-            max-width: 440px;
+        .card {
+            background: #ffffff;
+            max-width: 480px;
             width: 100%;
-            background: var(--negro-carbon);
-            border-radius: 32px;
-            padding: 40px 28px 35px;
-            border: 1px solid rgba(201, 168, 76, 0.12);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            border-radius: 2.5rem;
+            padding: 2.8rem 2.2rem 2.5rem;
+            box-shadow: 0 25px 60px rgba(11, 26, 46, 0.5);
+            position: relative;
+        }
+
+        .brand {
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 1.8rem;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            left: -40%;
-            width: 180%;
-            height: 180%;
-            background: radial-gradient(ellipse at 20% 20%, rgba(201, 168, 76, 0.04), transparent 60%);
-            pointer-events: none;
-            z-index: 0;
+        .brand h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            color: #0b1a2e;
         }
 
-        .logo {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 24px;
+        .brand h1 span {
+            color: #c8a84e;
         }
 
-        .logo img {
-            max-width: 120px;
-            height: auto;
-            filter: drop-shadow(0 0 30px rgba(201, 168, 76, 0.12));
-            transition: transform 0.4s ease;
-        }
-
-        .logo img:hover {
-            transform: scale(1.02);
-        }
-
-        .logo h1 {
-            font-family: 'Georgia', serif;
-            font-size: 34px;
-            font-weight: 700;
-            color: var(--dorado-epico);
-            letter-spacing: 8px;
-            text-shadow: 0 0 40px rgba(201, 168, 76, 0.1);
-            margin-top: -2px;
-        }
-
-        .logo .lema {
-            font-size: 11px;
-            color: var(--dorado-claro);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: 4px;
-            opacity: 0.5;
-        }
-
-        .frase {
-            position: relative;
-            z-index: 1;
-            margin: 24px 0 32px;
-            padding: 20px 16px;
-            background: var(--negro-profundo);
-            border-radius: 16px;
-            border-left: 3px solid var(--dorado-epico);
-        }
-
-        .frase p {
-            font-size: 16px;
-            font-weight: 300;
-            color: var(--blanco-roto);
-            line-height: 1.6;
-        }
-
-        .frase .autor {
-            font-size: 12px;
-            color: var(--gris-calido);
-            margin-top: 6px;
-            font-style: italic;
-        }
-
-        .botones {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .btn-dorado {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--dorado-epico), #B8942E);
-            color: var(--negro-profundo);
-            border: none;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 25px rgba(201, 168, 76, 0.15);
-            text-decoration: none;
-            display: block;
-        }
-
-        .btn-dorado:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 35px rgba(201, 168, 76, 0.3);
-        }
-
-        .btn-outline {
-            width: 100%;
-            padding: 15px;
-            background: transparent;
-            color: var(--dorado-claro);
-            border: 1px solid rgba(201, 168, 76, 0.2);
-            border-radius: 14px;
-            font-size: 16px;
+        .brand .subhead {
+            font-size: 0.7rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #7a8a9e;
+            margin-top: 0.2rem;
+            word-spacing: 2px;
+        }
+
+        .quote {
+            background: #f0f4fa;
+            padding: 1.2rem 1.5rem;
+            border-radius: 1.8rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid #c8a84e;
+            text-align: center;
+        }
+
+        .quote p {
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #2c4057;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .quote .author {
             display: block;
+            margin-top: 0.4rem;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #c8a84e;
+            letter-spacing: 0.5px;
         }
 
-        .btn-outline:hover {
-            border-color: var(--dorado-epico);
-            background: rgba(201, 168, 76, 0.04);
-        }
-
-        .terminos {
-            position: relative;
-            z-index: 1;
+        .action-group {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 12px;
-            color: var(--gris-calido);
-            margin: 8px 0 16px;
-            text-align: left;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .terminos input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--dorado-epico);
+        .action-group a {
+            flex: 1;
+            padding: 0.9rem 0;
+            border: none;
+            border-radius: 3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
             cursor: pointer;
-        }
-
-        .terminos a {
-            color: var(--dorado-epico);
+            transition: all 0.25s ease;
             text-decoration: none;
+            text-align: center;
+            display: inline-block;
         }
 
-        .terminos a:hover {
-            text-decoration: underline;
+        .action-group a:first-child {
+            background: #0b1a2e;
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(11, 26, 46, 0.35);
+        }
+
+        .action-group a:first-child:hover {
+            background: #1a2f44;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(11, 26, 46, 0.45);
+        }
+
+        .action-group a:last-child {
+            background: #f0f4fa;
+            color: #0b1a2e;
+            border: 2px solid #e2e9f2;
+        }
+
+        .action-group a:last-child:hover {
+            background: #e2e9f2;
+            transform: translateY(-2px);
+            border-color: #c8a84e;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            margin-bottom: 1.8rem;
+            font-size: 0.9rem;
+            color: #2c4057;
+        }
+
+        .terms input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-top: 0.1rem;
+            accent-color: #c8a84e;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .terms label {
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .terms label a {
+            color: #0b1a2e;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid #c8a84e;
+            transition: color 0.2s;
+        }
+
+        .terms label a:hover {
+            color: #c8a84e;
         }
 
         .manual-link {
-            position: relative;
-            z-index: 1;
-            display: inline-block;
-            margin: 8px 0 16px;
-            color: var(--gris-calido);
-            font-size: 13px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .manual-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #2c4057;
             text-decoration: none;
-            border-bottom: 1px dashed var(--gris-calido);
-            transition: 0.3s;
+            font-weight: 600;
+            font-size: 0.95rem;
+            background: #f0f4fa;
+            padding: 0.55rem 1.6rem;
+            border-radius: 3rem;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
         }
 
-        .manual-link:hover {
-            color: var(--dorado-claro);
-            border-bottom-color: var(--dorado-claro);
+        .manual-link a i {
+            color: #c8a84e;
+            font-size: 1rem;
         }
 
-        .footer {
-            position: relative;
-            z-index: 1;
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(201, 168, 76, 0.05);
-            font-size: 11px;
-            color: var(--gris-calido);
+        .manual-link a:hover {
+            background: #e2e9f2;
+            border-color: #c8a84e;
+            transform: scale(1.02);
         }
 
-        .footer strong {
-            color: var(--dorado-epico);
+        .footer-info {
+            text-align: center;
+            border-top: 1px solid #e2e9f2;
+            padding-top: 1.5rem;
+            margin-top: 0.3rem;
         }
 
-        @media (max-width: 420px) {
-            .container {
-                padding: 28px 16px 24px;
-                border-radius: 24px;
+        .footer-info .version {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #0b1a2e;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-info .version i {
+            color: #c8a84e;
+            margin-right: 0.4rem;
+        }
+
+        .footer-info .url {
+            display: block;
+            margin-top: 0.4rem;
+            font-size: 0.7rem;
+            color: #7a8a9e;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            background: #f5f8fc;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                padding: 2rem 1.5rem;
+                border-radius: 1.8rem;
             }
-            .logo h1 {
-                font-size: 28px;
-                letter-spacing: 6px;
+
+            .brand h1 {
+                font-size: 2.2rem;
             }
-            .logo img {
-                max-width: 100px;
+
+            .action-group {
+                flex-direction: column;
+                gap: 0.7rem;
             }
-            .frase p {
-                font-size: 14px;
+
+            .action-group a {
+                padding: 0.8rem 0;
+                font-size: 1rem;
+            }
+
+            .quote p {
+                font-size: 0.85rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="card">
 
-        <div class="logo">
-            <img src="logo.jpg" alt="LEGADO" id="logoImg" onerror="this.style.display='none'" />
-            <h1>LEGADO</h1>
-            <div class="lema">✦ Conciencia y Futuro para la Humanidad ✦</div>
+        <div class="brand">
+            <h1>LEGADO <span>+</span></h1>
+            <div class="subhead">Conciencia y futuro para la humanidad</div>
         </div>
 
-        <div class="frase">
-            <p>"La seguridad laboral no debería ser un lujo. Es un derecho. Hazla automática."</p>
-            <div class="autor">— LEGADO</div>
+        <div class="quote">
+            <p>
+                “La seguridad laboral no debería ser un lujo. Es un derecho. Hazla automática.”
+                <span class="author">— LEGADO</span>
+            </p>
         </div>
 
-        <div class="botones">
-            <a href="login.html" class="btn-dorado">🔐 Ingresar</a>
-            <a href="registro.html" class="btn-outline" id="btnRegistro">📝 Registrarse</a>
+        <div class="action-group">
+            <a href="login.html">Ingresar</a>
+            <a href="registro.html" id="btnRegistro">Registrarse</a>
         </div>
 
-        <div class="terminos">
-            <input type="checkbox" id="checkTerminos" />
-            <label for="checkTerminos">
+        <div class="terms">
+            <input type="checkbox" id="termsCheck" />
+            <label for="termsCheck">
                 Acepto los <a href="#">Términos y Condiciones</a> y la
                 <a href="#">Política de Privacidad</a>
             </label>
         </div>
 
-        <a href="MANUAL.md" class="manual-link">📖 Manual de uso y atajos</a>
+        <div class="manual-link">
+            <a href="#">
+                <i class="fas fa-book-open"></i> Manual de uso y atajos
+            </a>
+        </div>
 
-        <div class="footer">
-            ⚡ <strong>LEGADO</strong> · Seguridad Laboral Automática · v1.0
+        <div class="footer-info">
+            <div class="version">
+                <i class="fas fa-link"></i> LEGADO · Seguridad Laboral Automática · v1.0
+            </div>
+            <span class="url">
+                https://donjuan2026.github.io/legado-sst-core/
+            </span>
         </div>
 
     </div>
 
     <script>
-        const checkTerminos = document.getElementById('checkTerminos');
+        const checkTerms = document.getElementById('termsCheck');
         const btnRegistro = document.getElementById('btnRegistro');
 
         btnRegistro.style.opacity = '0.5';
         btnRegistro.style.pointerEvents = 'none';
 
-        checkTerminos.addEventListener('change', function() {
+        checkTerms.addEventListener('change', function() {
             if (this.checked) {
                 btnRegistro.style.opacity = '1';
                 btnRegistro.style.pointerEvents = 'auto';
@@ -295,12 +315,7 @@
             }
         });
 
-        const logoImg = document.getElementById('logoImg');
-        logoImg.addEventListener('error', function() {
-            this.style.display = 'none';
-        });
-
-        console.log('🏛️ LEGADO - Ventana de Bienvenida');
+        console.log('🏛️ LEGADO - Página de bienvenida actualizada');
     </script>
 
 </body>
