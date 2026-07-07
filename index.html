@@ -129,6 +129,41 @@
             border-color: #c8a84e;
         }
 
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            margin-bottom: 1.8rem;
+            font-size: 0.9rem;
+            color: #2c4057;
+        }
+
+        .terms input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-top: 0.1rem;
+            accent-color: #c8a84e;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .terms label {
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
+        .terms label a {
+            color: #0b1a2e;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid #c8a84e;
+            transition: color 0.2s;
+        }
+
+        .terms label a:hover {
+            color: #c8a84e;
+        }
+
         .manual-link {
             text-align: center;
             margin-bottom: 2rem;
@@ -223,7 +258,7 @@
 
         <div class="brand">
             <h1>LEGADO <span>+</span></h1>
-            <div class="subhead">Conciencia y futuro para la humanidad</div>
+            <div class="subhead">CONCIENCIA Y FUTURO PARA LA HUMANIDAD</div>
         </div>
 
         <div class="quote">
@@ -235,7 +270,15 @@
 
         <div class="action-group">
             <a href="login.html">Ingresar</a>
-            <a href="registro.html">Registrarse</a>
+            <a href="registro.html" id="btnRegistro">Registrarse</a>
+        </div>
+
+        <div class="terms">
+            <input type="checkbox" id="termsCheck" />
+            <label for="termsCheck">
+                Acepto los <a href="#">Términos y Condiciones</a> y la
+                <a href="#">Política de Privacidad</a>
+            </label>
         </div>
 
         <div class="manual-link">
@@ -256,6 +299,22 @@
     </div>
 
     <script>
+        const checkTerms = document.getElementById('termsCheck');
+        const btnRegistro = document.getElementById('btnRegistro');
+
+        btnRegistro.style.opacity = '0.5';
+        btnRegistro.style.pointerEvents = 'none';
+
+        checkTerms.addEventListener('change', function() {
+            if (this.checked) {
+                btnRegistro.style.opacity = '1';
+                btnRegistro.style.pointerEvents = 'auto';
+            } else {
+                btnRegistro.style.opacity = '0.5';
+                btnRegistro.style.pointerEvents = 'none';
+            }
+        });
+
         console.log('🏛️ LEGADO - Página de bienvenida actualizada');
     </script>
 
