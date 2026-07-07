@@ -24,23 +24,18 @@
 
         .card {
             background: #ffffff;
-            max-width: 480px;
+            max-width: 420px;
             width: 100%;
             border-radius: 2.5rem;
             padding: 2.8rem 2.2rem 2.5rem;
             box-shadow: 0 25px 60px rgba(11, 26, 46, 0.5);
-            position: relative;
-        }
-
-        .brand {
             text-align: center;
-            margin-bottom: 1.8rem;
         }
 
         .brand h1 {
             font-size: 2.8rem;
             font-weight: 800;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             color: #0b1a2e;
         }
 
@@ -52,47 +47,31 @@
             font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             color: #7a8a9e;
-            margin-top: 0.2rem;
-            word-spacing: 2px;
+            margin-top: -0.2rem;
         }
 
         .quote {
-            background: #f0f4fa;
-            padding: 1.2rem 1.5rem;
-            border-radius: 1.8rem;
-            margin-bottom: 2rem;
-            border-left: 5px solid #c8a84e;
-            text-align: center;
-        }
-
-        .quote p {
+            margin: 1.8rem 0;
             font-style: italic;
             font-size: 0.95rem;
             color: #2c4057;
             line-height: 1.5;
-            font-weight: 500;
         }
 
         .quote .author {
             display: block;
-            margin-top: 0.4rem;
+            margin-top: 0.3rem;
             font-style: normal;
             font-weight: 700;
             font-size: 0.8rem;
             color: #c8a84e;
-            letter-spacing: 0.5px;
         }
 
-        .action-group {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .action-group a {
-            flex: 1;
+        .btn {
+            display: block;
+            width: 100%;
             padding: 0.9rem 0;
             border: none;
             border-radius: 3rem;
@@ -102,45 +81,51 @@
             transition: all 0.25s ease;
             text-decoration: none;
             text-align: center;
-            display: inline-block;
+            margin-bottom: 0.8rem;
         }
 
-        .action-group a:first-child {
+        .btn-primary {
             background: #0b1a2e;
             color: #ffffff;
             box-shadow: 0 8px 20px rgba(11, 26, 46, 0.35);
         }
 
-        .action-group a:first-child:hover {
+        .btn-primary:hover {
             background: #1a2f44;
             transform: translateY(-2px);
             box-shadow: 0 12px 28px rgba(11, 26, 46, 0.45);
         }
 
-        .action-group a:last-child {
+        .btn-secondary {
             background: #f0f4fa;
             color: #0b1a2e;
             border: 2px solid #e2e9f2;
         }
 
-        .action-group a:last-child:hover {
+        .btn-secondary:hover {
             background: #e2e9f2;
             transform: translateY(-2px);
             border-color: #c8a84e;
+        }
+
+        .btn-secondary.disabled {
+            opacity: 0.5;
+            pointer-events: none;
         }
 
         .terms {
             display: flex;
             align-items: flex-start;
             gap: 0.7rem;
-            margin-bottom: 1.8rem;
-            font-size: 0.9rem;
+            margin: 1.5rem 0 1.2rem;
+            font-size: 0.85rem;
             color: #2c4057;
+            text-align: left;
         }
 
         .terms input[type="checkbox"] {
-            width: 1.2rem;
-            height: 1.2rem;
+            width: 1.1rem;
+            height: 1.1rem;
             margin-top: 0.1rem;
             accent-color: #c8a84e;
             cursor: pointer;
@@ -157,7 +142,6 @@
             font-weight: 700;
             text-decoration: none;
             border-bottom: 2px solid #c8a84e;
-            transition: color 0.2s;
         }
 
         .terms label a:hover {
@@ -165,65 +149,44 @@
         }
 
         .manual-link {
-            text-align: center;
-            margin-bottom: 2rem;
+            margin: 1.2rem 0 1.8rem;
         }
 
         .manual-link a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
             color: #2c4057;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             background: #f0f4fa;
-            padding: 0.55rem 1.6rem;
+            padding: 0.5rem 1.8rem;
             border-radius: 3rem;
             transition: all 0.2s ease;
             border: 1px solid transparent;
+            display: inline-block;
         }
 
         .manual-link a i {
             color: #c8a84e;
-            font-size: 1rem;
+            margin-right: 0.5rem;
         }
 
         .manual-link a:hover {
             background: #e2e9f2;
             border-color: #c8a84e;
-            transform: scale(1.02);
         }
 
         .footer-info {
-            text-align: center;
             border-top: 1px solid #e2e9f2;
             padding-top: 1.5rem;
-            margin-top: 0.3rem;
-        }
-
-        .footer-info .version {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
             color: #0b1a2e;
             letter-spacing: 0.5px;
         }
 
-        .footer-info .version i {
+        .footer-info i {
             color: #c8a84e;
             margin-right: 0.4rem;
-        }
-
-        .footer-info .url {
-            display: block;
-            margin-top: 0.4rem;
-            font-size: 0.7rem;
-            color: #7a8a9e;
-            word-break: break-all;
-            font-family: 'Courier New', monospace;
-            background: #f5f8fc;
-            padding: 0.4rem 1rem;
-            border-radius: 2rem;
         }
 
         @media (max-width: 500px) {
@@ -236,18 +199,9 @@
                 font-size: 2.2rem;
             }
 
-            .action-group {
-                flex-direction: column;
-                gap: 0.7rem;
-            }
-
-            .action-group a {
-                padding: 0.8rem 0;
+            .btn {
                 font-size: 1rem;
-            }
-
-            .quote p {
-                font-size: 0.85rem;
+                padding: 0.8rem 0;
             }
         }
     </style>
@@ -262,16 +216,12 @@
         </div>
 
         <div class="quote">
-            <p>
-                “La seguridad laboral no debería ser un lujo. Es un derecho. Hazla automática.”
-                <span class="author">— LEGADO</span>
-            </p>
+            "La seguridad laboral no debería ser un lujo. Es un derecho. Hazla automática."
+            <span class="author">— LEGADO</span>
         </div>
 
-        <div class="action-group">
-            <a href="login.html">Ingresar</a>
-            <a href="registro.html" id="btnRegistro">Registrarse</a>
-        </div>
+        <a href="login.html" class="btn btn-primary">Ingresar</a>
+        <a href="registro.html" class="btn btn-secondary" id="btnRegistro">Registrarse</a>
 
         <div class="terms">
             <input type="checkbox" id="termsCheck" />
@@ -288,12 +238,7 @@
         </div>
 
         <div class="footer-info">
-            <div class="version">
-                <i class="fas fa-link"></i> LEGADO · Seguridad Laboral Automática · v1.0
-            </div>
-            <span class="url">
-                https://donjuan2026.github.io/legado-sst-core/
-            </span>
+            <i class="fas fa-link"></i> LEGADO Seguridad Laboral Automática - v1.0
         </div>
 
     </div>
@@ -302,16 +247,13 @@
         const checkTerms = document.getElementById('termsCheck');
         const btnRegistro = document.getElementById('btnRegistro');
 
-        btnRegistro.style.opacity = '0.5';
-        btnRegistro.style.pointerEvents = 'none';
+        btnRegistro.classList.add('disabled');
 
         checkTerms.addEventListener('change', function() {
             if (this.checked) {
-                btnRegistro.style.opacity = '1';
-                btnRegistro.style.pointerEvents = 'auto';
+                btnRegistro.classList.remove('disabled');
             } else {
-                btnRegistro.style.opacity = '0.5';
-                btnRegistro.style.pointerEvents = 'none';
+                btnRegistro.classList.add('disabled');
             }
         });
 
