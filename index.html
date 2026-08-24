@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEGADO SST - Bienvenida</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LEGADO SST</title>
+
+    <!-- Font Awesome (íconos de banderas) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
     <style>
         * {
             margin: 0;
@@ -27,12 +31,49 @@
             border: 2px solid #C9A84C;
             border-radius: 20px;
             padding: 50px 40px;
-            max-width: 600px;
+            max-width: 680px;
             width: 100%;
             text-align: center;
             box-shadow: 0 0 50px rgba(201, 168, 76, 0.2);
+            position: relative;
         }
 
+        /* BOTÓN DE IDIOMAS */
+        .idiomas {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .idioma-btn {
+            background: transparent;
+            border: 1px solid #C9A84C;
+            color: #C9A84C;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .idioma-btn:hover {
+            background: #C9A84C;
+            color: #0A0A0A;
+            transform: scale(1.05);
+        }
+
+        .idioma-btn.activo {
+            background: #C9A84C;
+            color: #0A0A0A;
+            font-weight: bold;
+        }
+
+        /* RESTO DEL DISEÑO */
         .logo {
             font-size: 3.5rem;
             font-weight: bold;
@@ -112,13 +153,6 @@
             box-shadow: 0 0 30px rgba(201, 168, 76, 0.3);
         }
 
-        .footer {
-            color: #8A7E6B;
-            font-size: 0.75rem;
-            margin-top: 20px;
-            letter-spacing: 1px;
-        }
-
         .terminos {
             color: #8A7E6B;
             font-size: 0.8rem;
@@ -134,13 +168,30 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 480px) {
+        .footer {
+            color: #8A7E6B;
+            font-size: 0.75rem;
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
             .container {
-                padding: 30px 20px;
+                padding: 40px 20px;
             }
             .logo {
                 font-size: 2.5rem;
                 letter-spacing: 4px;
+            }
+            .idiomas {
+                position: static;
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+            .idioma-btn {
+                font-size: 0.6rem;
+                padding: 3px 8px;
             }
             .botones {
                 flex-direction: column;
@@ -153,30 +204,219 @@
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="logo">LEGADO</div>
-        <div class="frase">+ CONCIENCIA Y FUTURO PARA LA HUMANIDAD +</div>
-        
-        <div class="frase-destacada">
-            "La seguridad laboral no debería ser un lujo. Es un derecho. Hazla automática."
-            <small>— LEGADO</small>
-        </div>
 
-        <div class="botones">
-            <a href="login.html" class="btn btn-ingresar">Ingresar</a>
-            <a href="registro.html" class="btn btn-registro">Registrarse</a>
-        </div>
+<div class="container">
 
-        <div class="terminos">
-            <a href="#">Acepto los Términos y Condiciones y la Política de Privacidad</a>
-            <br>
-            <a href="#">Manual de uso y atajos</a>
-        </div>
-
-        <div class="footer">
-            LEGADO Seguridad Laboral Automática v1.0
-        </div>
+    <!-- BOTONES DE IDIOMAS -->
+    <div class="idiomas">
+        <button class="idioma-btn activo" data-lang="es">🇪🇸 ES</button>
+        <button class="idioma-btn" data-lang="en">🇬🇧 EN</button>
+        <button class="idioma-btn" data-lang="zh">🇨🇳 中文</button>
+        <button class="idioma-btn" data-lang="hi">🇮🇳 हिंदी</button>
+        <button class="idioma-btn" data-lang="fr">🇫🇷 FR</button>
+        <button class="idioma-btn" data-lang="ar">🇦🇪 العربية</button>
+        <button class="idioma-btn" data-lang="de">🇩🇪 DE</button>
+        <button class="idioma-btn" data-lang="pt">🇵🇹 PT</button>
     </div>
+
+    <!-- LOGO -->
+    <div class="logo">LEGADO</div>
+    <div class="frase" data-key="frase">+ CONCIENCIA Y FUTURO PARA LA HUMANIDAD +</div>
+
+    <!-- MENSAJE DESTACADO -->
+    <div class="frase-destacada">
+        <span data-key="mensaje">"La seguridad laboral no debería ser un lujo. Es un derecho. Hazla automática."</span>
+        <small data-key="autor">— LEGADO</small>
+    </div>
+
+    <!-- BOTONES PRINCIPALES -->
+    <div class="botones">
+        <a href="login.html" class="btn btn-ingresar" data-key="ingresar">Ingresar</a>
+        <a href="registro.html" class="btn btn-registro" data-key="registro">Registrarse</a>
+    </div>
+
+    <!-- TÉRMINOS -->
+    <div class="terminos">
+        <a href="#" data-key="terminos">Acepto los Términos y Condiciones y la Política de Privacidad</a>
+        <br>
+        <a href="#" data-key="manual">Manual de uso y atajos</a>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer" data-key="footer">LEGADO Seguridad Laboral Automática v1.0</div>
+
+</div>
+
+<!-- ============================================= -->
+<!-- TRADUCCIONES (Diccionario por idioma)           -->
+<!-- ============================================= -->
+<script>
+    const traducciones = {
+        es: {
+            frase: '+ CONCIENCIA Y FUTURO PARA LA HUMANIDAD +',
+            mensaje: '"La seguridad laboral no debería ser un lujo. Es un derecho. Hazla automática."',
+            autor: '— LEGADO',
+            ingresar: 'Ingresar',
+            registro: 'Registrarse',
+            terminos: 'Acepto los Términos y Condiciones y la Política de Privacidad',
+            manual: 'Manual de uso y atajos',
+            footer: 'LEGADO Seguridad Laboral Automática v1.0'
+        },
+        en: {
+            frase: '+ CONSCIENCE AND FUTURE FOR HUMANITY +',
+            mensaje: '"Workplace safety should not be a luxury. It is a right. Make it automatic."',
+            autor: '— LEGADO',
+            ingresar: 'Sign In',
+            registro: 'Sign Up',
+            terminos: 'I accept the Terms and Conditions and the Privacy Policy',
+            manual: 'User manual and shortcuts',
+            footer: 'LEGADO Automated Workplace Safety v1.0'
+        },
+        zh: {
+            frase: '+ 良知与人类的未来 +',
+            mensaje: '"工作安全不应是奢侈品。这是一种权利。让其自动化。"',
+            autor: '— LEGADO',
+            ingresar: '登录',
+            registro: '注册',
+            terminos: '我接受条款和条件以及隐私政策',
+            manual: '用户手册和快捷方式',
+            footer: 'LEGADO 自动化工作安全 v1.0'
+        },
+        hi: {
+            frase: '+ विवेक और मानवता का भविष्य +',
+            mensaje: '"कार्यस्थल सुरक्षा विलासिता नहीं होनी चाहिए। यह एक अधिकार है। इसे स्वचालित बनाएं।"',
+            autor: '— LEGADO',
+            ingresar: 'साइन इन करें',
+            registro: 'पंजीकरण करें',
+            terminos: 'मैं नियम और शर्तें और गोपनीयता नीति स्वीकार करता हूं',
+            manual: 'उपयोगकर्ता मैनुअल और शॉर्टकट',
+            footer: 'LEGADO स्वचालित कार्यस्थल सुरक्षा v1.0'
+        },
+        fr: {
+            frase: '+ CONSCIENCE ET AVENIR POUR L\'HUMANITÉ +',
+            mensaje: '"La sécurité au travail ne devrait pas être un luxe. C\'est un droit. Rendez-la automatique."',
+            autor: '— LEGADO',
+            ingresar: 'Se connecter',
+            registro: 'S\'inscrire',
+            terminos: 'J\'accepte les conditions générales et la politique de confidentialité',
+            manual: 'Manuel d\'utilisation et raccourcis',
+            footer: 'LEGADO Sécurité au travail automatisée v1.0'
+        },
+        ar: {
+            frase: '+ الضمير ومستقبل البشرية +',
+            mensaje: '"لا ينبغي أن تكون السلامة في العمل رفاهية. إنها حق. اجعلها آلية."',
+            autor: '— LEGADO',
+            ingresar: 'تسجيل الدخول',
+            registro: 'اشتراك',
+            terminos: 'أوافق على الشروط والأحكام وسياسة الخصوصية',
+            manual: 'دليل المستخدم والاختصارات',
+            footer: 'LEGADO السلامة الآلية في العمل v1.0'
+        },
+        de: {
+            frase: '+ GEWISSEN UND ZUKUNFT FÜR DIE MENSCHHEIT +',
+            mensaje: '"Arbeitssicherheit sollte kein Luxus sein. Es ist ein Recht. Macht sie automatisch."',
+            autor: '— LEGADO',
+            ingresar: 'Anmelden',
+            registro: 'Registrieren',
+            terminos: 'Ich akzeptiere die Allgemeinen Geschäftsbedingungen und die Datenschutzrichtlinie',
+            manual: 'Bedienungsanleitung und Tastenkürzel',
+            footer: 'LEGADO Automatisierte Arbeitssicherheit v1.0'
+        },
+        pt: {
+            frase: '+ CONSCIÊNCIA E FUTURO PARA A HUMANIDADE +',
+            mensaje: '"A segurança no trabalho não deveria ser um luxo. É um direito. Torne-a automática."',
+            autor: '— LEGADO',
+            ingresar: 'Entrar',
+            registro: 'Registrar-se',
+            terminos: 'Aceito os Termos e Condições e a Política de Privacidade',
+            manual: 'Manual do usuário e atalhos',
+            footer: 'LEGADO Segurança do Trabalho Automatizada v1.0'
+        }
+    };
+</script>
+
+<!-- ============================================= -->
+<!-- LÓGICA DE CAMBIO DE IDIOMA                     -->
+<!-- ============================================= -->
+<script>
+    (function() {
+        // Elementos con data-key
+        const elementos = {};
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (!elementos[key]) elementos[key] = [];
+            elementos[key].push(el);
+        });
+
+        // Botones de idioma
+        const botones = document.querySelectorAll('.idioma-btn');
+        let idiomaActual = 'es';
+
+        function cambiarIdioma(idioma) {
+            if (!traducciones[idioma]) return;
+            idiomaActual = idioma;
+
+            // Actualizar textos
+            const datos = traducciones[idioma];
+            Object.keys(datos).forEach(key => {
+                if (elementos[key]) {
+                    elementos[key].forEach(el => {
+                        if (el.tagName === 'A' || el.tagName === 'BUTTON' || el.tagName === 'SPAN') {
+                            el.textContent = datos[key];
+                        } else {
+                            el.textContent = datos[key];
+                        }
+                    });
+                }
+            });
+
+            // Actualizar botón activo
+            botones.forEach(btn => {
+                btn.classList.remove('activo');
+                if (btn.getAttribute('data-lang') === idioma) {
+                    btn.classList.add('activo');
+                }
+            });
+
+            // Cambiar atributo lang del HTML
+            document.documentElement.lang = idioma;
+        }
+
+        // Eventos de los botones
+        botones.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                cambiarIdioma(lang);
+            });
+        });
+
+        // Cargar idioma guardado (opcional)
+        const guardado = localStorage.getItem('legado-idioma');
+        if (guardado && traducciones[guardado]) {
+            cambiarIdioma(guardado);
+        } else {
+            // Detectar idioma del navegador
+            const navLang = navigator.language.split('-')[0];
+            if (traducciones[navLang]) {
+                cambiarIdioma(navLang);
+            } else {
+                cambiarIdioma('es');
+            }
+        }
+
+        // Guardar idioma al cambiar
+        const originalCambiar = cambiarIdioma;
+        cambiarIdioma = function(idioma) {
+            originalCambiar(idioma);
+            localStorage.setItem('legado-idioma', idioma);
+        };
+        // Sobrescribir para que guarde
+        window.cambiarIdioma = cambiarIdioma;
+
+    })();
+</script>
+
 </body>
 </html>
