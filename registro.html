@@ -4,357 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>LEGADO - Registro</title>
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #0A0A0A;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            background: #1A1A1A;
-            border: 2px solid #C9A84C;
-            border-radius: 20px;
-            padding: 40px 35px;
-            max-width: 550px;
-            width: 100%;
-            box-shadow: 0 0 50px rgba(201, 168, 76, 0.2);
-            position: relative;
-        }
-
-        /* IDIOMAS */
-        .idiomas {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        .idioma-btn {
-            background: transparent;
-            border: 1px solid #C9A84C;
-            color: #C9A84C;
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-size: 0.6rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .idioma-btn:hover {
-            background: #C9A84C;
-            color: #0A0A0A;
-            transform: scale(1.05);
-        }
-
-        .idioma-btn.activo {
-            background: #C9A84C;
-            color: #0A0A0A;
-            font-weight: bold;
-        }
-
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #C9A84C;
-            letter-spacing: 6px;
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
-        .subtitulo {
-            color: #E8D5A3;
-            text-align: center;
-            font-size: 0.9rem;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            color: #F5F0E8;
-            font-size: 0.85rem;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .form-group label span {
-            color: #E74C3C;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 10px;
-            border: 1px solid #333;
-            background: #0A0A0A;
-            color: #F5F0E8;
-            font-size: 1rem;
-            transition: border 0.3s ease;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #C9A84C;
-            box-shadow: 0 0 15px rgba(201, 168, 76, 0.2);
-        }
-
-        .form-group input::placeholder {
-            color: #555;
-        }
-
-        .dni-verificar {
-            display: flex;
-            gap: 10px;
-        }
-
-        .dni-verificar input {
-            flex: 1;
-        }
-
-        .btn-verificar {
-            background: transparent;
-            border: 2px solid #C9A84C;
-            color: #C9A84C;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .btn-verificar:hover {
-            background: #C9A84C;
-            color: #0A0A0A;
-        }
-
-        .btn-verificar:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .btn-verificar.verificado {
-            background: #2ECC71;
-            border-color: #2ECC71;
-            color: #0A0A0A;
-        }
-
-        .btn-registrar {
-            width: 100%;
-            padding: 14px;
-            border-radius: 50px;
-            border: none;
-            background: #C9A84C;
-            color: #0A0A0A;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .btn-registrar:hover {
-            background: #E8D5A3;
-            transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(201, 168, 76, 0.4);
-        }
-
-        .btn-registrar:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .terminos {
-            color: #8A7E6B;
-            font-size: 0.75rem;
-            margin: 15px 0;
-            text-align: center;
-        }
-
-        .terminos a {
-            color: #C9A84C;
-            text-decoration: none;
-        }
-
-        .terminos a:hover {
-            text-decoration: underline;
-        }
-
-        .footer {
-            color: #8A7E6B;
-            font-size: 0.7rem;
-            text-align: center;
-            margin-top: 15px;
-            letter-spacing: 1px;
-        }
-
-        .mensaje-error {
-            color: #E74C3C;
-            font-size: 0.8rem;
-            margin-top: 5px;
-            display: none;
-        }
-
-        .mensaje-exito {
-            color: #2ECC71;
-            font-size: 0.8rem;
-            margin-top: 5px;
-            display: none;
-        }
-
-        .tipo-perfil {
-            display: flex;
-            gap: 20px;
-            color: #F5F0E8;
-            font-size: 0.9rem;
-            margin: 10px 0;
-        }
-
-        .tipo-perfil label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-
-        .tipo-perfil input[type="radio"] {
-            accent-color: #C9A84C;
-            width: 16px;
-            height: 16px;
-        }
-
-        .checkbox {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #F5F0E8;
-            font-size: 0.8rem;
-            margin: 10px 0;
-        }
-
-        .checkbox input[type="checkbox"] {
-            accent-color: #C9A84C;
-            width: 16px;
-            height: 16px;
-        }
-
-        .enlace {
-            color: #C9A84C;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .enlace:hover {
-            text-decoration: underline;
-        }
-
-        .texto-centro {
-            text-align: center;
-            color: #8A7E6B;
-            font-size: 0.85rem;
-            margin: 10px 0;
-        }
-
-        .resultado-verificacion {
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-top: 5px;
-            display: none;
-            font-size: 0.9rem;
-        }
-
-        .resultado-verificacion.exito {
-            display: block;
-            background: rgba(46, 204, 113, 0.15);
-            border: 1px solid #2ECC71;
-            color: #2ECC71;
-        }
-
-        .resultado-verificacion.error {
-            display: block;
-            background: rgba(231, 76, 60, 0.15);
-            border: 1px solid #E74C3C;
-            color: #E74C3C;
-        }
-
-        .datos-verificados {
-            display: none;
-            background: rgba(201, 168, 76, 0.1);
-            border: 1px solid #C9A84C;
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin-top: 8px;
-            color: #F5F0E8;
-            font-size: 0.9rem;
-        }
-
-        .datos-verificados.visible {
-            display: block;
-        }
-
-        .datos-verificados strong {
-            color: #C9A84C;
-        }
-
-        @media (max-width: 500px) {
-            .container {
-                padding: 30px 20px;
-            }
-            .logo {
-                font-size: 2rem;
-                letter-spacing: 3px;
-            }
-            .idiomas {
-                position: static;
-                justify-content: center;
-                margin-bottom: 15px;
-            }
-            .dni-verificar {
-                flex-direction: column;
-            }
-            .btn-verificar {
-                width: 100%;
-                justify-content: center;
-            }
-            .tipo-perfil {
-                flex-direction: column;
-                gap: 8px;
-            }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:#0A0A0A; font-family:'Segoe UI',sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; padding:20px; }
+        .container { background:#1A1A1A; border:2px solid #C9A84C; border-radius:20px; padding:40px 35px; max-width:550px; width:100%; box-shadow:0 0 50px rgba(201,168,76,0.2); position:relative; }
+        .idiomas { position:absolute; top:15px; right:15px; display:flex; gap:4px; flex-wrap:wrap; justify-content:flex-end; }
+        .idioma-btn { background:transparent; border:1px solid #C9A84C; color:#C9A84C; padding:3px 8px; border-radius:20px; font-size:0.6rem; cursor:pointer; transition:all 0.3s ease; font-weight:500; }
+        .idioma-btn:hover { background:#C9A84C; color:#0A0A0A; transform:scale(1.05); }
+        .idioma-btn.activo { background:#C9A84C; color:#0A0A0A; font-weight:bold; }
+        .logo { font-size:2.5rem; font-weight:bold; color:#C9A84C; letter-spacing:6px; text-align:center; margin-bottom:5px; }
+        .subtitulo { color:#E8D5A3; text-align:center; font-size:0.9rem; margin-bottom:25px; letter-spacing:2px; }
+        .form-group { margin-bottom:18px; }
+        .form-group label { display:block; color:#F5F0E8; font-size:0.85rem; margin-bottom:5px; font-weight:500; }
+        .form-group label span { color:#E74C3C; }
+        .form-group input { width:100%; padding:12px 15px; border-radius:10px; border:1px solid #333; background:#0A0A0A; color:#F5F0E8; font-size:1rem; transition:border 0.3s ease; }
+        .form-group input:focus { outline:none; border-color:#C9A84C; box-shadow:0 0 15px rgba(201,168,76,0.2); }
+        .form-group input::placeholder { color:#555; }
+        .dni-verificar { display:flex; gap:10px; }
+        .dni-verificar input { flex:1; }
+        .btn-verificar { background:transparent; border:2px solid #C9A84C; color:#C9A84C; padding:10px 20px; border-radius:10px; cursor:pointer; font-weight:bold; font-size:0.85rem; transition:all 0.3s ease; white-space:nowrap; }
+        .btn-verificar:hover { background:#C9A84C; color:#0A0A0A; }
+        .btn-verificar:disabled { opacity:0.5; cursor:not-allowed; }
+        .btn-verificar.verificado { background:#2ECC71; border-color:#2ECC71; color:#0A0A0A; }
+        .btn-registrar { width:100%; padding:14px; border-radius:50px; border:none; background:#C9A84C; color:#0A0A0A; font-size:1.1rem; font-weight:bold; cursor:pointer; transition:all 0.3s ease; margin-top:10px; }
+        .btn-registrar:hover { background:#E8D5A3; transform:scale(1.02); box-shadow:0 0 30px rgba(201,168,76,0.4); }
+        .btn-registrar:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+        .footer { color:#8A7E6B; font-size:0.7rem; text-align:center; margin-top:15px; letter-spacing:1px; }
+        .resultado-verificacion { padding:10px 15px; border-radius:8px; margin-top:5px; display:none; font-size:0.9rem; }
+        .resultado-verificacion.exito { display:block; background:rgba(46,204,113,0.15); border:1px solid #2ECC71; color:#2ECC71; }
+        .resultado-verificacion.error { display:block; background:rgba(231,76,60,0.15); border:1px solid #E74C3C; color:#E74C3C; }
+        .datos-verificados { display:none; background:rgba(201,168,76,0.1); border:1px solid #C9A84C; border-radius:10px; padding:12px 15px; margin-top:8px; color:#F5F0E8; font-size:0.9rem; }
+        .datos-verificados.visible { display:block; }
+        .datos-verificados strong { color:#C9A84C; }
+        .tipo-perfil { display:flex; gap:20px; color:#F5F0E8; font-size:0.9rem; margin:10px 0; }
+        .tipo-perfil label { display:flex; align-items:center; gap:8px; cursor:pointer; }
+        .tipo-perfil input[type="radio"] { accent-color:#C9A84C; width:16px; height:16px; }
+        .checkbox { display:flex; align-items:center; gap:10px; color:#F5F0E8; font-size:0.8rem; margin:10px 0; }
+        .checkbox input[type="checkbox"] { accent-color:#C9A84C; width:16px; height:16px; }
+        .enlace { color:#C9A84C; text-decoration:none; font-weight:500; }
+        .enlace:hover { text-decoration:underline; }
+        .texto-centro { text-align:center; color:#8A7E6B; font-size:0.85rem; margin:10px 0; }
+        @media (max-width:500px) {
+            .container { padding:30px 20px; }
+            .logo { font-size:2rem; letter-spacing:3px; }
+            .idiomas { position:static; justify-content:center; margin-bottom:15px; }
+            .dni-verificar { flex-direction:column; }
+            .btn-verificar { width:100%; justify-content:center; }
+            .tipo-perfil { flex-direction:column; gap:8px; }
         }
     </style>
 </head>
-
 <body>
-
 <div class="container">
-
-    <!-- IDIOMAS -->
     <div class="idiomas">
         <button class="idioma-btn activo" data-lang="es">🇪🇸 ES</button>
         <button class="idioma-btn" data-lang="en">🇬🇧 EN</button>
@@ -365,14 +67,9 @@
         <button class="idioma-btn" data-lang="de">🇩🇪 DE</button>
         <button class="idioma-btn" data-lang="pt">🇵🇹 PT</button>
     </div>
-
-    <!-- LOGO -->
     <div class="logo">LEGADO</div>
     <div class="subtitulo" data-key="subtitulo">Crear cuenta</div>
-
     <form id="registroForm" onsubmit="return false;">
-
-        <!-- DNI -->
         <div class="form-group">
             <label data-key="dni-label">Documento de Identidad (DNI) <span>*</span></label>
             <div class="dni-verificar">
@@ -386,26 +83,18 @@
                 <small>DNI: <span id="dniVerificado">12345678</span></small>
             </div>
         </div>
-
-        <!-- NOMBRES (autocompletado) -->
         <div class="form-group">
             <label data-key="nombre-label">Nombres completos <span>*</span></label>
-            <input type="text" id="nombreInput" placeholder="Ej: Juan Carlos" readonly style="background: #111; cursor: not-allowed;" />
+            <input type="text" id="nombreInput" placeholder="Ej: Juan Carlos" readonly style="background:#111; cursor:not-allowed;" />
         </div>
-
-        <!-- EMAIL -->
         <div class="form-group">
             <label data-key="email-label">Correo electrónico <span>*</span></label>
             <input type="email" id="emailInput" placeholder="tu@correo.com" />
         </div>
-
-        <!-- CONTRASEÑA -->
         <div class="form-group">
             <label data-key="password-label">Contraseña <span>*</span></label>
             <input type="password" id="passwordInput" placeholder="Mínimo 6 caracteres" minlength="6" />
         </div>
-
-        <!-- TIPO DE PERFIL -->
         <div class="form-group">
             <label data-key="perfil-label">Tipo de perfil</label>
             <div class="tipo-perfil">
@@ -414,447 +103,280 @@
                 <label><input type="radio" name="perfil" value="fiscalizador" /> <span data-key="fiscalizador">Fiscalizador</span></label>
             </div>
         </div>
-
-        <!-- TÉRMINOS -->
         <div class="checkbox">
             <input type="checkbox" id="terminosCheck" />
             <label for="terminosCheck" data-key="terminos">Acepto los Términos y Condiciones y la Política de Privacidad</label>
         </div>
-
-        <!-- BOTÓN REGISTRAR -->
         <button type="submit" class="btn-registrar" id="registrarBtn" disabled data-key="registrar">Completa todos los campos</button>
-
     </form>
-
     <div class="texto-centro">
         <span data-key="ya-tienes">¿Ya tienes cuenta?</span>
         <a href="login.html" class="enlace" data-key="iniciar-sesion">Inicia sesión</a>
         <br>
         <a href="index.html" class="enlace" data-key="volver-inicio">Volver al inicio</a>
     </div>
-
     <div class="footer" data-key="footer">LEGADO - Seguridad Laboral Automática - v1.0</div>
-
 </div>
-
-<!-- ============================================= -->
-<!-- TRADUCCIONES (8 idiomas)                       -->
-<!-- ============================================= -->
 <script>
+    // TRADUCCIONES
     const traducciones = {
         es: {
-            subtitulo: 'Crear cuenta',
-            'dni-label': 'Documento de Identidad (DNI)',
-            verificar: 'Verificar',
-            'dni-error': 'DNI inválido (debe tener 8 dígitos)',
-            'nombre-label': 'Nombres completos',
-            'email-label': 'Correo electrónico',
-            'password-label': 'Contraseña',
-            'perfil-label': 'Tipo de perfil',
-            empresa: 'Empresa',
-            trabajador: 'Trabajador',
-            fiscalizador: 'Fiscalizador',
-            terminos: 'Acepto los Términos y Condiciones y la Política de Privacidad',
-            registrar: 'Registrar',
-            'ya-tienes': '¿Ya tienes cuenta?',
-            'iniciar-sesion': 'Inicia sesión',
-            'volver-inicio': 'Volver al inicio',
-            footer: 'LEGADO - Seguridad Laboral Automática - v1.0',
-            'verificando': 'Verificando...',
-            'verificado-exito': '✅ Identidad verificada correctamente',
-            'verificado-error': '❌ DNI no encontrado',
-            'verificado-error-red': '⚠️ Error de conexión',
+            subtitulo: 'Crear cuenta', 'dni-label': 'Documento de Identidad (DNI)', verificar: 'Verificar',
+            'nombre-label': 'Nombres completos', 'email-label': 'Correo electrónico', 'password-label': 'Contraseña',
+            'perfil-label': 'Tipo de perfil', empresa: 'Empresa', trabajador: 'Trabajador', fiscalizador: 'Fiscalizador',
+            terminos: 'Acepto los Términos y Condiciones y la Política de Privacidad', registrar: 'Registrar',
+            'ya-tienes': '¿Ya tienes cuenta?', 'iniciar-sesion': 'Inicia sesión', 'volver-inicio': 'Volver al inicio',
+            footer: 'LEGADO - Seguridad Laboral Automática - v1.0', 'verificando': 'Verificando...',
+            'verificado-exito': '✅ Identidad verificada correctamente', 'verificado-error': '❌ DNI no encontrado',
             'identidad-verificada': 'IDENTIDAD VERIFICADA'
         },
         en: {
-            subtitulo: 'Create account',
-            'dni-label': 'Identity Document (DNI)',
-            verificar: 'Verify',
-            'dni-error': 'Invalid DNI (must have 8 digits)',
-            'nombre-label': 'Full name',
-            'email-label': 'Email',
-            'password-label': 'Password',
-            'perfil-label': 'Profile type',
-            empresa: 'Company',
-            trabajador: 'Worker',
-            fiscalizador: 'Inspector',
-            terminos: 'I accept the Terms and Conditions and the Privacy Policy',
-            registrar: 'Register',
-            'ya-tienes': 'Already have an account?',
-            'iniciar-sesion': 'Sign in',
-            'volver-inicio': 'Back to home',
-            footer: 'LEGADO - Automated Workplace Safety - v1.0',
-            'verificando': 'Verifying...',
-            'verificado-exito': '✅ Identity verified successfully',
-            'verificado-error': '❌ DNI not found',
-            'verificado-error-red': '⚠️ Connection error',
+            subtitulo: 'Create account', 'dni-label': 'Identity Document (DNI)', verificar: 'Verify',
+            'nombre-label': 'Full name', 'email-label': 'Email', 'password-label': 'Password',
+            'perfil-label': 'Profile type', empresa: 'Company', trabajador: 'Worker', fiscalizador: 'Inspector',
+            terminos: 'I accept the Terms and Conditions and the Privacy Policy', registrar: 'Register',
+            'ya-tienes': 'Already have an account?', 'iniciar-sesion': 'Sign in', 'volver-inicio': 'Back to home',
+            footer: 'LEGADO - Automated Workplace Safety - v1.0', 'verificando': 'Verifying...',
+            'verificado-exito': '✅ Identity verified successfully', 'verificado-error': '❌ DNI not found',
             'identidad-verificada': 'IDENTITY VERIFIED'
         },
         zh: {
-            subtitulo: '创建账户',
-            'dni-label': '身份证件 (DNI)',
-            verificar: '验证',
-            'dni-error': 'DNI 无效 (必须为8位数字)',
-            'nombre-label': '全名',
-            'email-label': '电子邮件',
-            'password-label': '密码',
-            'perfil-label': '个人资料类型',
-            empresa: '公司',
-            trabajador: '工人',
-            fiscalizador: '检查员',
-            terminos: '我接受条款和条件及隐私政策',
-            registrar: '注册',
-            'ya-tienes': '已有账户？',
-            'iniciar-sesion': '登录',
-            'volver-inicio': '返回首页',
-            footer: 'LEGADO - 自动化工作场所安全 - v1.0',
-            'verificando': '验证中...',
-            'verificado-exito': '✅ 身份验证成功',
-            'verificado-error': '❌ DNI 未找到',
-            'verificado-error-red': '⚠️ 连接错误',
+            subtitulo: '创建账户', 'dni-label': '身份证件 (DNI)', verificar: '验证',
+            'nombre-label': '全名', 'email-label': '电子邮件', 'password-label': '密码',
+            'perfil-label': '个人资料类型', empresa: '公司', trabajador: '工人', fiscalizador: '检查员',
+            terminos: '我接受条款和条件及隐私政策', registrar: '注册',
+            'ya-tienes': '已有账户？', 'iniciar-sesion': '登录', 'volver-inicio': '返回首页',
+            footer: 'LEGADO - 自动化工作场所安全 - v1.0', 'verificando': '验证中...',
+            'verificado-exito': '✅ 身份验证成功', 'verificado-error': '❌ DNI 未找到',
             'identidad-verificada': '身份已验证'
         },
         hi: {
-            subtitulo: 'खाता बनाएं',
-            'dni-label': 'पहचान पत्र (DNI)',
-            verificar: 'सत्यापित करें',
-            'dni-error': 'अमान्य DNI (8 अंक होने चाहिए)',
-            'nombre-label': 'पूरा नाम',
-            'email-label': 'ईमेल',
-            'password-label': 'पासवर्ड',
-            'perfil-label': 'प्रोफ़ाइल प्रकार',
-            empresa: 'कंपनी',
-            trabajador: 'कर्मचारी',
-            fiscalizador: 'निरीक्षक',
-            terminos: 'मैं नियम और शर्तें तथा गोपनीयता नीति स्वीकार करता हूं',
-            registrar: 'पंजीकरण करें',
-            'ya-tienes': 'क्या आपके पास पहले से खाता है?',
-            'iniciar-sesion': 'साइन इन करें',
-            'volver-inicio': 'होम पेज पर वापस जाएं',
-            footer: 'LEGADO - स्वचालित कार्यस्थल सुरक्षा - v1.0',
-            'verificando': 'सत्यापित किया जा रहा है...',
-            'verificado-exito': '✅ पहचान सफलतापूर्वक सत्यापित',
-            'verificado-error': '❌ DNI नहीं मिला',
-            'verificado-error-red': '⚠️ कनेक्शन त्रुटि',
+            subtitulo: 'खाता बनाएं', 'dni-label': 'पहचान पत्र (DNI)', verificar: 'सत्यापित करें',
+            'nombre-label': 'पूरा नाम', 'email-label': 'ईमेल', 'password-label': 'पासवर्ड',
+            'perfil-label': 'प्रोफ़ाइल प्रकार', empresa: 'कंपनी', trabajador: 'कर्मचारी', fiscalizador: 'निरीक्षक',
+            terminos: 'मैं नियम और शर्तें तथा गोपनीयता नीति स्वीकार करता हूं', registrar: 'पंजीकरण करें',
+            'ya-tienes': 'क्या आपके पास पहले से खाता है?', 'iniciar-sesion': 'साइन इन करें', 'volver-inicio': 'होम पेज पर वापस जाएं',
+            footer: 'LEGADO - स्वचालित कार्यस्थल सुरक्षा - v1.0', 'verificando': 'सत्यापित किया जा रहा है...',
+            'verificado-exito': '✅ पहचान सफलतापूर्वक सत्यापित', 'verificado-error': '❌ DNI नहीं मिला',
             'identidad-verificada': 'पहचान सत्यापित'
         },
         fr: {
-            subtitulo: 'Créer un compte',
-            'dni-label': 'Document d\'identité (DNI)',
-            verificar: 'Vérifier',
-            'dni-error': 'DNI invalide (doit avoir 8 chiffres)',
-            'nombre-label': 'Nom complet',
-            'email-label': 'E-mail',
-            'password-label': 'Mot de passe',
-            'perfil-label': 'Type de profil',
-            empresa: 'Entreprise',
-            trabajador: 'Travailleur',
-            fiscalizador: 'Inspecteur',
-            terminos: 'J\'accepte les conditions générales et la politique de confidentialité',
-            registrar: 'S\'inscrire',
-            'ya-tienes': 'Vous avez déjà un compte?',
-            'iniciar-sesion': 'Se connecter',
-            'volver-inicio': 'Retour à l\'accueil',
-            footer: 'LEGADO - Sécurité au travail automatisée - v1.0',
-            'verificando': 'Vérification...',
-            'verificado-exito': '✅ Identité vérifiée avec succès',
-            'verificado-error': '❌ DNI non trouvé',
-            'verificado-error-red': '⚠️ Erreur de connexion',
+            subtitulo: 'Créer un compte', 'dni-label': 'Document d\'identité (DNI)', verificar: 'Vérifier',
+            'nombre-label': 'Nom complet', 'email-label': 'E-mail', 'password-label': 'Mot de passe',
+            'perfil-label': 'Type de profil', empresa: 'Entreprise', trabajador: 'Travailleur', fiscalizador: 'Inspecteur',
+            terminos: 'J\'accepte les conditions générales et la politique de confidentialité', registrar: 'S\'inscrire',
+            'ya-tienes': 'Vous avez déjà un compte?', 'iniciar-sesion': 'Se connecter', 'volver-inicio': 'Retour à l\'accueil',
+            footer: 'LEGADO - Sécurité au travail automatisée - v1.0', 'verificando': 'Vérification...',
+            'verificado-exito': '✅ Identité vérifiée avec succès', 'verificado-error': '❌ DNI non trouvé',
             'identidad-verificada': 'IDENTITÉ VÉRIFIÉE'
         },
         ar: {
-            subtitulo: 'إنشاء حساب',
-            'dni-label': 'وثيقة الهوية (DNI)',
-            verificar: 'تحقق',
-            'dni-error': 'DNI غير صالح (يجب أن يحتوي على 8 أرقام)',
-            'nombre-label': 'الاسم الكامل',
-            'email-label': 'البريد الإلكتروني',
-            'password-label': 'كلمة المرور',
-            'perfil-label': 'نوع الملف الشخصي',
-            empresa: 'شركة',
-            trabajador: 'عامل',
-            fiscalizador: 'مفتش',
-            terminos: 'أوافق على الشروط والأحكام وسياسة الخصوصية',
-            registrar: 'اشتراك',
-            'ya-tienes': 'هل لديك حساب بالفعل؟',
-            'iniciar-sesion': 'تسجيل الدخول',
-            'volver-inicio': 'العودة إلى الصفحة الرئيسية',
-            footer: 'LEGADO - السلامة الآلية في العمل - v1.0',
-            'verificando': 'جاري التحقق...',
-            'verificado-exito': '✅ تم التحقق من الهوية بنجاح',
-            'verificado-error': '❌ DNI غير موجود',
-            'verificado-error-red': '⚠️ خطأ في الاتصال',
+            subtitulo: 'إنشاء حساب', 'dni-label': 'وثيقة الهوية (DNI)', verificar: 'تحقق',
+            'nombre-label': 'الاسم الكامل', 'email-label': 'البريد الإلكتروني', 'password-label': 'كلمة المرور',
+            'perfil-label': 'نوع الملف الشخصي', empresa: 'شركة', trabajador: 'عامل', fiscalizador: 'مفتش',
+            terminos: 'أوافق على الشروط والأحكام وسياسة الخصوصية', registrar: 'اشتراك',
+            'ya-tienes': 'هل لديك حساب بالفعل؟', 'iniciar-sesion': 'تسجيل الدخول', 'volver-inicio': 'العودة إلى الصفحة الرئيسية',
+            footer: 'LEGADO - السلامة الآلية في العمل - v1.0', 'verificando': 'جاري التحقق...',
+            'verificado-exito': '✅ تم التحقق من الهوية بنجاح', 'verificado-error': '❌ DNI غير موجود',
             'identidad-verificada': 'تم التحقق من الهوية'
         },
         de: {
-            subtitulo: 'Konto erstellen',
-            'dni-label': 'Ausweis (DNI)',
-            verificar: 'Verifizieren',
-            'dni-error': 'Ungültige DNI (muss 8 Ziffern haben)',
-            'nombre-label': 'Vollständiger Name',
-            'email-label': 'E-Mail',
-            'password-label': 'Passwort',
-            'perfil-label': 'Profiltyp',
-            empresa: 'Unternehmen',
-            trabajador: 'Arbeiter',
-            fiscalizador: 'Inspektor',
-            terminos: 'Ich akzeptiere die Allgemeinen Geschäftsbedingungen und die Datenschutzrichtlinie',
-            registrar: 'Registrieren',
-            'ya-tienes': 'Haben Sie bereits ein Konto?',
-            'iniciar-sesion': 'Anmelden',
-            'volver-inicio': 'Zurück zur Startseite',
-            footer: 'LEGADO - Automatisierte Arbeitssicherheit - v1.0',
-            'verificando': 'Verifizierung...',
-            'verificado-exito': '✅ Identität erfolgreich verifiziert',
-            'verificado-error': '❌ DNI nicht gefunden',
-            'verificado-error-red': '⚠️ Verbindungsfehler',
+            subtitulo: 'Konto erstellen', 'dni-label': 'Ausweis (DNI)', verificar: 'Verifizieren',
+            'nombre-label': 'Vollständiger Name', 'email-label': 'E-Mail', 'password-label': 'Passwort',
+            'perfil-label': 'Profiltyp', empresa: 'Unternehmen', trabajador: 'Arbeiter', fiscalizador: 'Inspektor',
+            terminos: 'Ich akzeptiere die Allgemeinen Geschäftsbedingungen und die Datenschutzrichtlinie', registrar: 'Registrieren',
+            'ya-tienes': 'Haben Sie bereits ein Konto?', 'iniciar-sesion': 'Anmelden', 'volver-inicio': 'Zurück zur Startseite',
+            footer: 'LEGADO - Automatisierte Arbeitssicherheit - v1.0', 'verificando': 'Verifizierung...',
+            'verificado-exito': '✅ Identität erfolgreich verifiziert', 'verificado-error': '❌ DNI nicht gefunden',
             'identidad-verificada': 'IDENTITÄT VERIFIZIERT'
         },
         pt: {
-            subtitulo: 'Criar conta',
-            'dni-label': 'Documento de Identidade (DNI)',
-            verificar: 'Verificar',
-            'dni-error': 'DNI inválido (deve ter 8 dígitos)',
-            'nombre-label': 'Nome completo',
-            'email-label': 'E-mail',
-            'password-label': 'Senha',
-            'perfil-label': 'Tipo de perfil',
-            empresa: 'Empresa',
-            trabajador: 'Trabalhador',
-            fiscalizador: 'Fiscalizador',
-            terminos: 'Aceito os Termos e Condições e a Política de Privacidade',
-            registrar: 'Registrar',
-            'ya-tienes': 'Já tem uma conta?',
-            'iniciar-sesion': 'Entrar',
-            'volver-inicio': 'Voltar ao início',
-            footer: 'LEGADO - Segurança do Trabalho Automatizada - v1.0',
-            'verificando': 'Verificando...',
-            'verificado-exito': '✅ Identidade verificada com sucesso',
-            'verificado-error': '❌ DNI não encontrado',
-            'verificado-error-red': '⚠️ Erro de conexão',
+            subtitulo: 'Criar conta', 'dni-label': 'Documento de Identidade (DNI)', verificar: 'Verificar',
+            'nombre-label': 'Nome completo', 'email-label': 'E-mail', 'password-label': 'Senha',
+            'perfil-label': 'Tipo de perfil', empresa: 'Empresa', trabajador: 'Trabalhador', fiscalizador: 'Fiscalizador',
+            terminos: 'Aceito os Termos e Condições e a Política de Privacidade', registrar: 'Registrar',
+            'ya-tienes': 'Já tem uma conta?', 'iniciar-sesion': 'Entrar', 'volver-inicio': 'Voltar ao início',
+            footer: 'LEGADO - Segurança do Trabalho Automatizada - v1.0', 'verificando': 'Verificando...',
+            'verificado-exito': '✅ Identidade verificada com sucesso', 'verificado-error': '❌ DNI não encontrado',
             'identidad-verificada': 'IDENTIDADE VERIFICADA'
         }
     };
-</script>
 
-<!-- ============================================= -->
-<!-- LÓGICA DE IDIOMAS + VERIFICACIÓN DNI REAL     -->
-<!-- ============================================= -->
-<script>
-    (function() {
-        // -------- IDIOMAS --------
-        const elementos = {};
-        document.querySelectorAll('[data-key]').forEach(el => {
-            const key = el.getAttribute('data-key');
-            if (!elementos[key]) elementos[key] = [];
-            elementos[key].push(el);
+    // IDIOMAS
+    const elementos = {};
+    document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (!elementos[key]) elementos[key] = [];
+        elementos[key].push(el);
+    });
+    const botones = document.querySelectorAll('.idioma-btn');
+    let idiomaActual = 'es';
+
+    function cambiarIdioma(idioma) {
+        if (!traducciones[idioma]) return;
+        idiomaActual = idioma;
+        const datos = traducciones[idioma];
+        Object.keys(datos).forEach(key => {
+            if (elementos[key]) {
+                elementos[key].forEach(el => { el.textContent = datos[key]; });
+            }
         });
-
-        const botones = document.querySelectorAll('.idioma-btn');
-        let idiomaActual = 'es';
-
-        function cambiarIdioma(idioma) {
-            if (!traducciones[idioma]) return;
-            idiomaActual = idioma;
-            const datos = traducciones[idioma];
-            Object.keys(datos).forEach(key => {
-                if (elementos[key]) {
-                    elementos[key].forEach(el => {
-                        el.textContent = datos[key];
-                    });
-                }
-            });
-            botones.forEach(btn => {
-                btn.classList.remove('activo');
-                if (btn.getAttribute('data-lang') === idioma) {
-                    btn.classList.add('activo');
-                }
-            });
-            document.documentElement.lang = idioma;
-            localStorage.setItem('legado-idioma', idioma);
-        }
-
         botones.forEach(btn => {
-            btn.addEventListener('click', function() {
-                cambiarIdioma(this.getAttribute('data-lang'));
-            });
+            btn.classList.remove('activo');
+            if (btn.getAttribute('data-lang') === idioma) btn.classList.add('activo');
         });
+        document.documentElement.lang = idioma;
+        localStorage.setItem('legado-idioma', idioma);
+        verificarBtn.textContent = datos.verificar || 'Verificar';
+        registrarBtn.textContent = datos.registrar || 'Registrar';
+    }
 
-        const guardado = localStorage.getItem('legado-idioma');
-        if (guardado && traducciones[guardado]) {
-            cambiarIdioma(guardado);
+    botones.forEach(btn => {
+        btn.addEventListener('click', function() {
+            cambiarIdioma(this.getAttribute('data-lang'));
+        });
+    });
+
+    const guardado = localStorage.getItem('legado-idioma');
+    if (guardado && traducciones[guardado]) {
+        cambiarIdioma(guardado);
+    } else {
+        const navLang = navigator.language.split('-')[0];
+        if (traducciones[navLang]) cambiarIdioma(navLang);
+        else cambiarIdioma('es');
+    }
+
+    // ========================================
+    // VERIFICACIÓN DE DNI - CON API REAL
+    // ========================================
+    const dniInput = document.getElementById('dniInput');
+    const verificarBtn = document.getElementById('verificarBtn');
+    const nombreInput = document.getElementById('nombreInput');
+    const resultadoDiv = document.getElementById('resultadoVerificacion');
+    const datosDiv = document.getElementById('datosVerificados');
+    const nombreVerificado = document.getElementById('nombreVerificado');
+    const dniVerificadoSpan = document.getElementById('dniVerificado');
+    const registrarBtn = document.getElementById('registrarBtn');
+    const terminosCheck = document.getElementById('terminosCheck');
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+
+    let dniVerificado = false;
+
+    function mostrarResultado(mensaje, tipo) {
+        resultadoDiv.textContent = mensaje;
+        resultadoDiv.className = 'resultado-verificacion ' + tipo;
+    }
+
+    function limpiarResultado() {
+        resultadoDiv.className = 'resultado-verificacion';
+        resultadoDiv.textContent = '';
+        datosDiv.classList.remove('visible');
+    }
+
+    function actualizarBotonRegistro() {
+        const emailValido = emailInput.value.includes('@') && emailInput.value.includes('.');
+        const passwordValido = passwordInput.value.length >= 6;
+        const terminosOk = terminosCheck.checked;
+
+        if (dniVerificado && emailValido && passwordValido && terminosOk) {
+            registrarBtn.disabled = false;
+            registrarBtn.textContent = traducciones[idiomaActual]['registrar'] || 'Registrar';
         } else {
-            const navLang = navigator.language.split('-')[0];
-            if (traducciones[navLang]) {
-                cambiarIdioma(navLang);
-            } else {
-                cambiarIdioma('es');
-            }
+            registrarBtn.disabled = true;
+            registrarBtn.textContent = traducciones[idiomaActual]['registrar'] || 'Completa todos los campos';
         }
+    }
 
-        // -------- VERIFICACIÓN DNI (REAL - SIN DEMO) --------
-        const dniInput = document.getElementById('dniInput');
-        const verificarBtn = document.getElementById('verificarBtn');
-        const nombreInput = document.getElementById('nombreInput');
-        const resultadoDiv = document.getElementById('resultadoVerificacion');
-        const datosDiv = document.getElementById('datosVerificados');
-        const nombreVerificado = document.getElementById('nombreVerificado');
-        const dniVerificadoSpan = document.getElementById('dniVerificado');
-        const registrarBtn = document.getElementById('registrarBtn');
-        const terminosCheck = document.getElementById('terminosCheck');
-        const emailInput = document.getElementById('emailInput');
-        const passwordInput = document.getElementById('passwordInput');
+    function verificarDNI() {
+        const dni = dniInput.value.trim();
 
-        let dniVerificado = false;
-        let datosVerificados = null;
-
-        function mostrarResultado(mensaje, tipo) {
-            resultadoDiv.textContent = mensaje;
-            resultadoDiv.className = 'resultado-verificacion ' + tipo;
-        }
-
-        function limpiarResultado() {
-            resultadoDiv.className = 'resultado-verificacion';
-            resultadoDiv.textContent = '';
+        if (!/^\d{8}$/.test(dni)) {
+            mostrarResultado('DNI inválido (debe tener 8 dígitos)', 'error');
+            dniVerificado = false;
+            nombreInput.value = '';
+            verificarBtn.classList.remove('verificado');
             datosDiv.classList.remove('visible');
+            actualizarBotonRegistro();
+            return;
         }
 
-        function verificarDNI() {
-            const dni = dniInput.value.trim();
+        verificarBtn.textContent = 'Verificando...';
+        verificarBtn.disabled = true;
+        limpiarResultado();
 
-            // Validar formato
-            if (!/^\d{8}$/.test(dni)) {
-                mostrarResultado(
-                    traducciones[idiomaActual]['dni-error'] || 'DNI inválido (debe tener 8 dígitos)',
-                    'error'
-                );
+        // CONSULTA A API REAL DE RENIEC
+        // Reemplaza TU_TOKEN_AQUI con tu token real
+        fetch(`https://api.apis.net.pe/v2/reniec/dni?numero=${dni}`, {
+            headers: {
+                'Authorization': 'Bearer TU_TOKEN_AQUI'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.nombres && data.apellidoPaterno) {
+                const nombreCompleto = `${data.nombres} ${data.apellidoPaterno} ${data.apellidoMaterno || ''}`.trim();
+                nombreInput.value = nombreCompleto;
+                nombreVerificado.textContent = nombreCompleto.toUpperCase();
+                dniVerificadoSpan.textContent = dni;
+                dniVerificado = true;
+                verificarBtn.classList.add('verificado');
+                datosDiv.classList.add('visible');
+                mostrarResultado('✅ Identidad verificada correctamente', 'exito');
+            } else {
                 dniVerificado = false;
                 nombreInput.value = '';
                 verificarBtn.classList.remove('verificado');
                 datosDiv.classList.remove('visible');
-                actualizarBotonRegistro();
-                return;
+                mostrarResultado('❌ DNI no encontrado', 'error');
             }
+            verificarBtn.textContent = 'Verificar';
+            verificarBtn.disabled = false;
+            actualizarBotonRegistro();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            dniVerificado = false;
+            nombreInput.value = '';
+            verificarBtn.classList.remove('verificado');
+            datosDiv.classList.remove('visible');
+            mostrarResultado('⚠️ Error de conexión con RENIEC', 'error');
+            verificarBtn.textContent = 'Verificar';
+            verificarBtn.disabled = false;
+            actualizarBotonRegistro();
+        });
+    }
 
-            // Mostrar estado de verificación
-            verificarBtn.textContent = traducciones[idiomaActual]['verificando'] || 'Verificando...';
-            verificarBtn.disabled = true;
+    verificarBtn.addEventListener('click', verificarDNI);
+
+    dniInput.addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '').slice(0, 8);
+        if (this.value.length === 8) {
+            verificarDNI();
+        } else {
+            dniVerificado = false;
+            nombreInput.value = '';
+            verificarBtn.classList.remove('verificado');
+            datosDiv.classList.remove('visible');
             limpiarResultado();
-
-            // CONSULTA A API REAL
-            // Reemplaza 'TU_TOKEN_AQUI' con tu token real
-            fetch(`https://api.apis.net.pe/v2/reniec/dni?numero=${dni}`, {
-                headers: {
-                    'Authorization': 'Bearer TU_TOKEN_AQUI'
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta de la API');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.nombres && data.apellidoPaterno) {
-                    const nombreCompleto = `${data.nombres} ${data.apellidoPaterno} ${data.apellidoMaterno || ''}`.trim();
-                    nombreInput.value = nombreCompleto;
-                    nombreVerificado.textContent = nombreCompleto.toUpperCase();
-                    dniVerificadoSpan.textContent = dni;
-                    dniVerificado = true;
-                    datosVerificados = data;
-                    verificarBtn.classList.add('verificado');
-                    
-                    // Mostrar datos verificados SIN DEMO
-                    datosDiv.classList.add('visible');
-                    
-                    mostrarResultado(
-                        traducciones[idiomaActual]['verificado-exito'] || '✅ Identidad verificada correctamente',
-                        'exito'
-                    );
-                } else {
-                    dniVerificado = false;
-                    nombreInput.value = '';
-                    verificarBtn.classList.remove('verificado');
-                    datosDiv.classList.remove('visible');
-                    mostrarResultado(
-                        traducciones[idiomaActual]['verificado-error'] || '❌ DNI no encontrado',
-                        'error'
-                    );
-                }
-                verificarBtn.textContent = traducciones[idiomaActual]['verificar'] || 'Verificar';
-                verificarBtn.disabled = false;
-                actualizarBotonRegistro();
-            })
-            .catch(error => {
-                console.error('Error al verificar DNI:', error);
-                dniVerificado = false;
-                nombreInput.value = '';
-                verificarBtn.classList.remove('verificado');
-                datosDiv.classList.remove('visible');
-                mostrarResultado(
-                    traducciones[idiomaActual]['verificado-error-red'] || '⚠️ Error de conexión',
-                    'error'
-                );
-                verificarBtn.textContent = traducciones[idiomaActual]['verificar'] || 'Verificar';
-                verificarBtn.disabled = false;
-                actualizarBotonRegistro();
-            });
+            actualizarBotonRegistro();
         }
+    });
 
-        function actualizarBotonRegistro() {
-            const emailValido = emailInput.value.includes('@') && emailInput.value.includes('.');
-            const passwordValido = passwordInput.value.length >= 6;
-            const terminosOk = terminosCheck.checked;
+    emailInput.addEventListener('input', actualizarBotonRegistro);
+    passwordInput.addEventListener('input', actualizarBotonRegistro);
+    terminosCheck.addEventListener('change', actualizarBotonRegistro);
 
-            if (dniVerificado && emailValido && passwordValido && terminosOk) {
-                registrarBtn.disabled = false;
-                registrarBtn.textContent = traducciones[idiomaActual]['registrar'] || 'Registrar';
-            } else {
-                registrarBtn.disabled = true;
-                registrarBtn.textContent = traducciones[idiomaActual]['registrar'] || 'Completa todos los campos';
-            }
+    registrarBtn.addEventListener('click', function() {
+        if (!this.disabled) {
+            alert('✅ Registro completado exitosamente');
         }
-
-        // Eventos
-        verificarBtn.addEventListener('click', verificarDNI);
-
-        dniInput.addEventListener('input', function() {
-            this.value = this.value.replace(/\D/g, '').slice(0, 8);
-            if (this.value.length === 8) {
-                verificarDNI();
-            } else {
-                dniVerificado = false;
-                nombreInput.value = '';
-                verificarBtn.classList.remove('verificado');
-                datosDiv.classList.remove('visible');
-                limpiarResultado();
-                actualizarBotonRegistro();
-            }
-        });
-
-        emailInput.addEventListener('input', actualizarBotonRegistro);
-        passwordInput.addEventListener('input', actualizarBotonRegistro);
-        terminosCheck.addEventListener('change', actualizarBotonRegistro);
-
-        // Registro
-        registrarBtn.addEventListener('click', function() {
-            if (!this.disabled) {
-                alert('✅ Registro completado exitosamente');
-                // Aquí puedes enviar los datos a tu backend
-            }
-        });
-
-        // Actualizar textos de los botones al cambiar idioma
-        const originalCambiar = cambiarIdioma;
-        cambiarIdioma = function(idioma) {
-            originalCambiar(idioma);
-            verificarBtn.textContent = traducciones[idioma]['verificar'] || 'Verificar';
-            registrarBtn.textContent = traducciones[idioma]['registrar'] || 'Completa todos los campos';
-        };
-        window.cambiarIdioma = cambiarIdioma;
-
-    })();
+    });
 </script>
-
 </body>
 </html>
