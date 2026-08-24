@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>LEGADO - Registro</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { background:#0A0A0A; font-family:Arial,sans-serif; padding:10px; color:#F5F0E8; }
@@ -41,6 +42,9 @@
         .footer { color:#8A7E6B; font-size:11px; text-align:center; margin-top:15px; letter-spacing:1px; }
         .email-verificar { display:flex; gap:10px; }
         .email-verificar input { flex:1; }
+        .codigo-container { display:none; margin-top:10px; }
+        .codigo-container.visible { display:block; }
+        .codigo-container input { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #C9A84C; background:#0A0A0A; color:#F5F0E8; text-align:center; letter-spacing:8px; }
         .badge { display:inline-block; background:#2ECC71; color:#0A0A0A; padding:2px 12px; border-radius:12px; font-size:11px; font-weight:bold; margin-left:5px; }
         .sub-opciones { display:none; margin-top:10px; padding:10px; background:#0A0A0A; border-radius:10px; border:1px solid #333; }
         .sub-opciones.visible { display:block; }
@@ -59,9 +63,17 @@
             <label>Correo electrónico <span>*</span></label>
             <div class="email-verificar">
                 <input type="email" id="emailInput" placeholder="tu@correo.com" inputmode="email" />
-                <button type="button" class="btn" id="verificarEmailBtn">Verificar email</button>
+                <button type="button" class="btn" id="enviarCodigoBtn">Enviar código</button>
             </div>
             <div class="resultado-verificacion" id="resultadoVerificacion"></div>
+        </div>
+
+        <div class="codigo-container" id="codigoContainer">
+            <div class="form-group">
+                <label>Ingresa el código de 6 dígitos <span>*</span></label>
+                <input type="text" id="codigoInput" placeholder="123456" maxlength="6" inputmode="numeric" />
+                <button type="button" class="btn" id="verificarCodigoBtn" style="width:100%; margin-top:8px;">✅ Verificar código</button>
+            </div>
         </div>
 
         <div class="form-group">
@@ -111,10 +123,23 @@
 
 <script>
 // ========================================
+// 🔑 CONFIGURACIÓN EMAILJS
+// ========================================
+const EMAILJS_PUBLIC_KEY = 'cp6D3Tyo2bjgvYhvk';
+const EMAILJS_SERVICE_ID = 'service_s65kkyv';
+const EMAILJS_TEMPLATE_ID = '_ejs-test-mail-service_';
+
+// Inicializar EmailJS
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
+// ========================================
 // VARIABLES
 // ========================================
 const emailInput = document.getElementById('emailInput');
-const verificarEmailBtn = document.getElementById('verificarEmailBtn');
+const enviarCodigoBtn = document.getElementById('enviarCodigoBtn');
+const codigoContainer = document.getElementById('codigoContainer');
+const codigoInput = document.getElementById('codigoInput');
+const verificarCodigoBtn = document.getElementById('verificarCodigoBtn');
 const resultadoDiv = document.getElementById('resultadoVerificacion');
 const passwordInput = document.getElementById('passwordInput');
 const terminosCheck = document.getElementById('terminosCheck');
@@ -124,10 +149,10 @@ const subGubernamental = document.getElementById('subGubernamental');
 const otroGubernamental = document.getElementById('otroGubernamental');
 
 let emailVerificado = false;
+let codigoGenerado = '';
+let intentosFallidos = 0;
+const MAX_INTENTOS = 3;
 
-// ========================================
-// FUNCIONES
-// ========================================
 function mostrarResultado(mensaje, tipo) {
     resultadoDiv.textContent = mensaje;
     resultadoDiv.className = 'resultado-verificacion ' + tipo;
@@ -160,9 +185,9 @@ document.querySelectorAll('input[name="subperfil"]').forEach(function(radio) {
 });
 
 // ========================================
-// VERIFICACIÓN REAL CON MAILBOXLAYER API
+// ENVIAR CÓDIGO REAL POR CORREO
 // ========================================
-function verificarEmail() {
+function enviarCodigo() {
     const email = emailInput.value.trim();
 
     if (!email.includes('@') || !email.includes('.')) {
@@ -170,112 +195,107 @@ function verificarEmail() {
         return;
     }
 
-    mostrarResultado('⏳ Verificando email...', 'verificando');
-    verificarEmailBtn.disabled = true;
-    verificarEmailBtn.textContent = 'Verificando...';
+    codigoGenerado = Math.floor(100000 + Math.random() * 900000).toString();
+    intentosFallidos = 0;
+    
+    mostrarResultado('📧 Enviando código a ' + email + '...', 'verificando');
+    enviarCodigoBtn.disabled = true;
+    enviarCodigoBtn.textContent = 'Enviando...';
 
-    // Mailboxlayer API (gratis, 1000 verificaciones/mes sin registro)
-    fetch(`http://apilayer.net/api/check?access_key=demo&email=${encodeURIComponent(email)}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la API');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Respuesta API:', data);
-            
-            // Verificar si la API devolvió datos válidos
-            if (data && data.format_valid !== undefined) {
-                if (data.format_valid && data.smtp_check) {
-                    emailVerificado = true;
-                    let mensaje = `✅ Email verificado correctamente`;
-                    
-                    if (data.smtp_check) {
-                        mensaje += `\n✅ Buzón confirmado (SMTP)`;
-                    }
-                    if (data.mx_found) {
-                        mensaje += `\n📮 Servidor de correo: ${data.mx_record || 'configurado'}`;
-                    }
-                    if (!data.disposable) {
-                        mensaje += `\n✅ No es email temporal`;
-                    }
-                    if (!data.role) {
-                        mensaje += `\n✅ Es email personal`;
-                    }
-                    
-                    mostrarResultado(mensaje, 'exito');
-                    emailInput.disabled = true;
-                    verificarEmailBtn.disabled = true;
-                    verificarEmailBtn.textContent = '✅ Verificado';
-                    
-                    const badge = document.createElement('span');
-                    badge.className = 'badge';
-                    badge.textContent = '✅ VERIFICADO';
-                    badge.id = 'verifiedBadge';
-                    const existingBadge = document.getElementById('verifiedBadge');
-                    if (existingBadge) existingBadge.remove();
-                    emailInput.parentNode.appendChild(badge);
-                    
-                } else {
-                    emailVerificado = false;
-                    let mensaje = `❌ Email no válido`;
-                    
-                    if (data.format_valid === false) {
-                        mensaje += `\n⚠️ Formato de email incorrecto`;
-                    }
-                    if (data.smtp_check === false) {
-                        mensaje += `\n⚠️ El buzón no existe o no está disponible`;
-                    }
-                    if (data.disposable) {
-                        mensaje += `\n⚠️ Es un email temporal (desechable)`;
-                    }
-                    if (data.role) {
-                        mensaje += `\n⚠️ Es un email de grupo (info@, admin@, etc.)`;
-                    }
-                    
-                    mostrarResultado(mensaje, 'error');
-                }
-            } else {
-                mostrarResultado('⚠️ No se pudo verificar. Intenta con otro email.', 'error');
-                emailVerificado = false;
-            }
-            
-            verificarEmailBtn.disabled = false;
-            verificarEmailBtn.textContent = 'Verificar email';
-            actualizarBotonRegistro();
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            mostrarResultado('⚠️ Error de conexión. Verifica tu internet y vuelve a intentar.', 'error');
-            verificarEmailBtn.disabled = false;
-            verificarEmailBtn.textContent = 'Verificar email';
-            emailVerificado = false;
-        });
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: email,
+        from_name: 'LEGADO',
+        codigo: codigoGenerado,
+        mensaje: 'Tu código de verificación LEGADO es: ' + codigoGenerado
+    })
+    .then(function(response) {
+        mostrarResultado('✅ Código enviado a ' + email + '. Revisa tu bandeja.', 'exito');
+        codigoContainer.classList.add('visible');
+        codigoInput.value = '';
+        codigoInput.disabled = false;
+        verificarCodigoBtn.disabled = false;
+        codigoInput.focus();
+        enviarCodigoBtn.textContent = '✅ Enviado';
+        console.log('📧 Código:', codigoGenerado);
+    })
+    .catch(function(error) {
+        console.error('❌ Error:', error);
+        mostrarResultado('❌ Error al enviar el código. Intenta de nuevo.', 'error');
+        enviarCodigoBtn.disabled = false;
+        enviarCodigoBtn.textContent = 'Reenviar código';
+    });
+}
+
+// ========================================
+// VERIFICAR CÓDIGO
+// ========================================
+function verificarCodigo() {
+    const codigoIngresado = codigoInput.value.trim();
+
+    if (intentosFallidos >= MAX_INTENTOS) {
+        mostrarResultado('❌ Demasiados intentos. Solicita un nuevo código.', 'error');
+        codigoInput.disabled = true;
+        verificarCodigoBtn.disabled = true;
+        return;
+    }
+
+    if (codigoIngresado === codigoGenerado) {
+        emailVerificado = true;
+        mostrarResultado('✅ Correo verificado correctamente', 'exito');
+        codigoContainer.classList.remove('visible');
+        emailInput.disabled = true;
+        enviarCodigoBtn.disabled = true;
+        enviarCodigoBtn.textContent = '✅ Verificado';
+        
+        const badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.textContent = '✅ VERIFICADO';
+        badge.id = 'verifiedBadge';
+        const existingBadge = document.getElementById('verifiedBadge');
+        if (existingBadge) existingBadge.remove();
+        emailInput.parentNode.appendChild(badge);
+        
+        actualizarBotonRegistro();
+    } else {
+        intentosFallidos++;
+        const restantes = MAX_INTENTOS - intentosFallidos;
+        mostrarResultado('❌ Código incorrecto. Te quedan ' + restantes + ' intentos.', 'error');
+        codigoInput.value = '';
+        codigoInput.focus();
+        if (intentosFallidos >= MAX_INTENTOS) {
+            codigoInput.disabled = true;
+            verificarCodigoBtn.disabled = true;
+        }
+    }
 }
 
 // ========================================
 // EVENTOS
 // ========================================
 
-verificarEmailBtn.addEventListener('click', verificarEmail);
+enviarCodigoBtn.addEventListener('click', enviarCodigo);
+verificarCodigoBtn.addEventListener('click', verificarCodigo);
+
+codigoInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        verificarCodigo();
+    }
+});
 
 emailInput.addEventListener('input', function() {
     if (emailVerificado) {
         emailVerificado = false;
         emailInput.disabled = false;
-        verificarEmailBtn.disabled = false;
-        verificarEmailBtn.textContent = 'Verificar email';
+        enviarCodigoBtn.disabled = false;
+        enviarCodigoBtn.textContent = 'Enviar código';
+        codigoContainer.classList.remove('visible');
+        codigoInput.disabled = false;
+        verificarCodigoBtn.disabled = false;
+        intentosFallidos = 0;
         const badge = document.getElementById('verifiedBadge');
         if (badge) badge.remove();
         mostrarResultado('📧 Correo modificado, debes verificar nuevamente', 'info');
         actualizarBotonRegistro();
-    }
-});
-
-emailInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-        verificarEmail();
     }
 });
 
