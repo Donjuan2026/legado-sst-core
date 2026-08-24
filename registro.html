@@ -71,18 +71,6 @@
             </div>
         </div>
 
-        <!-- DNI -->
-        <div class="form-group">
-            <label>Documento de Identidad (DNI) <span>*</span></label>
-            <input type="text" id="dniInput" placeholder="Ej: 12345678" maxlength="8" inputmode="numeric" />
-        </div>
-
-        <!-- NOMBRES -->
-        <div class="form-group">
-            <label>Nombres completos <span>*</span></label>
-            <input type="text" id="nombreInput" placeholder="Ej: Juan Carlos" />
-        </div>
-
         <!-- CONTRASEÑA -->
         <div class="form-group">
             <label>Contraseña <span>*</span></label>
@@ -127,8 +115,6 @@ const codigoContainer = document.getElementById('codigoContainer');
 const codigoInput = document.getElementById('codigoInput');
 const verificarCodigoBtn = document.getElementById('verificarCodigoBtn');
 const resultadoDiv = document.getElementById('resultadoVerificacion');
-const dniInput = document.getElementById('dniInput');
-const nombreInput = document.getElementById('nombreInput');
 const passwordInput = document.getElementById('passwordInput');
 const terminosCheck = document.getElementById('terminosCheck');
 const registrarBtn = document.getElementById('registrarBtn');
@@ -151,12 +137,10 @@ function limpiarResultado() {
 
 function actualizarBotonRegistro() {
     const emailValido = emailInput.value.includes('@') && emailInput.value.includes('.');
-    const dniValido = dniInput.value.trim().length >= 6;
-    const nombreValido = nombreInput.value.trim().length >= 2;
     const passwordValido = passwordInput.value.length >= 6;
     const terminosOk = terminosCheck.checked;
 
-    if (emailVerificado && emailValido && dniValido && nombreValido && passwordValido && terminosOk) {
+    if (emailVerificado && emailValido && passwordValido && terminosOk) {
         registrarBtn.disabled = false;
         registrarBtn.textContent = 'Registrar';
     } else {
@@ -166,7 +150,7 @@ function actualizarBotonRegistro() {
 }
 
 // ========================================
-// ENVIAR CÓDIGO (simulación)
+// ENVIAR CÓDIGO
 // ========================================
 function enviarCodigo() {
     const email = emailInput.value.trim();
@@ -179,18 +163,16 @@ function enviarCodigo() {
     // Generar código de 6 dígitos
     codigoGenerado = Math.floor(100000 + Math.random() * 900000).toString();
     
-    // Mostrar en consola (para pruebas)
-    console.log(`📧 Código enviado a ${email}: ${codigoGenerado}`);
-    
-    mostrarResultado(`📧 Código enviado a ${email}. Revisa tu bandeja de entrada.`, 'info');
+    mostrarResultado('📧 Código enviado a ' + email, 'info');
     codigoContainer.classList.add('visible');
     codigoInput.value = '';
     codigoInput.focus();
     enviarCodigoBtn.disabled = true;
     enviarCodigoBtn.textContent = '✅ Enviado';
     
-    // Aquí se integraría el envío real con EmailJS, SendGrid, etc.
-    alert(`✅ Código de verificación: ${codigoGenerado}\n(En producción se enviará a tu correo)`);
+    // Mostrar código en consola (para pruebas)
+    console.log('📧 Código de verificación:', codigoGenerado);
+    alert('✅ Código de verificación: ' + codigoGenerado + '\n(En producción se enviará a tu correo)');
 }
 
 // ========================================
@@ -245,12 +227,6 @@ emailInput.addEventListener('input', function() {
 });
 
 // Validar campos
-dniInput.addEventListener('input', function() {
-    this.value = this.value.replace(/\D/g, '').slice(0, 8);
-    actualizarBotonRegistro();
-});
-
-nombreInput.addEventListener('input', actualizarBotonRegistro);
 passwordInput.addEventListener('input', actualizarBotonRegistro);
 terminosCheck.addEventListener('change', actualizarBotonRegistro);
 
@@ -264,7 +240,7 @@ registrarBtn.addEventListener('click', function() {
 // ========================================
 // INICIO
 // ========================================
-console.log('📧 LEGADO - Verificación por correo electrónico');
+console.log('📧 LEGADO - Registro con verificación por correo');
 </script>
 </body>
 </html>
