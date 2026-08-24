@@ -160,7 +160,7 @@ document.querySelectorAll('input[name="subperfil"]').forEach(function(radio) {
 });
 
 // ========================================
-// VERIFICACIÓN REAL CON EVA API
+// VERIFICACIÓN REAL CON MAILBOXLAYER API
 // ========================================
 function verificarEmail() {
     const email = emailInput.value.trim();
@@ -174,8 +174,8 @@ function verificarEmail() {
     verificarEmailBtn.disabled = true;
     verificarEmailBtn.textContent = 'Verificando...';
 
-    // Eva API (gratis, sin registro)
-    fetch(`https://api.eva.pingutil.com/email?email=${encodeURIComponent(email)}`)
+    // Mailboxlayer API (gratis, 1000 verificaciones/mes sin registro)
+    fetch(`http://apilayer.net/api/check?access_key=demo&email=${encodeURIComponent(email)}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Error en la API');
@@ -183,23 +183,24 @@ function verificarEmail() {
             return response.json();
         })
         .then(data => {
-            if (data.status === 'success') {
-                const result = data.data;
-                
-                if (result.verdict === 'Valid') {
+            console.log('Respuesta API:', data);
+            
+            // Verificar si la API devolvió datos válidos
+            if (data && data.format_valid !== undefined) {
+                if (data.format_valid && data.smtp_check) {
                     emailVerificado = true;
                     let mensaje = `✅ Email verificado correctamente`;
                     
-                    if (result.smtp_check === 'True') {
+                    if (data.smtp_check) {
                         mensaje += `\n✅ Buzón confirmado (SMTP)`;
                     }
-                    if (result.mx_found) {
-                        mensaje += `\n📮 Servidor de correo: ${result.mx_record || 'configurado'}`;
+                    if (data.mx_found) {
+                        mensaje += `\n📮 Servidor de correo: ${data.mx_record || 'configurado'}`;
                     }
-                    if (result.disposable === 'False') {
+                    if (!data.disposable) {
                         mensaje += `\n✅ No es email temporal`;
                     }
-                    if (result.role === 'False') {
+                    if (!data.role) {
                         mensaje += `\n✅ Es email personal`;
                     }
                     
@@ -220,20 +221,23 @@ function verificarEmail() {
                     emailVerificado = false;
                     let mensaje = `❌ Email no válido`;
                     
-                    if (result.deliverable === 'False') {
-                        mensaje += `\n⚠️ No es entregable`;
+                    if (data.format_valid === false) {
+                        mensaje += `\n⚠️ Formato de email incorrecto`;
                     }
-                    if (result.disposable === 'True') {
+                    if (data.smtp_check === false) {
+                        mensaje += `\n⚠️ El buzón no existe o no está disponible`;
+                    }
+                    if (data.disposable) {
                         mensaje += `\n⚠️ Es un email temporal (desechable)`;
                     }
-                    if (result.role === 'True') {
+                    if (data.role) {
                         mensaje += `\n⚠️ Es un email de grupo (info@, admin@, etc.)`;
                     }
                     
                     mostrarResultado(mensaje, 'error');
                 }
             } else {
-                mostrarResultado('❌ Error al verificar el email. Intenta de nuevo.', 'error');
+                mostrarResultado('⚠️ No se pudo verificar. Intenta con otro email.', 'error');
                 emailVerificado = false;
             }
             
@@ -243,7 +247,7 @@ function verificarEmail() {
         })
         .catch(error => {
             console.error('Error:', error);
-            mostrarResultado('❌ Error de conexión. Verifica tu internet.', 'error');
+            mostrarResultado('⚠️ Error de conexión. Verifica tu internet y vuelve a intentar.', 'error');
             verificarEmailBtn.disabled = false;
             verificarEmailBtn.textContent = 'Verificar email';
             emailVerificado = false;
