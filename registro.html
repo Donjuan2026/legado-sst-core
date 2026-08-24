@@ -14,7 +14,7 @@
         }
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f44 100%);
+            background: #0b1a2e;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -22,24 +22,18 @@
             padding: 20px;
         }
         .container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 32px;
+            background: #ffffff;
+            border-radius: 16px;
             padding: 40px 32px;
             max-width: 480px;
             width: 100%;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
         h1 {
             font-size: 28px;
             font-weight: 700;
-            color: #f0e9d0;
-            letter-spacing: 1px;
+            color: #0b1a2e;
             margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         h1 span {
             background: #c9a84c;
@@ -51,7 +45,7 @@
             line-height: 26px;
         }
         .sub {
-            color: #8fa8b9;
+            color: #555;
             font-size: 14px;
             margin-bottom: 28px;
             border-left: 3px solid #c9a84c;
@@ -64,9 +58,8 @@
             display: block;
             font-size: 13px;
             font-weight: 600;
-            color: #d6dce5;
+            color: #333;
             margin-bottom: 4px;
-            letter-spacing: 0.3px;
         }
         label .obligatorio {
             color: #e74c3c;
@@ -75,10 +68,10 @@
         select {
             width: 100%;
             padding: 12px 16px;
-            border-radius: 14px;
-            border: 1.5px solid rgba(255, 255, 255, 0.10);
-            background: rgba(0, 0, 0, 0.35);
-            color: #f0f4fa;
+            border-radius: 8px;
+            border: 1.5px solid #ccc;
+            background: #fafafa;
+            color: #333;
             font-size: 15px;
             transition: 0.2s;
             outline: none;
@@ -86,12 +79,11 @@
         input:focus,
         select:focus {
             border-color: #c9a84c;
-            background: rgba(0, 0, 0, 0.5);
+            background: #fff;
             box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
         }
         input::placeholder {
-            color: #6a7f8e;
-            font-weight: 300;
+            color: #aaa;
         }
         .fila-codigo {
             display: flex;
@@ -102,44 +94,32 @@
             flex: 1;
         }
         .fila-codigo button {
-            background: #1e3a52;
+            background: #c9a84c;
             border: none;
-            color: #d6dce5;
+            color: #0b1a2e;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 14px;
             padding: 0 18px;
-            border-radius: 40px;
+            border-radius: 8px;
             height: 48px;
             white-space: nowrap;
             cursor: pointer;
             transition: 0.2s;
-            border: 1px solid rgba(255, 255, 255, 0.06);
         }
         .fila-codigo button:hover:not(:disabled) {
-            background: #2a4a66;
-            border-color: #c9a84c;
-            color: #fff;
+            background: #dbb95c;
         }
         .fila-codigo button:disabled {
-            opacity: 0.4;
+            opacity: 0.5;
             cursor: not-allowed;
         }
-        .campo-codigo {
-            display: none;
-        }
-        .campo-codigo.visible {
-            display: block;
-        }
         .mensaje-error {
-            color: #f28b82;
+            color: #e74c3c;
             font-size: 13px;
             margin-top: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
         .mensaje-exito {
-            color: #81c995;
+            color: #27ae60;
             font-size: 13px;
             margin-top: 6px;
         }
@@ -159,7 +139,7 @@
         .checkbox label {
             font-weight: 400;
             font-size: 14px;
-            color: #bcc9d4;
+            color: #333;
             line-height: 1.5;
         }
         .checkbox label a {
@@ -175,7 +155,7 @@
             padding: 14px;
             background: #c9a84c;
             border: none;
-            border-radius: 40px;
+            border-radius: 8px;
             font-weight: 700;
             font-size: 17px;
             color: #0b1a2e;
@@ -186,13 +166,10 @@
         }
         .btn-primario:hover:not(:disabled) {
             background: #dbb95c;
-            transform: scale(1.01);
-            box-shadow: 0 8px 25px rgba(201, 168, 76, 0.25);
         }
         .btn-primario:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
         }
         .pie {
             margin-top: 24px;
@@ -212,27 +189,31 @@
             text-decoration: underline;
         }
         .pie .volver {
-            color: #6a7f8e;
+            color: #888;
             font-weight: 400;
         }
         .version {
             text-align: center;
             margin-top: 22px;
             font-size: 12px;
-            color: #3f5667;
-            letter-spacing: 0.5px;
+            color: #aaa;
+        }
+        .badge-error {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.25);
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #e74c3c;
+            font-size: 14px;
+            margin-bottom: 16px;
         }
         .oculto {
             display: none !important;
         }
-        .badge-error {
-            background: rgba(231, 76, 60, 0.12);
-            border: 1px solid rgba(231, 76, 60, 0.25);
-            padding: 12px 16px;
-            border-radius: 14px;
-            color: #f28b82;
-            font-size: 14px;
-            margin-bottom: 16px;
+        .texto-ayuda {
+            font-size: 12px;
+            color: #888;
+            margin-top: 6px;
         }
         @media (max-width: 500px) {
             .container {
@@ -262,35 +243,36 @@
 
         <div id="globalError" class="badge-error oculto"></div>
 
+        <!-- CORREO -->
         <div class="grupo">
             <label>Correo electrónico <span class="obligatorio">*</span></label>
             <input type="email" id="email" placeholder="tucorreo@empresa.com" />
             <div id="emailError" class="mensaje-error"></div>
         </div>
 
+        <!-- CÓDIGO DE VERIFICACIÓN - SIEMPRE VISIBLE -->
         <div class="grupo">
+            <label>Código de verificación <span class="obligatorio">*</span></label>
             <div class="fila-codigo">
+                <input type="text" id="codigoInput" placeholder="Ej: 482391" maxlength="6" inputmode="numeric" />
                 <button id="btnEnviarCodigo">📩 Enviar código</button>
-                <span id="timer" style="color:#6a7f8e;font-size:14px;font-weight:500;"></span>
             </div>
             <div id="codigoStatus" class="mensaje-error"></div>
-        </div>
-
-        <div id="campoCodigo" class="grupo campo-codigo">
-            <label>Código de verificación <span class="obligatorio">*</span></label>
-            <input type="text" id="codigoInput" placeholder="Ej: 482391" maxlength="6" inputmode="numeric" />
             <div id="codigoError" class="mensaje-error"></div>
-            <div style="margin-top:6px;font-size:12px;color:#5a7385;">
+            <div class="texto-ayuda">
                 Revisa tu bandeja de entrada (o spam). El código expira en 5 minutos.
+                <span id="timer" style="font-weight:600;color:#c9a84c;"></span>
             </div>
         </div>
 
+        <!-- CONTRASEÑA -->
         <div class="grupo">
             <label>Contraseña <span class="obligatorio">*</span></label>
             <input type="password" id="password" placeholder="Mínimo 6 caracteres" />
             <div id="passError" class="mensaje-error"></div>
         </div>
 
+        <!-- PERFIL -->
         <div class="grupo">
             <label>Tipo de perfil <span class="obligatorio">*</span></label>
             <select id="perfil">
@@ -302,6 +284,7 @@
             </select>
         </div>
 
+        <!-- TÉRMINOS -->
         <div class="checkbox">
             <input type="checkbox" id="terminos" />
             <label for="terminos">
@@ -310,10 +293,12 @@
             </label>
         </div>
 
+        <!-- BOTÓN REGISTRAR -->
         <button class="btn-primario" id="btnRegistrar" disabled>
             Crear cuenta
         </button>
 
+        <!-- PIE -->
         <div class="pie">
             <span>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></span>
             <a href="index.html" class="volver">← Volver al inicio</a>
@@ -324,10 +309,10 @@
 
     <script>
         // ============================================================
-        //  CONFIGURACIÓN EMAILJS - ¡CAMBIAR AQUÍ!
+        //  CONFIGURACIÓN EMAILJS - TUS DATOS
         // ============================================================
         const EMAILJS_SERVICE = 'service_s65kky';
-        const EMAILJS_TEMPLATE = 'AQUI_EL_ID_DE_TU_PLANTILLA'; // ← CAMBIA ESTO
+        const EMAILJS_TEMPLATE = '__ejs-test-mail-service__';
         const EMAILJS_PUBLIC_KEY = '8qj_1tDP9zNfYLkVI';
 
         emailjs.init(EMAILJS_PUBLIC_KEY);
@@ -342,7 +327,6 @@
         const email = $('email');
         const btnEnviar = $('btnEnviarCodigo');
         const timerSpan = $('timer');
-        const campoCodigo = $('campoCodigo');
         const codigoInput = $('codigoInput');
         const codigoStatus = $('codigoStatus');
         const codigoError = $('codigoError');
@@ -354,10 +338,12 @@
         const btnRegistrar = $('btnRegistrar');
         const globalError = $('globalError');
 
+        // GENERAR CÓDIGO DE 6 DÍGITOS
         function generarCodigo() {
             return String(Math.floor(100000 + Math.random() * 900000));
         }
 
+        // ENVIAR CÓDIGO POR EMAILJS
         async function enviarCodigo() {
             const correo = email.value.trim();
 
@@ -370,10 +356,9 @@
             codigoGenerado = generarCodigo();
             codigoEnviado = true;
             codigoVerificado = false;
-            campoCodigo.classList.remove('visible');
             codigoInput.value = '';
             codigoStatus.textContent = '⏳ Enviando...';
-            codigoStatus.style.color = '#d6dce5';
+            codigoStatus.style.color = '#555';
 
             try {
                 const response = await emailjs.send(
@@ -386,20 +371,21 @@
                 );
 
                 console.log('✅ EmailJS response:', response);
-                campoCodigo.classList.add('visible');
                 codigoStatus.textContent = '✅ Código enviado a tu correo.';
-                codigoStatus.style.color = '#81c995';
+                codigoStatus.style.color = '#27ae60';
+                codigoError.textContent = '';
                 iniciarTimer(300);
                 globalError.classList.add('oculto');
 
             } catch (error) {
                 console.error('❌ Error EmailJS:', error);
                 codigoStatus.textContent = '✖ Error al enviar el código. Intenta de nuevo.';
-                codigoStatus.style.color = '#f28b82';
+                codigoStatus.style.color = '#e74c3c';
                 codigoEnviado = false;
             }
         }
 
+        // TEMPORIZADOR DE 5 MINUTOS
         function iniciarTimer(segundos) {
             if (timerInterval) clearInterval(timerInterval);
             segundosRestantes = segundos;
@@ -415,10 +401,10 @@
                     btnEnviar.disabled = false;
                     timerSpan.textContent = '';
                     codigoStatus.textContent = '⏰ El código expiró. Envía uno nuevo.';
-                    codigoStatus.style.color = '#f28b82';
-                    campoCodigo.classList.remove('visible');
+                    codigoStatus.style.color = '#e74c3c';
                     codigoEnviado = false;
                     codigoVerificado = false;
+                    codigoInput.value = '';
                 }
             }, 1000);
         }
@@ -426,34 +412,38 @@
         function actualizarTimer() {
             const m = Math.floor(segundosRestantes / 60);
             const s = segundosRestantes % 60;
-            timerSpan.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+            timerSpan.textContent = `⏱️ ${m}:${s.toString().padStart(2, '0')}`;
         }
 
+        // VALIDAR CÓDIGO CUANDO EL USUARIO ESCRIBE
         function validarCodigo() {
             const ingresado = codigoInput.value.trim();
             if (!codigoEnviado) {
                 codigoError.textContent = '⚠️ Primero envía el código a tu correo.';
                 codigoVerificado = false;
+                verificarFormulario();
                 return;
             }
             if (ingresado.length < 6) {
                 codigoError.textContent = '⚠️ El código tiene 6 dígitos.';
                 codigoVerificado = false;
+                verificarFormulario();
                 return;
             }
             if (ingresado === codigoGenerado) {
                 codigoError.textContent = '✅ Código verificado correctamente.';
-                codigoError.style.color = '#81c995';
+                codigoError.style.color = '#27ae60';
                 codigoVerificado = true;
                 globalError.classList.add('oculto');
             } else {
                 codigoError.textContent = '✖ Código incorrecto. Intenta de nuevo.';
-                codigoError.style.color = '#f28b82';
+                codigoError.style.color = '#e74c3c';
                 codigoVerificado = false;
             }
             verificarFormulario();
         }
 
+        // VERIFICAR FORMULARIO COMPLETO
         function verificarFormulario() {
             const pass = password.value.trim();
             const perfilVal = perfil.value;
@@ -484,6 +474,7 @@
             btnRegistrar.disabled = !valido;
         }
 
+        // REGISTRAR USUARIO
         function registrar() {
             if (btnRegistrar.disabled) {
                 globalError.textContent = '⚠️ Completa todos los campos correctamente.';
@@ -501,8 +492,10 @@
 
             console.log('📦 Registro completado:', datos);
             alert('✅ ¡Cuenta creada exitosamente! Bienvenido a LEGADO.');
+            // window.location.href = 'dashboard.html';
         }
 
+        // EVENTOS
         btnEnviar.addEventListener('click', enviarCodigo);
         codigoInput.addEventListener('input', validarCodigo);
         email.addEventListener('input', verificarFormulario);
