@@ -13,12 +13,10 @@
         .form-group { margin-bottom:15px; }
         .form-group label { display:block; font-size:14px; margin-bottom:5px; color:#E8D5A3; }
         .form-group label span { color:#E74C3C; }
-        input, select { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #333; background:#0A0A0A; color:#F5F0E8; }
-        input:focus, select:focus { outline:none; border-color:#C9A84C; }
+        input { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #333; background:#0A0A0A; color:#F5F0E8; }
+        input:focus { outline:none; border-color:#C9A84C; }
         input::placeholder { color:#555; }
         input:disabled { opacity:0.5; cursor:not-allowed; }
-        .dni-verificar { display:flex; gap:10px; }
-        .dni-verificar input { flex:1; }
         .btn { padding:14px 20px; border-radius:10px; border:2px solid #C9A84C; background:transparent; color:#C9A84C; font-size:16px; font-weight:bold; cursor:pointer; transition:all 0.3s; min-height:50px; }
         .btn:active { transform:scale(0.97); }
         .btn:hover { background:#C9A84C; color:#0A0A0A; }
@@ -29,10 +27,7 @@
         .resultado-verificacion { padding:12px 15px; border-radius:8px; margin-top:8px; font-size:14px; display:none; }
         .resultado-verificacion.exito { display:block; background:rgba(46,204,113,0.15); border:1px solid #2ECC71; color:#2ECC71; }
         .resultado-verificacion.error { display:block; background:rgba(231,76,60,0.15); border:1px solid #E74C3C; color:#E74C3C; }
-        .resultado-verificacion.pregunta { display:block; background:rgba(241,196,15,0.15); border:1px solid #F1C40F; color:#F1C40F; }
-        .datos-verificados { display:none; background:rgba(201,168,76,0.1); border:1px solid #C9A84C; border-radius:10px; padding:12px 15px; margin-top:8px; color:#F5F0E8; font-size:14px; }
-        .datos-verificados.visible { display:block; }
-        .datos-verificados strong { color:#C9A84C; }
+        .resultado-verificacion.info { display:block; background:rgba(52,152,219,0.15); border:1px solid #3498DB; color:#3498DB; }
         .tipo-perfil { display:flex; gap:15px; flex-wrap:wrap; color:#F5F0E8; font-size:14px; margin:8px 0; }
         .tipo-perfil label { display:flex; align-items:center; gap:6px; cursor:pointer; }
         .tipo-perfil input[type="radio"] { width:18px; height:18px; accent-color:#C9A84C; }
@@ -43,86 +38,58 @@
         .enlace:hover { text-decoration:underline; }
         .texto-centro { text-align:center; color:#8A7E6B; font-size:14px; margin:15px 0; }
         .footer { color:#8A7E6B; font-size:11px; text-align:center; margin-top:15px; letter-spacing:1px; }
-        .estado-dispositivo { background:#0A0A0A; border-radius:8px; padding:10px; margin-bottom:15px; font-size:12px; color:#8A7E6B; text-align:center; border:1px solid #222; }
-        .opciones-extra { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:15px 0; }
-        .opciones-extra .btn { font-size:13px; padding:10px 8px; }
-        .pais-selector { display:none; margin-top:10px; }
-        .pais-selector.visible { display:block; }
-        .pais-selector select { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #C9A84C; background:#0A0A0A; color:#F5F0E8; }
-        .pais-selector .btn { width:100%; margin-top:8px; }
-        @media (max-width:480px) { .container { padding:15px; } .logo { font-size:24px; } .dni-verificar { flex-direction:column; } .opciones-extra { grid-template-columns:1fr; } .tipo-perfil { flex-direction:column; gap:6px; } }
+        .email-verificar { display:flex; gap:10px; }
+        .email-verificar input { flex:1; }
+        .codigo-container { display:none; margin-top:10px; }
+        .codigo-container.visible { display:block; }
+        .codigo-container input { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #C9A84C; background:#0A0A0A; color:#F5F0E8; text-align:center; letter-spacing:8px; }
+        @media (max-width:480px) { .container { padding:15px; } .logo { font-size:24px; } .email-verificar { flex-direction:column; } }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="logo">LEGADO</div>
     <div class="subtitulo">Crear cuenta</div>
-    <div class="estado-dispositivo" id="estadoDispositivo">📱 Detectando tu dispositivo...</div>
     <form id="registroForm" onsubmit="return false;">
-        <div class="form-group">
-            <label>Documento de Identidad <span>*</span></label>
-            <div class="dni-verificar">
-                <input type="text" id="dniInput" placeholder="Ej: 12345678" maxlength="20" inputmode="numeric" />
-                <button type="button" class="btn" id="verificarBtn">Verificar</button>
-            </div>
-            <div class="resultado-verificacion" id="resultadoVerificacion"></div>
-            
-            <!-- SELECTOR DE PAÍS (aparece cuando el DNI no existe) -->
-            <div class="pais-selector" id="paisSelector">
-                <label style="color:#F1C40F; font-size:14px;">🌍 ¿De qué país es este documento?</label>
-                <select id="paisSelect">
-                    <option value="">Selecciona un país...</option>
-                    <option value="PE">🇵🇪 Perú</option>
-                    <option value="AR">🇦🇷 Argentina</option>
-                    <option value="BO">🇧🇴 Bolivia</option>
-                    <option value="BR">🇧🇷 Brasil</option>
-                    <option value="CL">🇨🇱 Chile</option>
-                    <option value="CO">🇨🇴 Colombia</option>
-                    <option value="CR">🇨🇷 Costa Rica</option>
-                    <option value="CU">🇨🇺 Cuba</option>
-                    <option value="DO">🇩🇴 República Dominicana</option>
-                    <option value="EC">🇪🇨 Ecuador</option>
-                    <option value="SV">🇸🇻 El Salvador</option>
-                    <option value="GT">🇬🇹 Guatemala</option>
-                    <option value="HN">🇭🇳 Honduras</option>
-                    <option value="MX">🇲🇽 México</option>
-                    <option value="NI">🇳🇮 Nicaragua</option>
-                    <option value="PA">🇵🇦 Panamá</option>
-                    <option value="PY">🇵🇾 Paraguay</option>
-                    <option value="PE">🇵🇪 Perú</option>
-                    <option value="ES">🇪🇸 España</option>
-                    <option value="US">🇺🇸 Estados Unidos</option>
-                    <option value="UY">🇺🇾 Uruguay</option>
-                    <option value="VE">🇻🇪 Venezuela</option>
-                    <option value="OTRO">🌎 Otro país</option>
-                </select>
-                <button type="button" class="btn" id="paisConfirmarBtn" style="margin-top:8px; border-color:#F1C40F; color:#F1C40F;">✅ Verificar en este país</button>
-            </div>
-            
-            <div class="datos-verificados" id="datosVerificados">
-                <strong>✅ IDENTIDAD VERIFICADA</strong><br />
-                <span id="nombreVerificado">MIGUEL ANGEL TORRES PEREZ</span><br />
-                <small>DNI: <span id="dniVerificado">12345678</span></small>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Nombres completos <span>*</span></label>
-            <input type="text" id="nombreInput" placeholder="Ej: Juan Carlos" readonly style="background:#111; cursor:not-allowed;" />
-        </div>
-        <div class="opciones-extra">
-            <button type="button" class="btn" id="btnCamara" disabled>📷 Cámara</button>
-            <button type="button" class="btn" id="btnUbicacion" disabled>📍 GPS</button>
-            <button type="button" class="btn" id="btnHuella" disabled>🔐 Huella</button>
-            <button type="button" class="btn" id="btnQR" disabled>📲 QR</button>
-        </div>
+        
+        <!-- EMAIL -->
         <div class="form-group">
             <label>Correo electrónico <span>*</span></label>
-            <input type="email" id="emailInput" placeholder="tu@correo.com" inputmode="email" />
+            <div class="email-verificar">
+                <input type="email" id="emailInput" placeholder="tu@correo.com" inputmode="email" />
+                <button type="button" class="btn" id="enviarCodigoBtn">Enviar código</button>
+            </div>
+            <div class="resultado-verificacion" id="resultadoVerificacion"></div>
         </div>
+
+        <!-- CÓDIGO DE VERIFICACIÓN -->
+        <div class="codigo-container" id="codigoContainer">
+            <div class="form-group">
+                <label>Ingresa el código de 6 dígitos <span>*</span></label>
+                <input type="text" id="codigoInput" placeholder="123456" maxlength="6" inputmode="numeric" />
+                <button type="button" class="btn" id="verificarCodigoBtn" style="width:100%; margin-top:8px;">✅ Verificar código</button>
+            </div>
+        </div>
+
+        <!-- DNI -->
+        <div class="form-group">
+            <label>Documento de Identidad (DNI) <span>*</span></label>
+            <input type="text" id="dniInput" placeholder="Ej: 12345678" maxlength="8" inputmode="numeric" />
+        </div>
+
+        <!-- NOMBRES -->
+        <div class="form-group">
+            <label>Nombres completos <span>*</span></label>
+            <input type="text" id="nombreInput" placeholder="Ej: Juan Carlos" />
+        </div>
+
+        <!-- CONTRASEÑA -->
         <div class="form-group">
             <label>Contraseña <span>*</span></label>
             <input type="password" id="passwordInput" placeholder="Mínimo 6 caracteres" minlength="6" />
         </div>
+
+        <!-- PERFIL -->
         <div class="form-group">
             <label>Tipo de perfil</label>
             <div class="tipo-perfil">
@@ -131,12 +98,17 @@
                 <label><input type="radio" name="perfil" value="fiscalizador" /> Fiscalizador</label>
             </div>
         </div>
+
+        <!-- TÉRMINOS -->
         <div class="checkbox">
             <input type="checkbox" id="terminosCheck" />
             <label for="terminosCheck">Acepto los Términos y Condiciones y la Política de Privacidad</label>
         </div>
+
+        <!-- REGISTRAR -->
         <button type="submit" class="btn btn-principal" id="registrarBtn" disabled>Completa todos los campos</button>
     </form>
+
     <div class="texto-centro">
         ¿Ya tienes cuenta? <a href="login.html" class="enlace">Inicia sesión</a>
         <br>
@@ -144,70 +116,47 @@
     </div>
     <div class="footer">LEGADO - Seguridad Laboral Automática - v1.0</div>
 </div>
+
 <script>
-// DETECTAR CAPACIDADES
-function detectarCapacidades() {
-    const estado = document.getElementById('estadoDispositivo');
-    const c = {
-        camara: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia),
-        gps: !!navigator.geolocation,
-        huella: !!(window.PublicKeyCredential),
-        qr: !!('BarcodeDetector' in window),
-        toque: 'ontouchstart' in window || navigator.maxTouchPoints > 0
-    };
-    let msg = '📱 ';
-    msg += c.toque ? 'Táctil ' : 'Escritorio ';
-    let disp = [];
-    if (c.camara) disp.push('📷');
-    if (c.gps) disp.push('📍');
-    if (c.huella) disp.push('🔐');
-    if (c.qr) disp.push('📲');
-    msg += disp.length ? '| ✅ ' + disp.join(' ') : '| ⚡ Modo básico';
-    estado.innerHTML = msg;
-    ['Camara','Ubicacion','Huella','QR'].forEach((nom, i) => {
-        const id = ['btnCamara','btnUbicacion','btnHuella','btnQR'][i];
-        const dis = [c.camara,c.gps,c.huella,c.qr][i];
-        const btn = document.getElementById(id);
-        btn.disabled = !dis;
-        btn.style.opacity = dis ? '1' : '0.4';
-        btn.textContent = dis ? ['📷 Cámara','📍 GPS','🔐 Huella','📲 QR'][i] : ['📷 Cámara (no)','📍 GPS (no)','🔐 Huella (no)','📲 QR (no)'][i];
-    });
-}
-
-// VERIFICACIÓN DE DNI
-const dniInput = document.getElementById('dniInput');
-const verificarBtn = document.getElementById('verificarBtn');
-const nombreInput = document.getElementById('nombreInput');
-const resultadoDiv = document.getElementById('resultadoVerificacion');
-const datosDiv = document.getElementById('datosVerificados');
-const nombreVerificado = document.getElementById('nombreVerificado');
-const dniVerificadoSpan = document.getElementById('dniVerificado');
-const registrarBtn = document.getElementById('registrarBtn');
-const terminosCheck = document.getElementById('terminosCheck');
+// ========================================
+// VARIABLES
+// ========================================
 const emailInput = document.getElementById('emailInput');
+const enviarCodigoBtn = document.getElementById('enviarCodigoBtn');
+const codigoContainer = document.getElementById('codigoContainer');
+const codigoInput = document.getElementById('codigoInput');
+const verificarCodigoBtn = document.getElementById('verificarCodigoBtn');
+const resultadoDiv = document.getElementById('resultadoVerificacion');
+const dniInput = document.getElementById('dniInput');
+const nombreInput = document.getElementById('nombreInput');
 const passwordInput = document.getElementById('passwordInput');
-const paisSelector = document.getElementById('paisSelector');
-const paisSelect = document.getElementById('paisSelect');
-const paisConfirmarBtn = document.getElementById('paisConfirmarBtn');
+const terminosCheck = document.getElementById('terminosCheck');
+const registrarBtn = document.getElementById('registrarBtn');
 
-let dniVerificado = false;
-let documentoActual = '';
+let emailVerificado = false;
+let codigoGenerado = '';
 
-function mostrarResultado(m, t) {
-    resultadoDiv.textContent = m;
-    resultadoDiv.className = 'resultado-verificacion ' + t;
+// ========================================
+// FUNCIONES
+// ========================================
+function mostrarResultado(mensaje, tipo) {
+    resultadoDiv.textContent = mensaje;
+    resultadoDiv.className = 'resultado-verificacion ' + tipo;
 }
+
 function limpiarResultado() {
     resultadoDiv.className = 'resultado-verificacion';
     resultadoDiv.textContent = '';
-    datosDiv.classList.remove('visible');
-    paisSelector.classList.remove('visible');
 }
+
 function actualizarBotonRegistro() {
-    const e = emailInput.value.includes('@') && emailInput.value.includes('.');
-    const p = passwordInput.value.length >= 6;
-    const t = terminosCheck.checked;
-    if (dniVerificado && e && p && t) {
+    const emailValido = emailInput.value.includes('@') && emailInput.value.includes('.');
+    const dniValido = dniInput.value.trim().length >= 6;
+    const nombreValido = nombreInput.value.trim().length >= 2;
+    const passwordValido = passwordInput.value.length >= 6;
+    const terminosOk = terminosCheck.checked;
+
+    if (emailVerificado && emailValido && dniValido && nombreValido && passwordValido && terminosOk) {
         registrarBtn.disabled = false;
         registrarBtn.textContent = 'Registrar';
     } else {
@@ -216,148 +165,106 @@ function actualizarBotonRegistro() {
     }
 }
 
-function verificarDNI() {
-    const dni = dniInput.value.trim();
-    documentoActual = dni;
-    
-    if (dni.length < 4) {
-        mostrarResultado('⚠️ Ingresa un número de documento válido (mínimo 4 dígitos)', 'pregunta');
-        dniVerificado = false;
-        nombreInput.value = '';
-        verificarBtn.classList.remove('verificado');
-        datosDiv.classList.remove('visible');
-        paisSelector.classList.remove('visible');
-        actualizarBotonRegistro();
+// ========================================
+// ENVIAR CÓDIGO (simulación)
+// ========================================
+function enviarCodigo() {
+    const email = emailInput.value.trim();
+
+    if (!email.includes('@') || !email.includes('.')) {
+        mostrarResultado('❌ Ingresa un correo electrónico válido', 'error');
         return;
     }
+
+    // Generar código de 6 dígitos
+    codigoGenerado = Math.floor(100000 + Math.random() * 900000).toString();
     
-    verificarBtn.textContent = 'Verificando...';
-    verificarBtn.disabled = true;
-    limpiarResultado();
-
-    // SIMULACIÓN DE VERIFICACIÓN
-    setTimeout(() => {
-        // Datos de prueba - SOLO PERÚ
-        const datosPrueba = {
-            '44309661': { nombres: 'MIGUEL ANGEL', apellidoPaterno: 'TORRES', apellidoMaterno: 'PEREZ' },
-            '12345678': { nombres: 'JUAN CARLOS', apellidoPaterno: 'GONZALES', apellidoMaterno: 'RAMIREZ' },
-            '87654321': { nombres: 'MARIA ISABEL', apellidoPaterno: 'RODRIGUEZ', apellidoMaterno: 'LOPEZ' }
-        };
-
-        const data = datosPrueba[dni];
-
-        if (data) {
-            // ÉXITO: DNI encontrado en Perú
-            const nombreCompleto = `${data.nombres} ${data.apellidoPaterno} ${data.apellidoMaterno || ''}`.trim();
-            nombreInput.value = nombreCompleto;
-            nombreVerificado.textContent = nombreCompleto.toUpperCase();
-            dniVerificadoSpan.textContent = dni;
-            dniVerificado = true;
-            verificarBtn.classList.add('verificado');
-            datosDiv.classList.add('visible');
-            paisSelector.classList.remove('visible');
-            mostrarResultado('✅ Identidad verificada correctamente (Perú)', 'exito');
-        } else {
-            // DNI NO ENCONTRADO: preguntar país
-            dniVerificado = false;
-            nombreInput.value = '';
-            verificarBtn.classList.remove('verificado');
-            datosDiv.classList.remove('visible');
-            mostrarResultado('❌ Documento no encontrado en Perú. ¿De qué país es?', 'pregunta');
-            paisSelector.classList.add('visible');
-            // Enfocar el selector de país
-            paisSelect.focus();
-        }
-        verificarBtn.textContent = 'Verificar';
-        verificarBtn.disabled = false;
-        actualizarBotonRegistro();
-    }, 1000);
+    // Mostrar en consola (para pruebas)
+    console.log(`📧 Código enviado a ${email}: ${codigoGenerado}`);
+    
+    mostrarResultado(`📧 Código enviado a ${email}. Revisa tu bandeja de entrada.`, 'info');
+    codigoContainer.classList.add('visible');
+    codigoInput.value = '';
+    codigoInput.focus();
+    enviarCodigoBtn.disabled = true;
+    enviarCodigoBtn.textContent = '✅ Enviado';
+    
+    // Aquí se integraría el envío real con EmailJS, SendGrid, etc.
+    alert(`✅ Código de verificación: ${codigoGenerado}\n(En producción se enviará a tu correo)`);
 }
 
-// VERIFICAR EN OTRO PAÍS
-function verificarEnPais() {
-    const pais = paisSelect.value;
-    if (!pais) {
-        mostrarResultado('⚠️ Selecciona un país para continuar', 'pregunta');
-        return;
+// ========================================
+// VERIFICAR CÓDIGO
+// ========================================
+function verificarCodigo() {
+    const codigoIngresado = codigoInput.value.trim();
+
+    if (codigoIngresado === codigoGenerado) {
+        emailVerificado = true;
+        mostrarResultado('✅ Correo electrónico verificado correctamente', 'exito');
+        codigoContainer.classList.remove('visible');
+        emailInput.disabled = true;
+        enviarCodigoBtn.disabled = true;
+        enviarCodigoBtn.textContent = '✅ Verificado';
+        actualizarBotonRegistro();
+    } else {
+        mostrarResultado('❌ Código incorrecto. Intenta de nuevo.', 'error');
+        codigoInput.value = '';
+        codigoInput.focus();
     }
-    
-    const nombrePais = paisSelect.options[paisSelect.selectedIndex].text;
-    mostrarResultado(`⏳ Verificando en ${nombrePais}...`, 'pregunta');
-    paisSelector.classList.remove('visible');
-    
-    // SIMULACIÓN: en este punto se consultaría la API del país seleccionado
-    setTimeout(() => {
-        // Como es simulación, asumimos que el documento NO existe en ningún país
-        // En la vida real, aquí se consultaría la API de ese país
-        mostrarResultado(`❌ Documento no encontrado en ${nombrePais}. Verifica el número o selecciona otro país.`, 'error');
-        paisSelector.classList.add('visible');
-        dniVerificado = false;
-        nombreInput.value = '';
-        verificarBtn.classList.remove('verificado');
-        datosDiv.classList.remove('visible');
-        actualizarBotonRegistro();
-    }, 1500);
 }
 
+// ========================================
 // EVENTOS
-verificarBtn.addEventListener('click', verificarDNI);
-paisConfirmarBtn.addEventListener('click', verificarEnPais);
+// ========================================
 
-// Enter en el selector de país
-paisSelect.addEventListener('keydown', function(e) {
+// Enviar código
+enviarCodigoBtn.addEventListener('click', enviarCodigo);
+
+// Verificar código
+verificarCodigoBtn.addEventListener('click', verificarCodigo);
+
+// Enter en código
+codigoInput.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
-        verificarEnPais();
+        verificarCodigo();
     }
 });
 
-dniInput.addEventListener('input', function() {
-    this.value = this.value.replace(/\D/g, '').slice(0, 20);
-    if (this.value.length >= 4) {
-        // No verificamos automáticamente para dar oportunidad de números largos
-    }
-    // Limpiar estado si se borra
-    if (this.value.length < 4) {
-        dniVerificado = false;
-        nombreInput.value = '';
-        verificarBtn.classList.remove('verificado');
-        datosDiv.classList.remove('visible');
-        paisSelector.classList.remove('visible');
-        limpiarResultado();
+// Re-enviar código si se cambia el email
+emailInput.addEventListener('input', function() {
+    if (emailVerificado) {
+        emailVerificado = false;
+        emailInput.disabled = false;
+        enviarCodigoBtn.disabled = false;
+        enviarCodigoBtn.textContent = 'Enviar código';
+        codigoContainer.classList.remove('visible');
+        mostrarResultado('📧 Correo modificado, debes verificar nuevamente', 'info');
         actualizarBotonRegistro();
     }
 });
 
-// Verificar al perder el foco (cuando el usuario termina de escribir)
-dniInput.addEventListener('blur', function() {
-    if (this.value.length >= 4 && this.value.length <= 20) {
-        verificarDNI();
-    }
+// Validar campos
+dniInput.addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '').slice(0, 8);
+    actualizarBotonRegistro();
 });
 
-// Enter en el campo DNI
-dniInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        if (this.value.length >= 4) {
-            verificarDNI();
-        }
-    }
-});
-
-emailInput.addEventListener('input', actualizarBotonRegistro);
+nombreInput.addEventListener('input', actualizarBotonRegistro);
 passwordInput.addEventListener('input', actualizarBotonRegistro);
 terminosCheck.addEventListener('change', actualizarBotonRegistro);
 
+// Registro
 registrarBtn.addEventListener('click', function() {
     if (!this.disabled) {
-        const pais = paisSelect.value;
-        const mensaje = pais ? `✅ Registro completado (${paisSelect.options[paisSelect.selectedIndex].text})` : '✅ Registro completado';
-        alert(mensaje);
+        alert('✅ Registro completado exitosamente');
     }
 });
 
-document.addEventListener('DOMContentLoaded', detectarCapacidades);
+// ========================================
+// INICIO
+// ========================================
+console.log('📧 LEGADO - Verificación por correo electrónico');
 </script>
 </body>
 </html>
