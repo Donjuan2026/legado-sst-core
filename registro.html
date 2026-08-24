@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>LEGADO - Registro</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { background:#0A0A0A; font-family:Arial,sans-serif; padding:10px; color:#F5F0E8; }
@@ -56,7 +57,6 @@
     <div class="subtitulo">Crear cuenta</div>
     <form id="registroForm" onsubmit="return false;">
         
-        <!-- EMAIL -->
         <div class="form-group">
             <label>Correo electrónico <span>*</span></label>
             <div class="email-verificar">
@@ -66,7 +66,6 @@
             <div class="resultado-verificacion" id="resultadoVerificacion"></div>
         </div>
 
-        <!-- CÓDIGO DE VERIFICACIÓN -->
         <div class="codigo-container" id="codigoContainer">
             <div class="form-group">
                 <label>Ingresa el código de 6 dígitos <span>*</span></label>
@@ -75,13 +74,11 @@
             </div>
         </div>
 
-        <!-- CONTRASEÑA -->
         <div class="form-group">
             <label>Contraseña <span>*</span></label>
             <input type="password" id="passwordInput" placeholder="Mínimo 6 caracteres" minlength="6" />
         </div>
 
-        <!-- TIPO DE PERFIL -->
         <div class="form-group">
             <label>Tipo de perfil <span>*</span></label>
             <div class="tipo-perfil">
@@ -91,7 +88,6 @@
                 <label><input type="radio" name="perfil" value="gubernamental" id="gubernamentalRadio" /> Gubernamental</label>
             </div>
             
-            <!-- SUB-OPCIONES GUBERNAMENTALES -->
             <div class="sub-opciones" id="subGubernamental">
                 <label style="color:#C9A84C; font-weight:bold;">🏛️ Selecciona tu institución:</label>
                 <label><input type="radio" name="subperfil" value="ffaa" /> Fuerzas Armadas (FF.AA.)</label>
@@ -107,13 +103,11 @@
             </div>
         </div>
 
-        <!-- TÉRMINOS -->
         <div class="checkbox">
             <input type="checkbox" id="terminosCheck" />
             <label for="terminosCheck">Acepto los Términos y Condiciones y la Política de Privacidad</label>
         </div>
 
-        <!-- REGISTRAR -->
         <button type="submit" class="btn btn-principal" id="registrarBtn" disabled>Completa todos los campos</button>
     </form>
 
@@ -126,6 +120,15 @@
 </div>
 
 <script>
+// ========================================
+// 🔑 PON AQUÍ TUS 3 CLAVES DE EMAILJS
+// ========================================
+const EMAILJS_PUBLIC_KEY = 'TU_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID = 'TU_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'TU_TEMPLATE_ID';
+
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
 // ========================================
 // VARIABLES
 // ========================================
@@ -144,10 +147,9 @@ const otroGubernamental = document.getElementById('otroGubernamental');
 
 let emailVerificado = false;
 let codigoGenerado = '';
+let intentosFallidos = 0;
+const MAX_INTENTOS = 3;
 
-// ========================================
-// FUNCIONES
-// ========================================
 function mostrarResultado(mensaje, tipo) {
     resultadoDiv.textContent = mensaje;
     resultadoDiv.className = 'resultado-verificacion ' + tipo;
@@ -173,7 +175,6 @@ function actualizarBotonRegistro() {
     }
 }
 
-// Mostrar/ocultar sub-opciones gubernamentales
 gubernamentalRadio.addEventListener('change', function() {
     if (this.checked) {
         subGubernamental.classList.add('visible');
@@ -183,7 +184,6 @@ gubernamentalRadio.addEventListener('change', function() {
     actualizarBotonRegistro();
 });
 
-// Mostrar campo "Otro" cuando se selecciona
 document.querySelectorAll('input[name="subperfil"]').forEach(function(radio) {
     radio.addEventListener('change', function() {
         if (this.value === 'otro-gubernamental') {
@@ -195,7 +195,7 @@ document.querySelectorAll('input[name="subperfil"]').forEach(function(radio) {
 });
 
 // ========================================
-// ENVIAR CÓDIGO
+// ENVIAR CÓDIGO REAL
 // ========================================
 function enviarCodigo() {
     const email = emailInput.value.trim();
@@ -206,36 +206,65 @@ function enviarCodigo() {
     }
 
     codigoGenerado = Math.floor(100000 + Math.random() * 900000).toString();
+    intentosFallidos = 0;
     
-    mostrarResultado('📧 Código enviado a ' + email, 'info');
-    codigoContainer.classList.add('visible');
-    codigoInput.value = '';
-    codigoInput.focus();
+    mostrarResultado('📧 Enviando código a ' + email + '...', 'info');
     enviarCodigoBtn.disabled = true;
-    enviarCodigoBtn.textContent = '✅ Enviado';
-    
-    console.log('📧 Código de verificación:', codigoGenerado);
-    alert('✅ Código de verificación: ' + codigoGenerado);
+    enviarCodigoBtn.textContent = 'Enviando...';
+
+    const templateParams = {
+        to_email: email,
+        from_name: 'LEGADO',
+        codigo: codigoGenerado,
+        mensaje: 'Tu código de verificación LEGADO es: ' + codigoGenerado
+    };
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+        .then(function(response) {
+            mostrarResultado('✅ Código enviado a ' + email + '. Revisa tu bandeja.', 'exito');
+            codigoContainer.classList.add('visible');
+            codigoInput.value = '';
+            codigoInput.focus();
+            enviarCodigoBtn.textContent = '✅ Enviado';
+        })
+        .catch(function(error) {
+            mostrarResultado('❌ Error al enviar el código. Intenta de nuevo.', 'error');
+            enviarCodigoBtn.disabled = false;
+            enviarCodigoBtn.textContent = 'Reenviar código';
+        });
 }
 
 // ========================================
-// VERIFICAR CÓDIGO
+// VERIFICAR CÓDIGO REAL
 // ========================================
 function verificarCodigo() {
     const codigoIngresado = codigoInput.value.trim();
 
+    if (intentosFallidos >= MAX_INTENTOS) {
+        mostrarResultado('❌ Demasiados intentos. Solicita un nuevo código.', 'error');
+        codigoInput.disabled = true;
+        verificarCodigoBtn.disabled = true;
+        return;
+    }
+
     if (codigoIngresado === codigoGenerado) {
         emailVerificado = true;
-        mostrarResultado('✅ Correo electrónico verificado correctamente', 'exito');
+        mostrarResultado('✅ Correo verificado correctamente', 'exito');
         codigoContainer.classList.remove('visible');
         emailInput.disabled = true;
         enviarCodigoBtn.disabled = true;
         enviarCodigoBtn.textContent = '✅ Verificado';
         actualizarBotonRegistro();
     } else {
-        mostrarResultado('❌ Código incorrecto. Intenta de nuevo.', 'error');
+        intentosFallidos++;
+        const restantes = MAX_INTENTOS - intentosFallidos;
+        mostrarResultado('❌ Código incorrecto. Te quedan ' + restantes + ' intentos.', 'error');
         codigoInput.value = '';
         codigoInput.focus();
+        if (intentosFallidos >= MAX_INTENTOS) {
+            codigoInput.disabled = true;
+            verificarCodigoBtn.disabled = true;
+        }
     }
 }
 
@@ -259,6 +288,9 @@ emailInput.addEventListener('input', function() {
         enviarCodigoBtn.disabled = false;
         enviarCodigoBtn.textContent = 'Enviar código';
         codigoContainer.classList.remove('visible');
+        codigoInput.disabled = false;
+        verificarCodigoBtn.disabled = false;
+        intentosFallidos = 0;
         mostrarResultado('📧 Correo modificado, debes verificar nuevamente', 'info');
         actualizarBotonRegistro();
     }
@@ -275,7 +307,6 @@ registrarBtn.addEventListener('click', function() {
     if (!this.disabled) {
         const perfil = document.querySelector('input[name="perfil"]:checked');
         let mensaje = '✅ Registro completado como: ' + perfil.value;
-        
         if (perfil.value === 'gubernamental') {
             const sub = document.querySelector('input[name="subperfil"]:checked');
             if (sub) {
@@ -285,11 +316,6 @@ registrarBtn.addEventListener('click', function() {
         alert(mensaje);
     }
 });
-
-// ========================================
-// INICIO
-// ========================================
-console.log('📧 LEGADO - Registro con perfil gubernamental');
 </script>
 </body>
 </html>
