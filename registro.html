@@ -2,323 +2,519 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>LEGADO - Registro</title>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro - LEGADO SST</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { background:#0A0A0A; font-family:Arial,sans-serif; padding:10px; color:#F5F0E8; }
-        .container { max-width:450px; margin:0 auto; background:#1A1A1A; border:2px solid #C9A84C; border-radius:15px; padding:20px; }
-        .logo { font-size:28px; font-weight:bold; color:#C9A84C; text-align:center; letter-spacing:4px; }
-        .subtitulo { color:#E8D5A3; text-align:center; font-size:14px; margin:5px 0 20px; }
-        .form-group { margin-bottom:15px; }
-        .form-group label { display:block; font-size:14px; margin-bottom:5px; color:#E8D5A3; }
-        .form-group label span { color:#E74C3C; }
-        input { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #333; background:#0A0A0A; color:#F5F0E8; }
-        input:focus { outline:none; border-color:#C9A84C; }
-        input::placeholder { color:#555; }
-        input:disabled { opacity:0.5; cursor:not-allowed; }
-        .btn { padding:14px 20px; border-radius:10px; border:2px solid #C9A84C; background:transparent; color:#C9A84C; font-size:16px; font-weight:bold; cursor:pointer; transition:all 0.3s; min-height:50px; }
-        .btn:active { transform:scale(0.97); }
-        .btn:hover { background:#C9A84C; color:#0A0A0A; }
-        .btn:disabled { opacity:0.4; cursor:not-allowed; border-color:#555; color:#555; transform:none; }
-        .btn-principal { width:100%; background:#C9A84C; color:#0A0A0A; padding:16px; font-size:18px; }
-        .btn-principal:hover { background:#E8D5A3; }
-        .btn-principal:disabled { background:#555; color:#888; border-color:#555; cursor:not-allowed; }
-        .resultado-verificacion { padding:12px 15px; border-radius:8px; margin-top:8px; font-size:14px; display:none; }
-        .resultado-verificacion.exito { display:block; background:rgba(46,204,113,0.15); border:1px solid #2ECC71; color:#2ECC71; }
-        .resultado-verificacion.error { display:block; background:rgba(231,76,60,0.15); border:1px solid #E74C3C; color:#E74C3C; }
-        .resultado-verificacion.info { display:block; background:rgba(52,152,219,0.15); border:1px solid #3498DB; color:#3498DB; }
-        .resultado-verificacion.verificando { display:block; background:rgba(241,196,15,0.15); border:1px solid #F1C40F; color:#F1C40F; }
-        .tipo-perfil { display:flex; gap:15px; flex-wrap:wrap; color:#F5F0E8; font-size:14px; margin:8px 0; }
-        .tipo-perfil label { display:flex; align-items:center; gap:6px; cursor:pointer; }
-        .tipo-perfil input[type="radio"] { width:18px; height:18px; accent-color:#C9A84C; }
-        .checkbox { display:flex; align-items:center; gap:10px; color:#F5F0E8; font-size:13px; margin:10px 0; }
-        .checkbox input[type="checkbox"] { width:18px; height:18px; accent-color:#C9A84C; }
-        .checkbox label { cursor:pointer; }
-        .enlace { color:#C9A84C; text-decoration:none; font-weight:bold; }
-        .enlace:hover { text-decoration:underline; }
-        .texto-centro { text-align:center; color:#8A7E6B; font-size:14px; margin:15px 0; }
-        .footer { color:#8A7E6B; font-size:11px; text-align:center; margin-top:15px; letter-spacing:1px; }
-        .email-verificar { display:flex; gap:10px; }
-        .email-verificar input { flex:1; }
-        .codigo-container { display:none; margin-top:10px; }
-        .codigo-container.visible { display:block; }
-        .codigo-container input { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #C9A84C; background:#0A0A0A; color:#F5F0E8; text-align:center; letter-spacing:8px; }
-        .badge { display:inline-block; background:#2ECC71; color:#0A0A0A; padding:2px 12px; border-radius:12px; font-size:11px; font-weight:bold; margin-left:5px; }
-        .sub-opciones { display:none; margin-top:10px; padding:10px; background:#0A0A0A; border-radius:10px; border:1px solid #333; }
-        .sub-opciones.visible { display:block; }
-        .sub-opciones label { display:block; font-size:13px; color:#E8D5A3; margin:5px 0; }
-        .sub-opciones label input { width:auto; margin-right:8px; accent-color:#C9A84C; }
-        @media (max-width:480px) { .container { padding:15px; } .logo { font-size:24px; } .email-verificar { flex-direction:column; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f44 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            padding: 40px 32px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f0e9d0;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        h1 span {
+            background: #c9a84c;
+            color: #0b1a2e;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 0 12px;
+            border-radius: 40px;
+            line-height: 26px;
+        }
+        .sub {
+            color: #8fa8b9;
+            font-size: 14px;
+            margin-bottom: 28px;
+            border-left: 3px solid #c9a84c;
+            padding-left: 14px;
+        }
+        .grupo {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #d6dce5;
+            margin-bottom: 4px;
+            letter-spacing: 0.3px;
+        }
+        label .obligatorio {
+            color: #e74c3c;
+        }
+        input,
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(255, 255, 255, 0.10);
+            background: rgba(0, 0, 0, 0.35);
+            color: #f0f4fa;
+            font-size: 15px;
+            transition: 0.2s;
+            outline: none;
+        }
+        input:focus,
+        select:focus {
+            border-color: #c9a84c;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+        }
+        input::placeholder {
+            color: #6a7f8e;
+            font-weight: 300;
+        }
+        .fila-codigo {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .fila-codigo input {
+            flex: 1;
+        }
+        .fila-codigo button {
+            background: #1e3a52;
+            border: none;
+            color: #d6dce5;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 0 18px;
+            border-radius: 40px;
+            height: 48px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .fila-codigo button:hover:not(:disabled) {
+            background: #2a4a66;
+            border-color: #c9a84c;
+            color: #fff;
+        }
+        .fila-codigo button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .campo-codigo {
+            display: none;
+        }
+        .campo-codigo.visible {
+            display: block;
+        }
+        .mensaje-error {
+            color: #f28b82;
+            font-size: 13px;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .mensaje-exito {
+            color: #81c995;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+        .checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 16px 0 20px;
+        }
+        .checkbox input {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            accent-color: #c9a84c;
+        }
+        .checkbox label {
+            font-weight: 400;
+            font-size: 14px;
+            color: #bcc9d4;
+            line-height: 1.5;
+        }
+        .checkbox label a {
+            color: #c9a84c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .checkbox label a:hover {
+            text-decoration: underline;
+        }
+        .btn-primario {
+            width: 100%;
+            padding: 14px;
+            background: #c9a84c;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 17px;
+            color: #0b1a2e;
+            cursor: pointer;
+            transition: 0.25s;
+            letter-spacing: 0.5px;
+            margin-top: 6px;
+        }
+        .btn-primario:hover:not(:disabled) {
+            background: #dbb95c;
+            transform: scale(1.01);
+            box-shadow: 0 8px 25px rgba(201, 168, 76, 0.25);
+        }
+        .btn-primario:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .pie {
+            margin-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        .pie a {
+            color: #c9a84c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .pie a:hover {
+            text-decoration: underline;
+        }
+        .pie .volver {
+            color: #6a7f8e;
+            font-weight: 400;
+        }
+        .version {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 12px;
+            color: #3f5667;
+            letter-spacing: 0.5px;
+        }
+        .oculto {
+            display: none !important;
+        }
+        .badge-error {
+            background: rgba(231, 76, 60, 0.12);
+            border: 1px solid rgba(231, 76, 60, 0.25);
+            padding: 12px 16px;
+            border-radius: 14px;
+            color: #f28b82;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 500px) {
+            .container {
+                padding: 28px 18px;
+            }
+            .fila-codigo {
+                flex-wrap: wrap;
+            }
+            .fila-codigo button {
+                width: 100%;
+                justify-content: center;
+                height: 44px;
+            }
+            .pie {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="logo">LEGADO</div>
-    <div class="subtitulo">Crear cuenta</div>
-    <form id="registroForm" onsubmit="return false;">
-        
-        <div class="form-group">
-            <label>Correo electrónico <span>*</span></label>
-            <div class="email-verificar">
-                <input type="email" id="emailInput" placeholder="tu@correo.com" inputmode="email" />
-                <button type="button" class="btn" id="enviarCodigoBtn">Enviar código</button>
-            </div>
-            <div class="resultado-verificacion" id="resultadoVerificacion"></div>
+
+    <div class="container">
+
+        <h1>LEGADO <span>CREAR</span></h1>
+        <div class="sub">Completa tus datos para activar tu perfil</div>
+
+        <div id="globalError" class="badge-error oculto"></div>
+
+        <div class="grupo">
+            <label>Correo electrónico <span class="obligatorio">*</span></label>
+            <input type="email" id="email" placeholder="tucorreo@empresa.com" />
+            <div id="emailError" class="mensaje-error"></div>
         </div>
 
-        <div class="codigo-container" id="codigoContainer">
-            <div class="form-group">
-                <label>Ingresa el código de 6 dígitos <span>*</span></label>
-                <input type="text" id="codigoInput" placeholder="123456" maxlength="6" inputmode="numeric" />
-                <button type="button" class="btn" id="verificarCodigoBtn" style="width:100%; margin-top:8px;">✅ Verificar código</button>
+        <div class="grupo">
+            <div class="fila-codigo">
+                <button id="btnEnviarCodigo">📩 Enviar código</button>
+                <span id="timer" style="color:#6a7f8e;font-size:14px;font-weight:500;"></span>
+            </div>
+            <div id="codigoStatus" class="mensaje-error"></div>
+        </div>
+
+        <div id="campoCodigo" class="grupo campo-codigo">
+            <label>Código de verificación <span class="obligatorio">*</span></label>
+            <input type="text" id="codigoInput" placeholder="Ej: 482391" maxlength="6" inputmode="numeric" />
+            <div id="codigoError" class="mensaje-error"></div>
+            <div style="margin-top:6px;font-size:12px;color:#5a7385;">
+                Revisa tu bandeja de entrada (o spam). El código expira en 5 minutos.
             </div>
         </div>
 
-        <div class="form-group">
-            <label>Contraseña <span>*</span></label>
-            <input type="password" id="passwordInput" placeholder="Mínimo 6 caracteres" minlength="6" />
+        <div class="grupo">
+            <label>Contraseña <span class="obligatorio">*</span></label>
+            <input type="password" id="password" placeholder="Mínimo 6 caracteres" />
+            <div id="passError" class="mensaje-error"></div>
         </div>
 
-        <div class="form-group">
-            <label>Tipo de perfil <span>*</span></label>
-            <div class="tipo-perfil">
-                <label><input type="radio" name="perfil" value="empresa" checked /> Empresa</label>
-                <label><input type="radio" name="perfil" value="trabajador" /> Trabajador</label>
-                <label><input type="radio" name="perfil" value="fiscalizador" /> Fiscalizador</label>
-                <label><input type="radio" name="perfil" value="gubernamental" id="gubernamentalRadio" /> Gubernamental</label>
-            </div>
-            
-            <div class="sub-opciones" id="subGubernamental">
-                <label style="color:#C9A84C; font-weight:bold;">🏛️ Selecciona tu institución:</label>
-                <label><input type="radio" name="subperfil" value="ffaa" /> Fuerzas Armadas (FF.AA.)</label>
-                <label><input type="radio" name="subperfil" value="pnp" /> Policía Nacional (PNP)</label>
-                <label><input type="radio" name="subperfil" value="ministerio" /> Ministerio Público</label>
-                <label><input type="radio" name="subperfil" value="poder-judicial" /> Poder Judicial</label>
-                <label><input type="radio" name="subperfil" value="congreso" /> Congreso</label>
-                <label><input type="radio" name="subperfil" value="gobierno-local" /> Gobierno Local (Municipalidad)</label>
-                <label><input type="radio" name="subperfil" value="gobierno-regional" /> Gobierno Regional</label>
-                <label><input type="radio" name="subperfil" value="ente-regulador" /> Ente Regulador</label>
-                <label><input type="radio" name="subperfil" value="otro-gubernamental" /> Otro (especificar)</label>
-                <input type="text" id="otroGubernamental" placeholder="Especifica tu institución" style="margin-top:5px; display:none;" />
-            </div>
+        <div class="grupo">
+            <label>Tipo de perfil <span class="obligatorio">*</span></label>
+            <select id="perfil">
+                <option value="">Selecciona...</option>
+                <option value="empresa">Empresa</option>
+                <option value="trabajador">Trabajador</option>
+                <option value="fiscalizador">Fiscalizador</option>
+                <option value="gubernamental">Gubernamental</option>
+            </select>
         </div>
 
         <div class="checkbox">
-            <input type="checkbox" id="terminosCheck" />
-            <label for="terminosCheck">Acepto los Términos y Condiciones y la Política de Privacidad</label>
+            <input type="checkbox" id="terminos" />
+            <label for="terminos">
+                Acepto los <a href="#">Términos y Condiciones</a> y la
+                <a href="#">Política de Privacidad</a>
+            </label>
         </div>
 
-        <button type="submit" class="btn btn-principal" id="registrarBtn" disabled>Completa todos los campos</button>
-    </form>
+        <button class="btn-primario" id="btnRegistrar" disabled>
+            Crear cuenta
+        </button>
 
-    <div class="texto-centro">
-        ¿Ya tienes cuenta? <a href="login.html" class="enlace">Inicia sesión</a>
-        <br>
-        <a href="index.html" class="enlace">Volver al inicio</a>
+        <div class="pie">
+            <span>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></span>
+            <a href="index.html" class="volver">← Volver al inicio</a>
+        </div>
+
+        <div class="version">LEGADO - Seguridad Laboral Automática - v1.0</div>
     </div>
-    <div class="footer">LEGADO - Seguridad Laboral Automática - v1.0</div>
-</div>
 
-<script>
-// ========================================
-// 🔑 CONFIGURACIÓN EMAILJS
-// ========================================
-const EMAILJS_PUBLIC_KEY = 'cp6D3Tyo2bjgvYhvk';
-const EMAILJS_SERVICE_ID = 'service_s65kkyv';
-const EMAILJS_TEMPLATE_ID = '_ejs-test-mail-service_';
+    <script>
+        // ============================================================
+        //  CONFIGURACIÓN EMAILJS - ¡CAMBIAR AQUÍ!
+        // ============================================================
+        const EMAILJS_SERVICE = 'service_s65kky';
+        const EMAILJS_TEMPLATE = 'AQUI_EL_ID_DE_TU_PLANTILLA'; // ← CAMBIA ESTO
+        const EMAILJS_PUBLIC_KEY = '8qj_1tDP9zNfYLkVI';
 
-// Inicializar EmailJS
-emailjs.init(EMAILJS_PUBLIC_KEY);
+        emailjs.init(EMAILJS_PUBLIC_KEY);
 
-// ========================================
-// VARIABLES
-// ========================================
-const emailInput = document.getElementById('emailInput');
-const enviarCodigoBtn = document.getElementById('enviarCodigoBtn');
-const codigoContainer = document.getElementById('codigoContainer');
-const codigoInput = document.getElementById('codigoInput');
-const verificarCodigoBtn = document.getElementById('verificarCodigoBtn');
-const resultadoDiv = document.getElementById('resultadoVerificacion');
-const passwordInput = document.getElementById('passwordInput');
-const terminosCheck = document.getElementById('terminosCheck');
-const registrarBtn = document.getElementById('registrarBtn');
-const gubernamentalRadio = document.getElementById('gubernamentalRadio');
-const subGubernamental = document.getElementById('subGubernamental');
-const otroGubernamental = document.getElementById('otroGubernamental');
+        let codigoGenerado = '';
+        let codigoEnviado = false;
+        let codigoVerificado = false;
+        let timerInterval = null;
+        let segundosRestantes = 0;
 
-let emailVerificado = false;
-let codigoGenerado = '';
-let intentosFallidos = 0;
-const MAX_INTENTOS = 3;
+        const $ = (id) => document.getElementById(id);
+        const email = $('email');
+        const btnEnviar = $('btnEnviarCodigo');
+        const timerSpan = $('timer');
+        const campoCodigo = $('campoCodigo');
+        const codigoInput = $('codigoInput');
+        const codigoStatus = $('codigoStatus');
+        const codigoError = $('codigoError');
+        const emailError = $('emailError');
+        const password = $('password');
+        const passError = $('passError');
+        const perfil = $('perfil');
+        const terminos = $('terminos');
+        const btnRegistrar = $('btnRegistrar');
+        const globalError = $('globalError');
 
-function mostrarResultado(mensaje, tipo) {
-    resultadoDiv.textContent = mensaje;
-    resultadoDiv.className = 'resultado-verificacion ' + tipo;
-}
-
-function actualizarBotonRegistro() {
-    const emailValido = emailInput.value.includes('@') && emailInput.value.includes('.');
-    const passwordValido = passwordInput.value.length >= 6;
-    const terminosOk = terminosCheck.checked;
-    const perfilSeleccionado = document.querySelector('input[name="perfil"]:checked');
-
-    if (emailVerificado && emailValido && passwordValido && terminosOk && perfilSeleccionado) {
-        registrarBtn.disabled = false;
-        registrarBtn.textContent = 'Registrar';
-    } else {
-        registrarBtn.disabled = true;
-        registrarBtn.textContent = 'Completa todos los campos';
-    }
-}
-
-gubernamentalRadio.addEventListener('change', function() {
-    subGubernamental.classList.toggle('visible', this.checked);
-    actualizarBotonRegistro();
-});
-
-document.querySelectorAll('input[name="subperfil"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-        otroGubernamental.style.display = this.value === 'otro-gubernamental' ? 'block' : 'none';
-    });
-});
-
-// ========================================
-// ENVIAR CÓDIGO REAL POR CORREO
-// ========================================
-function enviarCodigo() {
-    const email = emailInput.value.trim();
-
-    if (!email.includes('@') || !email.includes('.')) {
-        mostrarResultado('❌ Ingresa un correo electrónico válido', 'error');
-        return;
-    }
-
-    codigoGenerado = Math.floor(100000 + Math.random() * 900000).toString();
-    intentosFallidos = 0;
-    
-    mostrarResultado('📧 Enviando código a ' + email + '...', 'verificando');
-    enviarCodigoBtn.disabled = true;
-    enviarCodigoBtn.textContent = 'Enviando...';
-
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        to_email: email,
-        from_name: 'LEGADO',
-        codigo: codigoGenerado,
-        mensaje: 'Tu código de verificación LEGADO es: ' + codigoGenerado
-    })
-    .then(function(response) {
-        mostrarResultado('✅ Código enviado a ' + email + '. Revisa tu bandeja.', 'exito');
-        codigoContainer.classList.add('visible');
-        codigoInput.value = '';
-        codigoInput.disabled = false;
-        verificarCodigoBtn.disabled = false;
-        codigoInput.focus();
-        enviarCodigoBtn.textContent = '✅ Enviado';
-        console.log('📧 Código:', codigoGenerado);
-    })
-    .catch(function(error) {
-        console.error('❌ Error:', error);
-        mostrarResultado('❌ Error al enviar el código. Intenta de nuevo.', 'error');
-        enviarCodigoBtn.disabled = false;
-        enviarCodigoBtn.textContent = 'Reenviar código';
-    });
-}
-
-// ========================================
-// VERIFICAR CÓDIGO
-// ========================================
-function verificarCodigo() {
-    const codigoIngresado = codigoInput.value.trim();
-
-    if (intentosFallidos >= MAX_INTENTOS) {
-        mostrarResultado('❌ Demasiados intentos. Solicita un nuevo código.', 'error');
-        codigoInput.disabled = true;
-        verificarCodigoBtn.disabled = true;
-        return;
-    }
-
-    if (codigoIngresado === codigoGenerado) {
-        emailVerificado = true;
-        mostrarResultado('✅ Correo verificado correctamente', 'exito');
-        codigoContainer.classList.remove('visible');
-        emailInput.disabled = true;
-        enviarCodigoBtn.disabled = true;
-        enviarCodigoBtn.textContent = '✅ Verificado';
-        
-        const badge = document.createElement('span');
-        badge.className = 'badge';
-        badge.textContent = '✅ VERIFICADO';
-        badge.id = 'verifiedBadge';
-        const existingBadge = document.getElementById('verifiedBadge');
-        if (existingBadge) existingBadge.remove();
-        emailInput.parentNode.appendChild(badge);
-        
-        actualizarBotonRegistro();
-    } else {
-        intentosFallidos++;
-        const restantes = MAX_INTENTOS - intentosFallidos;
-        mostrarResultado('❌ Código incorrecto. Te quedan ' + restantes + ' intentos.', 'error');
-        codigoInput.value = '';
-        codigoInput.focus();
-        if (intentosFallidos >= MAX_INTENTOS) {
-            codigoInput.disabled = true;
-            verificarCodigoBtn.disabled = true;
+        function generarCodigo() {
+            return String(Math.floor(100000 + Math.random() * 900000));
         }
-    }
-}
 
-// ========================================
-// EVENTOS
-// ========================================
+        async function enviarCodigo() {
+            const correo = email.value.trim();
 
-enviarCodigoBtn.addEventListener('click', enviarCodigo);
-verificarCodigoBtn.addEventListener('click', verificarCodigo);
+            if (!correo || !correo.includes('@')) {
+                emailError.textContent = '⚠️ Ingresa un correo válido.';
+                return;
+            }
+            emailError.textContent = '';
 
-codigoInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-        verificarCodigo();
-    }
-});
+            codigoGenerado = generarCodigo();
+            codigoEnviado = true;
+            codigoVerificado = false;
+            campoCodigo.classList.remove('visible');
+            codigoInput.value = '';
+            codigoStatus.textContent = '⏳ Enviando...';
+            codigoStatus.style.color = '#d6dce5';
 
-emailInput.addEventListener('input', function() {
-    if (emailVerificado) {
-        emailVerificado = false;
-        emailInput.disabled = false;
-        enviarCodigoBtn.disabled = false;
-        enviarCodigoBtn.textContent = 'Enviar código';
-        codigoContainer.classList.remove('visible');
-        codigoInput.disabled = false;
-        verificarCodigoBtn.disabled = false;
-        intentosFallidos = 0;
-        const badge = document.getElementById('verifiedBadge');
-        if (badge) badge.remove();
-        mostrarResultado('📧 Correo modificado, debes verificar nuevamente', 'info');
-        actualizarBotonRegistro();
-    }
-});
+            try {
+                const response = await emailjs.send(
+                    EMAILJS_SERVICE,
+                    EMAILJS_TEMPLATE, {
+                        to_email: correo,
+                        name: 'Usuario',
+                        code: codigoGenerado
+                    }
+                );
 
-document.querySelectorAll('input[name="perfil"]').forEach(function(radio) {
-    radio.addEventListener('change', actualizarBotonRegistro);
-});
+                console.log('✅ EmailJS response:', response);
+                campoCodigo.classList.add('visible');
+                codigoStatus.textContent = '✅ Código enviado a tu correo.';
+                codigoStatus.style.color = '#81c995';
+                iniciarTimer(300);
+                globalError.classList.add('oculto');
 
-passwordInput.addEventListener('input', actualizarBotonRegistro);
-terminosCheck.addEventListener('change', actualizarBotonRegistro);
-
-registrarBtn.addEventListener('click', function() {
-    if (!this.disabled) {
-        const perfil = document.querySelector('input[name="perfil"]:checked');
-        let mensaje = '✅ Registro completado como: ' + perfil.value;
-        if (perfil.value === 'gubernamental') {
-            const sub = document.querySelector('input[name="subperfil"]:checked');
-            if (sub) {
-                mensaje += '\n🏛️ Institución: ' + sub.parentElement.textContent.trim();
+            } catch (error) {
+                console.error('❌ Error EmailJS:', error);
+                codigoStatus.textContent = '✖ Error al enviar el código. Intenta de nuevo.';
+                codigoStatus.style.color = '#f28b82';
+                codigoEnviado = false;
             }
         }
-        alert(mensaje);
-    }
-});
-</script>
+
+        function iniciarTimer(segundos) {
+            if (timerInterval) clearInterval(timerInterval);
+            segundosRestantes = segundos;
+            btnEnviar.disabled = true;
+            actualizarTimer();
+
+            timerInterval = setInterval(() => {
+                segundosRestantes--;
+                actualizarTimer();
+                if (segundosRestantes <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    btnEnviar.disabled = false;
+                    timerSpan.textContent = '';
+                    codigoStatus.textContent = '⏰ El código expiró. Envía uno nuevo.';
+                    codigoStatus.style.color = '#f28b82';
+                    campoCodigo.classList.remove('visible');
+                    codigoEnviado = false;
+                    codigoVerificado = false;
+                }
+            }, 1000);
+        }
+
+        function actualizarTimer() {
+            const m = Math.floor(segundosRestantes / 60);
+            const s = segundosRestantes % 60;
+            timerSpan.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function validarCodigo() {
+            const ingresado = codigoInput.value.trim();
+            if (!codigoEnviado) {
+                codigoError.textContent = '⚠️ Primero envía el código a tu correo.';
+                codigoVerificado = false;
+                return;
+            }
+            if (ingresado.length < 6) {
+                codigoError.textContent = '⚠️ El código tiene 6 dígitos.';
+                codigoVerificado = false;
+                return;
+            }
+            if (ingresado === codigoGenerado) {
+                codigoError.textContent = '✅ Código verificado correctamente.';
+                codigoError.style.color = '#81c995';
+                codigoVerificado = true;
+                globalError.classList.add('oculto');
+            } else {
+                codigoError.textContent = '✖ Código incorrecto. Intenta de nuevo.';
+                codigoError.style.color = '#f28b82';
+                codigoVerificado = false;
+            }
+            verificarFormulario();
+        }
+
+        function verificarFormulario() {
+            const pass = password.value.trim();
+            const perfilVal = perfil.value;
+            const terminosOk = terminos.checked;
+            const emailOk = email.value.trim().includes('@');
+
+            let valido = true;
+
+            if (!emailOk) {
+                emailError.textContent = '⚠️ Ingresa un correo válido.';
+                valido = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            if (pass.length < 6) {
+                passError.textContent = '⚠️ Mínimo 6 caracteres.';
+                valido = false;
+            } else {
+                passError.textContent = '';
+            }
+
+            if (!perfilVal) valido = false;
+            if (!terminosOk) valido = false;
+            if (!codigoVerificado) valido = false;
+            if (!codigoEnviado) valido = false;
+
+            btnRegistrar.disabled = !valido;
+        }
+
+        function registrar() {
+            if (btnRegistrar.disabled) {
+                globalError.textContent = '⚠️ Completa todos los campos correctamente.';
+                globalError.classList.remove('oculto');
+                return;
+            }
+
+            const datos = {
+                email: email.value.trim(),
+                password: password.value.trim(),
+                perfil: perfil.value,
+                codigo: codigoInput.value.trim(),
+                fecha: new Date().toISOString()
+            };
+
+            console.log('📦 Registro completado:', datos);
+            alert('✅ ¡Cuenta creada exitosamente! Bienvenido a LEGADO.');
+        }
+
+        btnEnviar.addEventListener('click', enviarCodigo);
+        codigoInput.addEventListener('input', validarCodigo);
+        email.addEventListener('input', verificarFormulario);
+        password.addEventListener('input', verificarFormulario);
+        perfil.addEventListener('change', verificarFormulario);
+        terminos.addEventListener('change', verificarFormulario);
+        btnRegistrar.addEventListener('click', registrar);
+
+        verificarFormulario();
+
+        console.log('✅ LEGADO Registro v1.0 cargado correctamente.');
+    </script>
+
 </body>
 </html>
