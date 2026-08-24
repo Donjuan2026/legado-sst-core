@@ -13,8 +13,8 @@
         .form-group { margin-bottom:15px; }
         .form-group label { display:block; font-size:14px; margin-bottom:5px; color:#E8D5A3; }
         .form-group label span { color:#E74C3C; }
-        input, select { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #333; background:#0A0A0A; color:#F5F0E8; }
-        input:focus, select:focus { outline:none; border-color:#C9A84C; }
+        input { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #333; background:#0A0A0A; color:#F5F0E8; }
+        input:focus { outline:none; border-color:#C9A84C; }
         input::placeholder { color:#555; }
         input:disabled { opacity:0.5; cursor:not-allowed; }
         .btn { padding:14px 20px; border-radius:10px; border:2px solid #C9A84C; background:transparent; color:#C9A84C; font-size:16px; font-weight:bold; cursor:pointer; transition:all 0.3s; min-height:50px; }
@@ -41,14 +41,11 @@
         .footer { color:#8A7E6B; font-size:11px; text-align:center; margin-top:15px; letter-spacing:1px; }
         .email-verificar { display:flex; gap:10px; }
         .email-verificar input { flex:1; }
-        .codigo-container { display:none; margin-top:10px; }
-        .codigo-container.visible { display:block; }
-        .codigo-container input { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #C9A84C; background:#0A0A0A; color:#F5F0E8; text-align:center; letter-spacing:8px; }
+        .badge { display:inline-block; background:#2ECC71; color:#0A0A0A; padding:2px 12px; border-radius:12px; font-size:11px; font-weight:bold; margin-left:5px; }
         .sub-opciones { display:none; margin-top:10px; padding:10px; background:#0A0A0A; border-radius:10px; border:1px solid #333; }
         .sub-opciones.visible { display:block; }
         .sub-opciones label { display:block; font-size:13px; color:#E8D5A3; margin:5px 0; }
         .sub-opciones label input { width:auto; margin-right:8px; accent-color:#C9A84C; }
-        .badge { display:inline-block; background:#2ECC71; color:#0A0A0A; padding:2px 10px; border-radius:12px; font-size:11px; font-weight:bold; margin-left:5px; }
         @media (max-width:480px) { .container { padding:15px; } .logo { font-size:24px; } .email-verificar { flex-direction:column; } }
     </style>
 </head>
@@ -114,7 +111,7 @@
 
 <script>
 // ========================================
-// VERIFICACIÓN DE EMAIL REAL CON EVA API
+// VARIABLES
 // ========================================
 const emailInput = document.getElementById('emailInput');
 const verificarEmailBtn = document.getElementById('verificarEmailBtn');
@@ -128,6 +125,9 @@ const otroGubernamental = document.getElementById('otroGubernamental');
 
 let emailVerificado = false;
 
+// ========================================
+// FUNCIONES
+// ========================================
 function mostrarResultado(mensaje, tipo) {
     resultadoDiv.textContent = mensaje;
     resultadoDiv.className = 'resultado-verificacion ' + tipo;
@@ -160,7 +160,7 @@ document.querySelectorAll('input[name="subperfil"]').forEach(function(radio) {
 });
 
 // ========================================
-// VERIFICACIÓN REAL CON EVA API (gratis, sin registro)
+// VERIFICACIÓN REAL CON EVA API
 // ========================================
 function verificarEmail() {
     const email = emailInput.value.trim();
@@ -174,7 +174,7 @@ function verificarEmail() {
     verificarEmailBtn.disabled = true;
     verificarEmailBtn.textContent = 'Verificando...';
 
-    // API gratuita de Eva (sin registro, hasta 5M verificaciones/día)
+    // Eva API (gratis, sin registro)
     fetch(`https://api.eva.pingutil.com/email?email=${encodeURIComponent(email)}`)
         .then(response => {
             if (!response.ok) {
@@ -186,21 +186,15 @@ function verificarEmail() {
             if (data.status === 'success') {
                 const result = data.data;
                 
-                // Mostrar resultados detallados
-                let mensaje = '';
-                let tipo = 'error';
-                
                 if (result.verdict === 'Valid') {
                     emailVerificado = true;
-                    tipo = 'exito';
-                    mensaje = `✅ Email verificado correctamente`;
+                    let mensaje = `✅ Email verificado correctamente`;
                     
-                    // Añadir detalles
-                    if (result.mx_found) {
-                        mensaje += `\n📮 Servidor de correo: ${result.mx_record || 'configurado'}`;
-                    }
                     if (result.smtp_check === 'True') {
                         mensaje += `\n✅ Buzón confirmado (SMTP)`;
+                    }
+                    if (result.mx_found) {
+                        mensaje += `\n📮 Servidor de correo: ${result.mx_record || 'configurado'}`;
                     }
                     if (result.disposable === 'False') {
                         mensaje += `\n✅ No es email temporal`;
@@ -209,11 +203,11 @@ function verificarEmail() {
                         mensaje += `\n✅ Es email personal`;
                     }
                     
+                    mostrarResultado(mensaje, 'exito');
                     emailInput.disabled = true;
                     verificarEmailBtn.disabled = true;
                     verificarEmailBtn.textContent = '✅ Verificado';
                     
-                    // Añadir badge de verificación
                     const badge = document.createElement('span');
                     badge.className = 'badge';
                     badge.textContent = '✅ VERIFICADO';
@@ -224,8 +218,7 @@ function verificarEmail() {
                     
                 } else {
                     emailVerificado = false;
-                    tipo = 'error';
-                    mensaje = `❌ Email no válido`;
+                    let mensaje = `❌ Email no válido`;
                     
                     if (result.deliverable === 'False') {
                         mensaje += `\n⚠️ No es entregable`;
@@ -236,10 +229,9 @@ function verificarEmail() {
                     if (result.role === 'True') {
                         mensaje += `\n⚠️ Es un email de grupo (info@, admin@, etc.)`;
                     }
+                    
+                    mostrarResultado(mensaje, 'error');
                 }
-                
-                // Mostrar mensaje detallado en el resultado
-                mostrarResultado(mensaje, tipo);
             } else {
                 mostrarResultado('❌ Error al verificar el email. Intenta de nuevo.', 'error');
                 emailVerificado = false;
@@ -277,7 +269,6 @@ emailInput.addEventListener('input', function() {
     }
 });
 
-// Enter para verificar email
 emailInput.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
         verificarEmail();
@@ -304,12 +295,6 @@ registrarBtn.addEventListener('click', function() {
         alert(mensaje);
     }
 });
-
-// ========================================
-// INICIO
-// ========================================
-console.log('📧 LEGADO - Verificación REAL de email con Eva API');
-console.log('🔍 La API verifica: sintaxis, MX, SMTP, desechables, role-based');
 </script>
 </body>
 </html>
