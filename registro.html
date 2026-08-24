@@ -303,6 +303,25 @@
             color: #E74C3C;
         }
 
+        .datos-verificados {
+            display: none;
+            background: rgba(201, 168, 76, 0.1);
+            border: 1px solid #C9A84C;
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin-top: 8px;
+            color: #F5F0E8;
+            font-size: 0.9rem;
+        }
+
+        .datos-verificados.visible {
+            display: block;
+        }
+
+        .datos-verificados strong {
+            color: #C9A84C;
+        }
+
         @media (max-width: 500px) {
             .container {
                 padding: 30px 20px;
@@ -360,8 +379,12 @@
                 <input type="text" id="dniInput" placeholder="Ej: 12345678" maxlength="8" />
                 <button type="button" class="btn-verificar" id="verificarBtn" data-key="verificar">Verificar</button>
             </div>
-            <div class="mensaje-error" id="dniError" data-key="dni-error">DNI inválido (debe tener 8 dígitos)</div>
             <div class="resultado-verificacion" id="resultadoVerificacion"></div>
+            <div class="datos-verificados" id="datosVerificados">
+                <strong data-key="identidad-verificada">IDENTIDAD VERIFICADA</strong><br />
+                <span id="nombreVerificado">MIGUEL ANGEL TORRES PEREZ</span><br />
+                <small>DNI: <span id="dniVerificado">12345678</span></small>
+            </div>
         </div>
 
         <!-- NOMBRES (autocompletado) -->
@@ -432,7 +455,7 @@
             trabajador: 'Trabajador',
             fiscalizador: 'Fiscalizador',
             terminos: 'Acepto los Términos y Condiciones y la Política de Privacidad',
-            registrar: 'Completa todos los campos',
+            registrar: 'Registrar',
             'ya-tienes': '¿Ya tienes cuenta?',
             'iniciar-sesion': 'Inicia sesión',
             'volver-inicio': 'Volver al inicio',
@@ -440,7 +463,8 @@
             'verificando': 'Verificando...',
             'verificado-exito': '✅ Identidad verificada correctamente',
             'verificado-error': '❌ DNI no encontrado',
-            'verificado-error-red': '⚠️ Error de conexión'
+            'verificado-error-red': '⚠️ Error de conexión',
+            'identidad-verificada': 'IDENTIDAD VERIFICADA'
         },
         en: {
             subtitulo: 'Create account',
@@ -455,7 +479,7 @@
             trabajador: 'Worker',
             fiscalizador: 'Inspector',
             terminos: 'I accept the Terms and Conditions and the Privacy Policy',
-            registrar: 'Complete all fields',
+            registrar: 'Register',
             'ya-tienes': 'Already have an account?',
             'iniciar-sesion': 'Sign in',
             'volver-inicio': 'Back to home',
@@ -463,7 +487,8 @@
             'verificando': 'Verifying...',
             'verificado-exito': '✅ Identity verified successfully',
             'verificado-error': '❌ DNI not found',
-            'verificado-error-red': '⚠️ Connection error'
+            'verificado-error-red': '⚠️ Connection error',
+            'identidad-verificada': 'IDENTITY VERIFIED'
         },
         zh: {
             subtitulo: '创建账户',
@@ -478,7 +503,7 @@
             trabajador: '工人',
             fiscalizador: '检查员',
             terminos: '我接受条款和条件及隐私政策',
-            registrar: '填写所有字段',
+            registrar: '注册',
             'ya-tienes': '已有账户？',
             'iniciar-sesion': '登录',
             'volver-inicio': '返回首页',
@@ -486,7 +511,8 @@
             'verificando': '验证中...',
             'verificado-exito': '✅ 身份验证成功',
             'verificado-error': '❌ DNI 未找到',
-            'verificado-error-red': '⚠️ 连接错误'
+            'verificado-error-red': '⚠️ 连接错误',
+            'identidad-verificada': '身份已验证'
         },
         hi: {
             subtitulo: 'खाता बनाएं',
@@ -501,7 +527,7 @@
             trabajador: 'कर्मचारी',
             fiscalizador: 'निरीक्षक',
             terminos: 'मैं नियम और शर्तें तथा गोपनीयता नीति स्वीकार करता हूं',
-            registrar: 'सभी फ़ील्ड भरें',
+            registrar: 'पंजीकरण करें',
             'ya-tienes': 'क्या आपके पास पहले से खाता है?',
             'iniciar-sesion': 'साइन इन करें',
             'volver-inicio': 'होम पेज पर वापस जाएं',
@@ -509,7 +535,8 @@
             'verificando': 'सत्यापित किया जा रहा है...',
             'verificado-exito': '✅ पहचान सफलतापूर्वक सत्यापित',
             'verificado-error': '❌ DNI नहीं मिला',
-            'verificado-error-red': '⚠️ कनेक्शन त्रुटि'
+            'verificado-error-red': '⚠️ कनेक्शन त्रुटि',
+            'identidad-verificada': 'पहचान सत्यापित'
         },
         fr: {
             subtitulo: 'Créer un compte',
@@ -524,7 +551,7 @@
             trabajador: 'Travailleur',
             fiscalizador: 'Inspecteur',
             terminos: 'J\'accepte les conditions générales et la politique de confidentialité',
-            registrar: 'Remplir tous les champs',
+            registrar: 'S\'inscrire',
             'ya-tienes': 'Vous avez déjà un compte?',
             'iniciar-sesion': 'Se connecter',
             'volver-inicio': 'Retour à l\'accueil',
@@ -532,7 +559,8 @@
             'verificando': 'Vérification...',
             'verificado-exito': '✅ Identité vérifiée avec succès',
             'verificado-error': '❌ DNI non trouvé',
-            'verificado-error-red': '⚠️ Erreur de connexion'
+            'verificado-error-red': '⚠️ Erreur de connexion',
+            'identidad-verificada': 'IDENTITÉ VÉRIFIÉE'
         },
         ar: {
             subtitulo: 'إنشاء حساب',
@@ -547,7 +575,7 @@
             trabajador: 'عامل',
             fiscalizador: 'مفتش',
             terminos: 'أوافق على الشروط والأحكام وسياسة الخصوصية',
-            registrar: 'املأ جميع الحقول',
+            registrar: 'اشتراك',
             'ya-tienes': 'هل لديك حساب بالفعل؟',
             'iniciar-sesion': 'تسجيل الدخول',
             'volver-inicio': 'العودة إلى الصفحة الرئيسية',
@@ -555,7 +583,8 @@
             'verificando': 'جاري التحقق...',
             'verificado-exito': '✅ تم التحقق من الهوية بنجاح',
             'verificado-error': '❌ DNI غير موجود',
-            'verificado-error-red': '⚠️ خطأ في الاتصال'
+            'verificado-error-red': '⚠️ خطأ في الاتصال',
+            'identidad-verificada': 'تم التحقق من الهوية'
         },
         de: {
             subtitulo: 'Konto erstellen',
@@ -570,7 +599,7 @@
             trabajador: 'Arbeiter',
             fiscalizador: 'Inspektor',
             terminos: 'Ich akzeptiere die Allgemeinen Geschäftsbedingungen und die Datenschutzrichtlinie',
-            registrar: 'Alle Felder ausfüllen',
+            registrar: 'Registrieren',
             'ya-tienes': 'Haben Sie bereits ein Konto?',
             'iniciar-sesion': 'Anmelden',
             'volver-inicio': 'Zurück zur Startseite',
@@ -578,7 +607,8 @@
             'verificando': 'Verifizierung...',
             'verificado-exito': '✅ Identität erfolgreich verifiziert',
             'verificado-error': '❌ DNI nicht gefunden',
-            'verificado-error-red': '⚠️ Verbindungsfehler'
+            'verificado-error-red': '⚠️ Verbindungsfehler',
+            'identidad-verificada': 'IDENTITÄT VERIFIZIERT'
         },
         pt: {
             subtitulo: 'Criar conta',
@@ -593,7 +623,7 @@
             trabajador: 'Trabalhador',
             fiscalizador: 'Fiscalizador',
             terminos: 'Aceito os Termos e Condições e a Política de Privacidade',
-            registrar: 'Preencha todos os campos',
+            registrar: 'Registrar',
             'ya-tienes': 'Já tem uma conta?',
             'iniciar-sesion': 'Entrar',
             'volver-inicio': 'Voltar ao início',
@@ -601,13 +631,14 @@
             'verificando': 'Verificando...',
             'verificado-exito': '✅ Identidade verificada com sucesso',
             'verificado-error': '❌ DNI não encontrado',
-            'verificado-error-red': '⚠️ Erro de conexão'
+            'verificado-error-red': '⚠️ Erro de conexão',
+            'identidad-verificada': 'IDENTIDADE VERIFICADA'
         }
     };
 </script>
 
 <!-- ============================================= -->
-<!-- LÓGICA DE IDIOMAS + VERIFICACIÓN DNI          -->
+<!-- LÓGICA DE IDIOMAS + VERIFICACIÓN DNI REAL     -->
 <!-- ============================================= -->
 <script>
     (function() {
@@ -661,11 +692,14 @@
             }
         }
 
-        // -------- VERIFICACIÓN DNI (MODO DEMO CON API REAL) --------
+        // -------- VERIFICACIÓN DNI (REAL - SIN DEMO) --------
         const dniInput = document.getElementById('dniInput');
         const verificarBtn = document.getElementById('verificarBtn');
         const nombreInput = document.getElementById('nombreInput');
         const resultadoDiv = document.getElementById('resultadoVerificacion');
+        const datosDiv = document.getElementById('datosVerificados');
+        const nombreVerificado = document.getElementById('nombreVerificado');
+        const dniVerificadoSpan = document.getElementById('dniVerificado');
         const registrarBtn = document.getElementById('registrarBtn');
         const terminosCheck = document.getElementById('terminosCheck');
         const emailInput = document.getElementById('emailInput');
@@ -682,6 +716,7 @@
         function limpiarResultado() {
             resultadoDiv.className = 'resultado-verificacion';
             resultadoDiv.textContent = '';
+            datosDiv.classList.remove('visible');
         }
 
         function verificarDNI() {
@@ -696,6 +731,7 @@
                 dniVerificado = false;
                 nombreInput.value = '';
                 verificarBtn.classList.remove('verificado');
+                datosDiv.classList.remove('visible');
                 actualizarBotonRegistro();
                 return;
             }
@@ -705,8 +741,8 @@
             verificarBtn.disabled = true;
             limpiarResultado();
 
-            // CONSULTA A API REAL (usando apis.net.pe como ejemplo)
-            // NOTA: Reemplaza 'TU_TOKEN_AQUI' con tu token real de la API
+            // CONSULTA A API REAL
+            // Reemplaza 'TU_TOKEN_AQUI' con tu token real
             fetch(`https://api.apis.net.pe/v2/reniec/dni?numero=${dni}`, {
                 headers: {
                     'Authorization': 'Bearer TU_TOKEN_AQUI'
@@ -722,9 +758,15 @@
                 if (data.nombres && data.apellidoPaterno) {
                     const nombreCompleto = `${data.nombres} ${data.apellidoPaterno} ${data.apellidoMaterno || ''}`.trim();
                     nombreInput.value = nombreCompleto;
+                    nombreVerificado.textContent = nombreCompleto.toUpperCase();
+                    dniVerificadoSpan.textContent = dni;
                     dniVerificado = true;
                     datosVerificados = data;
                     verificarBtn.classList.add('verificado');
+                    
+                    // Mostrar datos verificados SIN DEMO
+                    datosDiv.classList.add('visible');
+                    
                     mostrarResultado(
                         traducciones[idiomaActual]['verificado-exito'] || '✅ Identidad verificada correctamente',
                         'exito'
@@ -733,6 +775,7 @@
                     dniVerificado = false;
                     nombreInput.value = '';
                     verificarBtn.classList.remove('verificado');
+                    datosDiv.classList.remove('visible');
                     mostrarResultado(
                         traducciones[idiomaActual]['verificado-error'] || '❌ DNI no encontrado',
                         'error'
@@ -747,6 +790,7 @@
                 dniVerificado = false;
                 nombreInput.value = '';
                 verificarBtn.classList.remove('verificado');
+                datosDiv.classList.remove('visible');
                 mostrarResultado(
                     traducciones[idiomaActual]['verificado-error-red'] || '⚠️ Error de conexión',
                     'error'
@@ -782,6 +826,7 @@
                 dniVerificado = false;
                 nombreInput.value = '';
                 verificarBtn.classList.remove('verificado');
+                datosDiv.classList.remove('visible');
                 limpiarResultado();
                 actualizarBotonRegistro();
             }
@@ -805,7 +850,6 @@
             originalCambiar(idioma);
             verificarBtn.textContent = traducciones[idioma]['verificar'] || 'Verificar';
             registrarBtn.textContent = traducciones[idioma]['registrar'] || 'Completa todos los campos';
-            // Si hay mensaje de resultado, mantenerlo pero en el nuevo idioma
         };
         window.cambiarIdioma = cambiarIdioma;
 
