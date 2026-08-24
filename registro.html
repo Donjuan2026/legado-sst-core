@@ -13,8 +13,8 @@
         .form-group { margin-bottom:15px; }
         .form-group label { display:block; font-size:14px; margin-bottom:5px; color:#E8D5A3; }
         .form-group label span { color:#E74C3C; }
-        input { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #333; background:#0A0A0A; color:#F5F0E8; }
-        input:focus { outline:none; border-color:#C9A84C; }
+        input, select { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #333; background:#0A0A0A; color:#F5F0E8; }
+        input:focus, select:focus { outline:none; border-color:#C9A84C; }
         input::placeholder { color:#555; }
         input:disabled { opacity:0.5; cursor:not-allowed; }
         .btn { padding:14px 20px; border-radius:10px; border:2px solid #C9A84C; background:transparent; color:#C9A84C; font-size:16px; font-weight:bold; cursor:pointer; transition:all 0.3s; min-height:50px; }
@@ -43,6 +43,10 @@
         .codigo-container { display:none; margin-top:10px; }
         .codigo-container.visible { display:block; }
         .codigo-container input { width:100%; padding:14px; font-size:16px; border-radius:10px; border:1px solid #C9A84C; background:#0A0A0A; color:#F5F0E8; text-align:center; letter-spacing:8px; }
+        .sub-opciones { display:none; margin-top:10px; padding:10px; background:#0A0A0A; border-radius:10px; border:1px solid #333; }
+        .sub-opciones.visible { display:block; }
+        .sub-opciones label { display:block; font-size:13px; color:#E8D5A3; margin:5px 0; }
+        .sub-opciones label input { width:auto; margin-right:8px; accent-color:#C9A84C; }
         @media (max-width:480px) { .container { padding:15px; } .logo { font-size:24px; } .email-verificar { flex-direction:column; } }
     </style>
 </head>
@@ -77,13 +81,29 @@
             <input type="password" id="passwordInput" placeholder="Mínimo 6 caracteres" minlength="6" />
         </div>
 
-        <!-- PERFIL -->
+        <!-- TIPO DE PERFIL -->
         <div class="form-group">
-            <label>Tipo de perfil</label>
+            <label>Tipo de perfil <span>*</span></label>
             <div class="tipo-perfil">
                 <label><input type="radio" name="perfil" value="empresa" checked /> Empresa</label>
                 <label><input type="radio" name="perfil" value="trabajador" /> Trabajador</label>
                 <label><input type="radio" name="perfil" value="fiscalizador" /> Fiscalizador</label>
+                <label><input type="radio" name="perfil" value="gubernamental" id="gubernamentalRadio" /> Gubernamental</label>
+            </div>
+            
+            <!-- SUB-OPCIONES GUBERNAMENTALES -->
+            <div class="sub-opciones" id="subGubernamental">
+                <label style="color:#C9A84C; font-weight:bold;">🏛️ Selecciona tu institución:</label>
+                <label><input type="radio" name="subperfil" value="ffaa" /> Fuerzas Armadas (FF.AA.)</label>
+                <label><input type="radio" name="subperfil" value="pnp" /> Policía Nacional (PNP)</label>
+                <label><input type="radio" name="subperfil" value="ministerio" /> Ministerio Público</label>
+                <label><input type="radio" name="subperfil" value="poder-judicial" /> Poder Judicial</label>
+                <label><input type="radio" name="subperfil" value="congreso" /> Congreso</label>
+                <label><input type="radio" name="subperfil" value="gobierno-local" /> Gobierno Local (Municipalidad)</label>
+                <label><input type="radio" name="subperfil" value="gobierno-regional" /> Gobierno Regional</label>
+                <label><input type="radio" name="subperfil" value="ente-regulador" /> Ente Regulador</label>
+                <label><input type="radio" name="subperfil" value="otro-gubernamental" /> Otro (especificar)</label>
+                <input type="text" id="otroGubernamental" placeholder="Especifica tu institución" style="margin-top:5px; display:none;" />
             </div>
         </div>
 
@@ -118,6 +138,9 @@ const resultadoDiv = document.getElementById('resultadoVerificacion');
 const passwordInput = document.getElementById('passwordInput');
 const terminosCheck = document.getElementById('terminosCheck');
 const registrarBtn = document.getElementById('registrarBtn');
+const gubernamentalRadio = document.getElementById('gubernamentalRadio');
+const subGubernamental = document.getElementById('subGubernamental');
+const otroGubernamental = document.getElementById('otroGubernamental');
 
 let emailVerificado = false;
 let codigoGenerado = '';
@@ -139,8 +162,9 @@ function actualizarBotonRegistro() {
     const emailValido = emailInput.value.includes('@') && emailInput.value.includes('.');
     const passwordValido = passwordInput.value.length >= 6;
     const terminosOk = terminosCheck.checked;
+    const perfilSeleccionado = document.querySelector('input[name="perfil"]:checked');
 
-    if (emailVerificado && emailValido && passwordValido && terminosOk) {
+    if (emailVerificado && emailValido && passwordValido && terminosOk && perfilSeleccionado) {
         registrarBtn.disabled = false;
         registrarBtn.textContent = 'Registrar';
     } else {
@@ -148,6 +172,27 @@ function actualizarBotonRegistro() {
         registrarBtn.textContent = 'Completa todos los campos';
     }
 }
+
+// Mostrar/ocultar sub-opciones gubernamentales
+gubernamentalRadio.addEventListener('change', function() {
+    if (this.checked) {
+        subGubernamental.classList.add('visible');
+    } else {
+        subGubernamental.classList.remove('visible');
+    }
+    actualizarBotonRegistro();
+});
+
+// Mostrar campo "Otro" cuando se selecciona
+document.querySelectorAll('input[name="subperfil"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+        if (this.value === 'otro-gubernamental') {
+            otroGubernamental.style.display = 'block';
+        } else {
+            otroGubernamental.style.display = 'none';
+        }
+    });
+});
 
 // ========================================
 // ENVIAR CÓDIGO
@@ -160,7 +205,6 @@ function enviarCodigo() {
         return;
     }
 
-    // Generar código de 6 dígitos
     codigoGenerado = Math.floor(100000 + Math.random() * 900000).toString();
     
     mostrarResultado('📧 Código enviado a ' + email, 'info');
@@ -170,9 +214,8 @@ function enviarCodigo() {
     enviarCodigoBtn.disabled = true;
     enviarCodigoBtn.textContent = '✅ Enviado';
     
-    // Mostrar código en consola (para pruebas)
     console.log('📧 Código de verificación:', codigoGenerado);
-    alert('✅ Código de verificación: ' + codigoGenerado + '\n(En producción se enviará a tu correo)');
+    alert('✅ Código de verificación: ' + codigoGenerado);
 }
 
 // ========================================
@@ -200,20 +243,15 @@ function verificarCodigo() {
 // EVENTOS
 // ========================================
 
-// Enviar código
 enviarCodigoBtn.addEventListener('click', enviarCodigo);
-
-// Verificar código
 verificarCodigoBtn.addEventListener('click', verificarCodigo);
 
-// Enter en código
 codigoInput.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
         verificarCodigo();
     }
 });
 
-// Re-enviar código si se cambia el email
 emailInput.addEventListener('input', function() {
     if (emailVerificado) {
         emailVerificado = false;
@@ -226,21 +264,32 @@ emailInput.addEventListener('input', function() {
     }
 });
 
-// Validar campos
+document.querySelectorAll('input[name="perfil"]').forEach(function(radio) {
+    radio.addEventListener('change', actualizarBotonRegistro);
+});
+
 passwordInput.addEventListener('input', actualizarBotonRegistro);
 terminosCheck.addEventListener('change', actualizarBotonRegistro);
 
-// Registro
 registrarBtn.addEventListener('click', function() {
     if (!this.disabled) {
-        alert('✅ Registro completado exitosamente');
+        const perfil = document.querySelector('input[name="perfil"]:checked');
+        let mensaje = '✅ Registro completado como: ' + perfil.value;
+        
+        if (perfil.value === 'gubernamental') {
+            const sub = document.querySelector('input[name="subperfil"]:checked');
+            if (sub) {
+                mensaje += '\n🏛️ Institución: ' + sub.parentElement.textContent.trim();
+            }
+        }
+        alert(mensaje);
     }
 });
 
 // ========================================
 // INICIO
 // ========================================
-console.log('📧 LEGADO - Registro con verificación por correo');
+console.log('📧 LEGADO - Registro con perfil gubernamental');
 </script>
 </body>
 </html>
