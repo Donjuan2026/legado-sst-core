@@ -34,6 +34,9 @@
             font-weight: 700;
             color: #0b1a2e;
             margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         h1 span {
             background: #c9a84c;
@@ -243,14 +246,12 @@
 
         <div id="globalError" class="badge-error oculto"></div>
 
-        <!-- CORREO -->
         <div class="grupo">
             <label>Correo electrónico <span class="obligatorio">*</span></label>
             <input type="email" id="email" placeholder="tucorreo@empresa.com" />
             <div id="emailError" class="mensaje-error"></div>
         </div>
 
-        <!-- CÓDIGO DE VERIFICACIÓN - SIEMPRE VISIBLE -->
         <div class="grupo">
             <label>Código de verificación <span class="obligatorio">*</span></label>
             <div class="fila-codigo">
@@ -265,14 +266,12 @@
             </div>
         </div>
 
-        <!-- CONTRASEÑA -->
         <div class="grupo">
             <label>Contraseña <span class="obligatorio">*</span></label>
             <input type="password" id="password" placeholder="Mínimo 6 caracteres" />
             <div id="passError" class="mensaje-error"></div>
         </div>
 
-        <!-- PERFIL -->
         <div class="grupo">
             <label>Tipo de perfil <span class="obligatorio">*</span></label>
             <select id="perfil">
@@ -284,7 +283,6 @@
             </select>
         </div>
 
-        <!-- TÉRMINOS -->
         <div class="checkbox">
             <input type="checkbox" id="terminos" />
             <label for="terminos">
@@ -293,12 +291,10 @@
             </label>
         </div>
 
-        <!-- BOTÓN REGISTRAR -->
         <button class="btn-primario" id="btnRegistrar" disabled>
             Crear cuenta
         </button>
 
-        <!-- PIE -->
         <div class="pie">
             <span>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></span>
             <a href="index.html" class="volver">← Volver al inicio</a>
@@ -309,7 +305,7 @@
 
     <script>
         // ============================================================
-        //  CONFIGURACIÓN EMAILJS - TUS DATOS
+        // CONFIGURACIÓN EMAILJS
         // ============================================================
         const EMAILJS_SERVICE = 'service_s65kky';
         const EMAILJS_TEMPLATE = '__ejs-test-mail-service__';
@@ -338,12 +334,10 @@
         const btnRegistrar = $('btnRegistrar');
         const globalError = $('globalError');
 
-        // GENERAR CÓDIGO DE 6 DÍGITOS
         function generarCodigo() {
             return String(Math.floor(100000 + Math.random() * 900000));
         }
 
-        // ENVIAR CÓDIGO POR EMAILJS
         async function enviarCodigo() {
             const correo = email.value.trim();
 
@@ -385,7 +379,6 @@
             }
         }
 
-        // TEMPORIZADOR DE 5 MINUTOS
         function iniciarTimer(segundos) {
             if (timerInterval) clearInterval(timerInterval);
             segundosRestantes = segundos;
@@ -415,7 +408,6 @@
             timerSpan.textContent = `⏱️ ${m}:${s.toString().padStart(2, '0')}`;
         }
 
-        // VALIDAR CÓDIGO CUANDO EL USUARIO ESCRIBE
         function validarCodigo() {
             const ingresado = codigoInput.value.trim();
             if (!codigoEnviado) {
@@ -443,7 +435,6 @@
             verificarFormulario();
         }
 
-        // VERIFICAR FORMULARIO COMPLETO
         function verificarFormulario() {
             const pass = password.value.trim();
             const perfilVal = perfil.value;
@@ -474,7 +465,6 @@
             btnRegistrar.disabled = !valido;
         }
 
-        // REGISTRAR USUARIO
         function registrar() {
             if (btnRegistrar.disabled) {
                 globalError.textContent = '⚠️ Completa todos los campos correctamente.';
@@ -495,7 +485,6 @@
             // window.location.href = 'dashboard.html';
         }
 
-        // EVENTOS
         btnEnviar.addEventListener('click', enviarCodigo);
         codigoInput.addEventListener('input', validarCodigo);
         email.addEventListener('input', verificarFormulario);
