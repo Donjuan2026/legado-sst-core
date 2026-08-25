@@ -184,39 +184,6 @@
             border-color: var(--gris-calido);
         }
 
-        .datos-dni {
-            background: var(--negro-profundo);
-            border-radius: 12px;
-            padding: 14px 16px;
-            margin-top: -8px;
-            margin-bottom: 16px;
-            border: 1px solid rgba(46, 204, 113, 0.1);
-            display: none;
-        }
-
-        .datos-dni.visible {
-            display: block;
-            animation: fadeUp 0.3s ease;
-        }
-
-        .datos-dni .dni-nombre {
-            color: var(--verde-exito);
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .datos-dni .dni-label {
-            font-size: 11px;
-            color: var(--gris-calido);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .btn-dorado {
             position: relative;
             z-index: 1;
@@ -349,27 +316,6 @@
         <div class="form-subtitle">Comienza tu viaje con <span>LEGADO</span></div>
 
         <!-- ============================================ -->
-        <!-- DNI -->
-        <!-- ============================================ -->
-        <div class="input-group">
-            <label for="regDNI">Documento de Identidad (DNI) <span class="requerido">*</span></label>
-            <div class="input-con-verificacion">
-                <input type="text" id="regDNI" placeholder="Ej: 12345678" maxlength="8" />
-                <button class="btn-verificar" id="btnVerificarDNI">🔍 Verificar</button>
-            </div>
-            <div style="font-size:11px;color:var(--gris-calido);margin-top:4px;">
-                Verificamos tu identidad con fuentes públicas oficiales (RENIEC/SUNAT)
-            </div>
-        </div>
-
-        <!-- Datos del DNI -->
-        <div class="datos-dni" id="datosDNI">
-            <div class="dni-label">✅ Identidad verificada</div>
-            <div class="dni-nombre" id="dniNombreCompleto">—</div>
-            <div style="font-size:12px;color:var(--gris-calido);margin-top:2px;" id="dniDetalles"></div>
-        </div>
-
-        <!-- ============================================ -->
         <!-- CORREO ELECTRÓNICO CON VERIFICACIÓN -->
         <!-- ============================================ -->
         <div class="input-group">
@@ -433,7 +379,7 @@
         <!-- ============================================ -->
         <!-- BOTÓN REGISTRO -->
         <!-- ============================================ -->
-        <button class="btn-dorado" id="btnRegister" disabled>Verifica tu DNI primero</button>
+        <button class="btn-dorado" id="btnRegister" disabled>Verifica tu correo primero</button>
 
         <div class="mensaje" id="mensaje"></div>
 
@@ -449,20 +395,12 @@
         // ============================================
         //  ELEMENTOS DOM
         // ============================================
-        const regDNI = document.getElementById('regDNI');
-        const btnVerificar = document.getElementById('btnVerificarDNI');
-        const datosDNI = document.getElementById('datosDNI');
-        const dniNombre = document.getElementById('dniNombreCompleto');
-        const dniDetalles = document.getElementById('dniDetalles');
         const regEmail = document.getElementById('regEmail');
         const regPassword = document.getElementById('regPassword');
         const regNivel = document.getElementById('regNivel');
         const checkTerminos = document.getElementById('checkTerminos');
         const btnRegister = document.getElementById('btnRegister');
         const mensaje = document.getElementById('mensaje');
-
-        let dniVerificado = false;
-        let datosVerificados = null;
 
         // ============================================
         //  VERIFICACIÓN DE EMAIL
@@ -487,71 +425,6 @@
             regPassword.type = type;
             this.textContent = type === 'password' ? '👁️' : '🙈';
         });
-
-        // ============================================
-        //  VERIFICAR DNI (DEMO)
-        // ============================================
-        async function verificarDNI(dni) {
-            if (!dni || dni.length !== 8 || !/^\d{8}$/.test(dni)) {
-                mensaje.textContent = '✖ Ingresa un DNI válido de 8 dígitos';
-                mensaje.className = 'mensaje error';
-                return false;
-            }
-
-            btnVerificar.textContent = '⏳ Verificando...';
-            btnVerificar.disabled = true;
-            btnVerificar.className = 'btn-verificar verificando';
-            mensaje.textContent = '';
-
-            try {
-                await new Promise(resolve => setTimeout(resolve, 800));
-
-                const dnisValidos = [
-                    '00000001', '00000002', '00000003', '00000004', '00000005',
-                    '12345678', '11111111', '22222222', '33333333', '44444444'
-                ];
-
-                if (!dnisValidos.includes(dni)) {
-                    throw new Error('DNI no encontrado. Prueba con: 12345678, 00000001, 11111111');
-                }
-
-                const seed = parseInt(dni) % 10;
-                const nombres = ['JUAN CARLOS', 'MARIA ELENA', 'CARLOS ALBERTO', 'ANA PATRICIA', 'JOSE LUIS',
-                    'ROSA MARIA', 'PEDRO ANTONIO', 'LUCIA FERNANDA', 'MIGUEL ANGEL', 'CARMEN ROSA'
-                ];
-                const apellidos = ['GONZALES', 'PEREZ', 'RODRIGUEZ', 'SANCHEZ', 'FLORES', 'RAMIREZ', 'GARCIA', 'MARTINEZ', 'TORRES', 'CASTRO'];
-
-                const nombreCompleto = `${nombres[seed % nombres.length]} ${apellidos[seed % apellidos.length]} ${apellidos[(seed+3) % apellidos.length]}`;
-
-                datosVerificados = {
-                    dni: dni,
-                    nombreCompleto: nombreCompleto,
-                    fuente: 'DEMO (simulación)'
-                };
-
-                datosDNI.classList.add('visible');
-                dniNombre.textContent = datosVerificados.nombreCompleto;
-                dniDetalles.textContent = `DNI: ${dni} | Fuente: ${datosVerificados.fuente}`;
-
-                btnVerificar.textContent = '✅ Verificado';
-                btnVerificar.className = 'btn-verificar valido';
-                btnVerificar.disabled = false;
-
-                dniVerificado = true;
-                mensaje.textContent = '✓ Identidad verificada correctamente';
-                mensaje.className = 'mensaje exito';
-                actualizarBotonRegistro();
-                return true;
-
-            } catch (error) {
-                mensaje.textContent = '✖ ' + error.message;
-                mensaje.className = 'mensaje error';
-                btnVerificar.textContent = '🔍 Reintentar';
-                btnVerificar.className = 'btn-verificar invalido';
-                btnVerificar.disabled = false;
-                return false;
-            }
-        }
 
         // ============================================
         //  VERIFICACIÓN DE EMAIL CON BREVO
@@ -765,22 +638,20 @@
         });
 
         // ============================================
-        //  ACTUALIZAR BOTÓN REGISTRO
+        //  ACTUALIZAR BOTÓN REGISTRO (SIN DNI)
         // ============================================
         function actualizarBotonRegistro() {
             const emailOk = regEmail.value.trim() !== '' && regEmail.value.includes('@');
             const passOk = regPassword.value.length >= 6;
             const terminosOk = checkTerminos.checked;
-            const dniOk = dniVerificado;
             const emailVerifOk = emailVerificado;
 
-            if (dniOk && emailOk && emailVerifOk && passOk && terminosOk) {
+            if (emailOk && emailVerifOk && passOk && terminosOk) {
                 btnRegister.disabled = false;
                 btnRegister.textContent = '✅ Crear cuenta →';
             } else {
                 btnRegister.disabled = true;
-                if (!dniOk) btnRegister.textContent = 'Verifica tu DNI primero';
-                else if (!emailOk) btnRegister.textContent = 'Ingresa un correo válido';
+                if (!emailOk) btnRegister.textContent = 'Ingresa un correo válido';
                 else if (!emailVerifOk) btnRegister.textContent = 'Verifica tu correo primero';
                 else if (!passOk) btnRegister.textContent = 'Mínimo 6 caracteres';
                 else if (!terminosOk) btnRegister.textContent = 'Acepta los términos';
@@ -791,35 +662,15 @@
         // ============================================
         //  EVENTOS DE VALIDACIÓN
         // ============================================
-        btnVerificar.addEventListener('click', function(e) {
-            e.preventDefault();
-            const dni = regDNI.value.trim();
-            verificarDNI(dni);
-        });
-
-        regDNI.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') btnVerificar.click();
-        });
-
-        regDNI.addEventListener('input', function() {
-            this.value = this.value.replace(/\D/g, '').slice(0, 8);
-        });
-
         regEmail.addEventListener('input', actualizarBotonRegistro);
         regPassword.addEventListener('input', actualizarBotonRegistro);
         checkTerminos.addEventListener('change', actualizarBotonRegistro);
 
         // ============================================
-        //  REGISTRO
+        //  REGISTRO (SIN DNI)
         // ============================================
         btnRegister.addEventListener('click', function(e) {
             e.preventDefault();
-
-            if (!dniVerificado || !datosVerificados) {
-                mensaje.textContent = '✖ Primero verifica tu DNI';
-                mensaje.className = 'mensaje error';
-                return;
-            }
 
             if (!emailVerificado) {
                 mensaje.textContent = '✖ Primero verifica tu correo electrónico';
@@ -839,15 +690,7 @@
                 return;
             }
 
-            if (usuarios.find(u => u.dni === regDNI.value.trim())) {
-                mensaje.textContent = '✖ Este DNI ya está registrado';
-                mensaje.className = 'mensaje error';
-                return;
-            }
-
             const nuevoUsuario = {
-                dni: regDNI.value.trim(),
-                nombre: datosVerificados.nombreCompleto,
                 email: email,
                 password: password,
                 nivel: nivel,
@@ -859,8 +702,6 @@
             localStorage.setItem('legado_usuarios', JSON.stringify(usuarios));
 
             localStorage.setItem('legado_sesion', JSON.stringify({
-                dni: nuevoUsuario.dni,
-                nombre: nuevoUsuario.nombre,
                 email: nuevoUsuario.email,
                 nivel: nuevoUsuario.nivel,
                 email_verificado: true
@@ -879,9 +720,7 @@
         // ============================================
         //  INICIO
         // ============================================
-        console.log('📝 LEGADO - Ventana de Registro');
-        console.log('🔑 DNIs demo válidos: 12345678, 00000001, 11111111, 22222222, 33333333');
-        console.log('🏛️ Perfil Gubernamental (Estado) disponible');
+        console.log('📝 LEGADO - Ventana de Registro (sin DNI)');
         console.log('📧 Brevo API Key configurada correctamente');
         actualizarBotonRegistro();
     </script>
