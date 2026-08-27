@@ -1,64 +1,27 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate_working_dir/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# Flutter/Dart
 .dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
+.packages
+build/
+*.iml
+.idea/
+.vscode/
 
-# Symbolication related
-app.*.symbols
+# Firebase / Google Services
+android/app/google-services.json
+lib/firebase_options.dart
 
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
-
-# Environment Variables - SECURITY
-.env
-*.env
-
-# Backups and Firebase generated files
+# Backups y temporales
 *.backup
-lib/firebase_options.dart
+*.tmp
+*.bak
+*.orig
 
-# Firebase secrets
-android/app/google-services.json
-ios/Runner/GoogleService-Info.plist
+# Archivos personales del proyecto
+inicio.ps1
+legado_perfil.json
+legado-sst-core - Acceso directo.lnk
+ver_perfil.html
 
-# Firebase secrets
-android/app/google-services.json
-ios/Runner/GoogleService-Info.plist
-
-# Firebase secrets (Purged)
-lib/firebase_options.dart
-git-filter-repo
-git-filter-repo
+# Entornos
+.env
+.env.*
