@@ -30,3 +30,11 @@ ver_perfil.html
 .flutter-plugins
 .flutter-plugins-dependencies
 git-filter-repo
+
+# Backend Node.js
+node_modules/
+*.db
+*.db-journal
+.env
+.env.*
+!.env.example
