@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEGADO - Perfil</title>
+  <style>
+    body { background: #0A0A0A; color: #F5F0E8; font-family: 'Segoe UI', Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+    .container { background: #1A1A1A; border: 2px solid #C9A84C; border-radius: 20px; padding: 40px; max-width: 500px; width: 90%; text-align: center; box-shadow: 0 0 50px rgba(201,168,76,0.2); }
+    h1 { color: #C9A84C; letter-spacing: 3px; margin-bottom: 20px; }
+    .info { margin: 10px 0; font-size: 1.1rem; }
+    .info span { color: #E8D5A3; font-weight: bold; }
+    .btn { display: inline-block; margin-top: 25px; padding: 12px 30px; border-radius: 50px; background: #C9A84C; color: #0A0A0A; font-weight: bold; text-decoration: none; cursor: pointer; border: none; }
+    .btn:hover { background: #E8D5A3; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>PERFIL</h1>
+    <div id="perfil-data" style="margin-bottom: 20px;">Cargando...</div>
+    <button class="btn" onclick="cerrarSesion()">Cerrar sesión</button>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:3000';
+
+    async function cargarPerfil() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_URL}/api/perfil`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (res.ok) {
+          const u = data.usuario;
+          document.getElementById('perfil-data').innerHTML = `
+            <div class="info">ID: <span>${u.id}</span></div>
+            <div class="info">Email: <span>${u.email}</span></div>
+            <div class="info">Nombre: <span>${u.nombre || 'No proporcionado'}</span></div>
+            <div class="info">Perfil: <span>${u.perfil}</span></div>
+            <div class="info">Verificado: <span>${u.verificado ? 'Sí' : 'No'}</span></div>
+          `;
+        } else {
+          document.getElementById('perfil-data').textContent = data.error || 'Error al cargar perfil';
+        }
+      } catch (err) {
+        document.getElementById('perfil-data').textContent = 'Error de conexión';
+      }
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    }
+
+    cargarPerfil();
+  </script>
+</body>
+</html>
