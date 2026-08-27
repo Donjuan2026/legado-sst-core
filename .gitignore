@@ -25,3 +25,8 @@ ver_perfil.html
 # Entornos
 .env
 .env.*
+
+# Flutter plugins y herramientas temporales
+.flutter-plugins
+.flutter-plugins-dependencies
+git-filter-repo
